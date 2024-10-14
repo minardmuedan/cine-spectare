@@ -8,7 +8,7 @@ export default function Navbar() {
     <header className="flex h-14 items-center justify-between gap-20 border-b px-10">
       <Link href="/">Minard</Link>
 
-      <nav className="flex items-center gap-10 text-muted-foreground">
+      <nav className="hidden items-center gap-10 text-muted-foreground sm:flex">
         <Link href="/">Home</Link>
         <Link href="/movies">Movies</Link>
         <Link href="/tv">Tv Shows</Link>

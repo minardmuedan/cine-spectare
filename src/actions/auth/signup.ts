@@ -2,14 +2,19 @@
 
 import { argonHash } from '@/lib/auth/helpers/argon'
 import { generateCode, generateId } from '@/lib/auth/helpers/generate'
-import { createUserDb } from '@/lib/db/utils/user'
+import { createSession } from '@/lib/auth/session/create-session'
+import { createUserDb, getUserByEmailDb } from '@/lib/db/utils/user'
 import { createVerificationDb, deleteVerificationByPayloadDb, deleteVerificationDb, getVerificationDb } from '@/lib/db/utils/verifications'
-import { createAccontInputSchema, emailSchema } from '@/lib/schema/auth'
+import { createAccountInputSchema, emailSchema } from '@/lib/schema/auth'
+import { redirect } from 'next/navigation'
 import { createServerAction, ZSAError } from 'zsa'
 
 export const signUpAction = createServerAction()
   .input(emailSchema)
   .handler(async ({ input: { email } }) => {
+    const existingUser = await getUserByEmailDb(email)
+    if (!!existingUser) throw 'Email already in use'
+
     const id = generateId(20)
     const code = generateCode()
 
@@ -23,7 +28,7 @@ export const signUpAction = createServerAction()
   })
 
 export const createPasswordAction = createServerAction()
-  .input(createAccontInputSchema)
+  .input(createAccountInputSchema)
   .handler(async ({ input: { tokenId, password } }) => {
     const verification = await getVerificationDb(tokenId)
 
@@ -37,5 +42,6 @@ export const createPasswordAction = createServerAction()
     await deleteVerificationDb(tokenId).catch(() => {})
     await createUserDb({ id, email: verification.emailPayload, hashedPassword, provider: 'credentials' })
 
-    //create a session
+    await createSession(id)
+    redirect('/')
   })

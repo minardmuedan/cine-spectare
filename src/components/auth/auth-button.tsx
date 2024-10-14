@@ -1,5 +1,3 @@
-'use client'
-
 import { useIsMutating } from '@tanstack/react-query'
 import { Button, ButtonProps } from '../ui/button'
 

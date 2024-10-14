@@ -6,18 +6,21 @@ import { Label } from '@/components/ui/label'
 import { useCountDown } from '@/hooks/countdown'
 import { useServerActionMutation } from '@/lib/utils/server-mutation'
 import { LogInIcon } from 'lucide-react'
-import { FormEvent } from 'react'
+import { FormEvent, useState } from 'react'
 import { toast } from 'sonner'
-import { Dialog, DialogTrigger } from '../ui/dialog'
-import AuthButton from './auth-button'
-import FormError from './error'
-import ForgotPasswordDialogContent from './forgot-password'
+import AuthButton from '../auth-button'
+import FormError from '../form-error'
+import ForgotPasswordDialogContent from '../forgot-password'
+import { Dialog, DialogTrigger } from '@/components/ui/dialog'
+import SignInPasswordInput from './password-input'
 
 export default function SignInForm() {
+  const [forgotPasswordModal, setForgotPasswordModal] = useState(false)
+
   const { timeLeft, setTimeLeft } = useCountDown()
-  const { mutate, isError, error } = useServerActionMutation(signInAction, {
+  const { mutate, error } = useServerActionMutation(signInAction, {
     mutationKey: ['auth', 'signin'],
-    onSuccess: (limit) => {
+    onSuccess: limit => {
       if (limit) return setTimeLeft(limit.remainingSeconds)
       toast.success('You’re back! Let’s pick up right where we left off.')
     },
@@ -31,9 +34,9 @@ export default function SignInForm() {
   }
 
   return (
-    <Dialog>
+    <Dialog open={forgotPasswordModal} onOpenChange={setForgotPasswordModal}>
       <form onSubmit={handleSubmit}>
-        {isError && <FormError message={error.fieldErrors?.email?.[0] || error.fieldErrors?.password?.[0] || error.message} />}
+        <FormError error={error?.fieldErrors?.email?.[0] || error?.fieldErrors?.password?.[0] || error?.message} />
 
         <Label htmlFor="emailInput">Email Address</Label>
         <Input type="email" id="emailInput" placeholder="minard@gmail.com" required className="mb-6 mt-2" />
@@ -41,11 +44,11 @@ export default function SignInForm() {
         <div className="flex items-center justify-between">
           <Label htmlFor="passwordInput">Password</Label>
 
-          <DialogTrigger type="button" variant="link" className="size-fit p-0">
+          <DialogTrigger type="button" variant="link" tabIndex={-1} className="size-fit p-0">
             forgot password?
           </DialogTrigger>
         </div>
-        <Input id="passwordInput" placeholder="********" required className="mt-2" />
+        <SignInPasswordInput />
 
         <AuthButton disabled={timeLeft > 0} type="submit" className="mt-6 gap-3">
           {timeLeft > 0 ? (
@@ -58,7 +61,7 @@ export default function SignInForm() {
           )}
         </AuthButton>
       </form>
-      <ForgotPasswordDialogContent />
+      <ForgotPasswordDialogContent closeModal={() => setForgotPasswordModal(false)} />
     </Dialog>
   )
 }

@@ -2,9 +2,11 @@
 
 import { argonVerify } from '@/lib/auth/helpers/argon'
 import { rateLimiter } from '@/lib/auth/rate-limiter'
+import { createSession } from '@/lib/auth/session/create-session'
 import { getUserByEmailDb } from '@/lib/db/utils/user'
 import { signInInputSchema } from '@/lib/schema/auth'
-import { getIpAddress } from '@/lib/utils/headers'
+import { getIpAddress } from '@/lib/auth/helpers/headers'
+import { redirect } from 'next/navigation'
 import { createServerAction } from 'zsa'
 
 export const signInAction = createServerAction()
@@ -21,5 +23,6 @@ export const signInAction = createServerAction()
     const comparePassword = await argonVerify(user.hashedPassword, password)
     if (!comparePassword) throw 'Incorrect email or password'
 
-    // create session
+    await createSession(user.id)
+    redirect('/')
   })

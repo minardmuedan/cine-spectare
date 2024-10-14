@@ -28,7 +28,7 @@ export default function CreatePasswordInput({ value, setValue, typeError, setTyp
     <>
       <div className="space-y-2">
         <Label htmlFor="passwordInput">Password</Label>
-        <Input id="passwordInput" type="text" placeholder="********" autoComplete="off" onChange={handleOnChange} value={value} />
+        <Input autoFocus id="passwordInput" type="text" placeholder="********" autoComplete="off" onChange={handleOnChange} value={value} />
 
         <ul className="flex gap-2">
           {Array(4)

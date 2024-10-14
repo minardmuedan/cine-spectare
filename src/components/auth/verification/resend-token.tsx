@@ -8,19 +8,19 @@ export default function ResendTokenButton({ tokenId, deleteToken }: { tokenId: s
   const { timeLeft, setTimeLeft } = useCountDown()
   const { mutate, isPending } = useServerActionMutation(resendTokenAction, {
     mutationKey: ['resend-token'],
-    onError: (err) => {
+    onError: err => {
       if (err.code === 'NOT_FOUND') deleteToken()
       toast.error(err.message)
     },
-    onSuccess: ({ remainingSeconds }) => {
-      setTimeLeft(remainingSeconds)
-      toast.success('Email verification code sent!')
+    onSuccess: limit => {
+      setTimeLeft(limit.remainingSeconds)
+      if (!limit.isExceed) toast.success('Email verification code sent!')
     },
   })
 
   return (
     <Button disabled={timeLeft > 0 || isPending} variant="link" className="size-fit p-0" onClick={() => mutate(tokenId)}>
-      {timeLeft > 0 ? `resend in ${timeLeft} seconds` : 'resend'}
+      {timeLeft > 0 ? `resend in ${timeLeft}` : 'resend'}
     </Button>
   )
 }

@@ -27,7 +27,7 @@ export const resendTokenAction = createServerAction()
   .input(idSchema)
   .handler(async ({ input: tokenId }) => {
     const limiter = rateLimiter(`resend-${tokenId}`, 1, 30)
-    if (limiter.isExceed) return { remainingSeconds: limiter.remainingSeconds }
+    if (limiter.isExceed) return limiter
 
     const verification = await getVerificationDb(tokenId)
     if (!verification) throw new ZSAError('NOT_FOUND', 'Verification token not found!')
@@ -36,9 +36,15 @@ export const resendTokenAction = createServerAction()
     if (hasPassed1Minute) {
       const newCode = generateCode()
       await renewVerificationDb(tokenId, newCode)
-    } else await renewVerificationDb(tokenId, verification.code)
 
-    // TODO: send code to email
-    console.log(verification.emailPayload, ' : ', verification.code)
-    return { remainingSeconds: 30 }
+      // TODO: send code to email
+      console.log(verification.emailPayload, ' : ', newCode)
+    } else {
+      await renewVerificationDb(tokenId, verification.code)
+
+      // TODO: send code to email
+      console.log(verification.emailPayload, ' : ', verification.code)
+    }
+
+    return { isExceed: false as const, remainingSeconds: 30 }
   })

@@ -1,10 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Card, CardContent, CardHeader } from '../ui/card'
-import CreatePasswordInput from './password-input'
+import { Card, CardContent, CardHeader } from '@/components/ui/card'
+import CreatePasswordInput from '../password-input'
 import { passwordSchema } from '@/lib/schema/auth'
-import { Button } from '../ui/button'
+import { Button } from '@/components/ui/button'
 import { useServerActionMutation } from '@/lib/utils/server-mutation'
 import { createPasswordAction } from '@/actions/auth/signup'
 import { toast } from 'sonner'
@@ -18,7 +18,7 @@ export default function CreatePassword() {
 
   const { mutate, isPending } = useServerActionMutation(createPasswordAction, {
     mutationKey: ['create-password'],
-    onError: (err) => {
+    onError: err => {
       if (err.code == 'NOT_FOUND') {
         setToken(null)
         toast.error(err.message)
@@ -35,7 +35,7 @@ export default function CreatePassword() {
       <CardHeader title="Create A Password" description="Finish setting up your account" />
       <CardContent>
         <form
-          onSubmit={(e) => {
+          onSubmit={e => {
             e.preventDefault()
             mutate({ tokenId: token!.id, password: value })
           }}

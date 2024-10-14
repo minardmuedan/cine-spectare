@@ -1,7 +1,7 @@
 'use client'
 
 import { useAuthToken } from '@/hooks/auth-token'
-import CreatePassword from '../create-password'
+import CreatePassword from './create-password'
 import SignUp from './signup'
 import SignUpVerification from './verification'
 

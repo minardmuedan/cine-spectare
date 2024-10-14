@@ -25,4 +25,4 @@ export const passwordSchema = z.object({
     .regex(/^[^\s]+$/, 'Must not contain spaces'),
 })
 
-export const createAccontInputSchema = passwordSchema.and(z.object({ tokenId: idSchema }))
+export const createAccountInputSchema = passwordSchema.and(z.object({ tokenId: idSchema }))
