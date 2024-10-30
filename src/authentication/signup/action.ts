@@ -8,10 +8,16 @@ import { emailSchema, passwordSchema, tokenIdSchema } from '../schema'
 import { redirect } from 'next/navigation'
 import { verifyAndGetToken } from '../_helpers'
 import { Argon2id } from 'oslo/password'
+import { createSession } from '@/lib/session/create'
+import { rateLimiter } from '@/lib/rate-limiter'
+import { getIpAddress } from '@/lib/helpers/headers'
 
 export const signUpAction = createServerAction()
   .input(emailSchema)
   .handler(async ({ input: { email } }) => {
+    const limit = rateLimiter(`signup-${(await getIpAddress()) || email}`, 5, 45)
+    if (limit.isExceed) return limit
+
     const existingUser = await getCredentialsUserByEmailDb(email)
     if (existingUser) throw 'Email already in use'
 
@@ -22,7 +28,7 @@ export const signUpAction = createServerAction()
 
     // TODO: send to email
     console.log(email, code)
-    return { id }
+    return { id } as { isExceed: undefined; id: string }
   })
 
 export const createPasswordAction = createServerAction()
@@ -31,12 +37,11 @@ export const createPasswordAction = createServerAction()
     const token = await verifyAndGetToken(tokenId)
     if (token.purpose !== 'create-password') throw new ZSAError('NOT_FOUND', 'Email is not yet verified! Sign up again')
 
-    const id = generateId()
+    const userId = generateId()
     const hashedPassword = await new Argon2id().hash(password)
-    await createUserDb({ id, email: token.emailPayload, hashedPassword, provider: 'credentials' })
+    await createUserDb({ id: userId, email: token.emailPayload, hashedPassword, provider: 'credentials' })
     await deleteTokenDb(token.id).catch(() => {})
 
-    // create session here !
-
+    await createSession(userId)
     redirect('/')
   })

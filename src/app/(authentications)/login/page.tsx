@@ -1,4 +1,4 @@
-import OauthFooter from '@/authentication/components/oauth-footer'
+import OauthFooter from '@/authentication/oauth/oauth-footer'
 import LoginForm from '@/authentication/login/form'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'

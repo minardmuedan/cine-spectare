@@ -1,14 +1,13 @@
 import { Button } from '@/components/ui/button'
-import { CardFooter } from '@/components/ui/card'
+import { useAuthToken } from '@/hooks/auth-token'
+import { useCountdown } from '@/hooks/countdown'
 import { useServerActionMutation } from '@/hooks/server-action'
 import { useIsMutating } from '@tanstack/react-query'
 import { Loader2Icon } from 'lucide-react'
-import { resendVerificationTokenAction } from './action'
 import { toast } from 'sonner'
-import { useCountdown } from '@/hooks/countdown'
-import { useAuthToken } from '@/hooks/auth-token'
+import { resendVerificationTokenAction } from './action'
 
-export default function ResendTokenFooter() {
+export default function ResendToken() {
   const { timeLeft, setTimeLeft } = useCountdown()
   const { token, setToken } = useAuthToken()
 
@@ -24,7 +23,7 @@ export default function ResendTokenFooter() {
   })
 
   return (
-    <CardFooter className="relative justify-center text-center text-sm text-muted-foreground">
+    <div className="relative flex justify-center text-center text-sm text-muted-foreground">
       <div className={`absolute flex items-center gap-2 transition-transform ${isVerifying ? 'scale-100' : 'scale-0'}`}>
         <p>verifying</p>
         <Loader2Icon size={16} className="animate-spin" />
@@ -36,6 +35,6 @@ export default function ResendTokenFooter() {
           {timeLeft > 0 ? `resend in ${timeLeft}` : 'resend'}
         </Button>
       </div>
-    </CardFooter>
+    </div>
   )
 }

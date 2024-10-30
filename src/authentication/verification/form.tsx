@@ -17,10 +17,10 @@ export default function VerificationForm() {
   const { mutate, isPending, error } = useServerActionMutation(verifyTokenAction, {
     mutationKey: ['auth', 'verification'],
     onError: err => err.code == 'NOT_FOUND' && (setToken(null), toast.error(err.message)),
-    onSuccess: data => (data?.isExceed ? setTimeLeft(data.remainingSeconds) : setToken({ ...token!, ui: 'creatingPassword' })),
+    onSuccess: data => (data?.isExceed ? setTimeLeft(data.remainingSeconds) : setToken({ ...token!, ui: 'creating-password' })),
     onSettled: () => {
       setValue('')
-      setTimeout(() => ref?.current?.focus(), 200)
+      setTimeout(() => ref?.current?.focus(), 300)
     },
   })
 

@@ -3,7 +3,7 @@ import { Poppins } from 'next/font/google'
 import './globals.css'
 import { Toaster } from '@/components/ui/sonner'
 import ReactQueryProvider from '@/components/providers/react-query'
-import Devtools from '@/components/__devtiools'
+import Navbar from '@/components/navbar'
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700'] })
 
@@ -14,11 +14,8 @@ export default function RootLayout({ children }: Props) {
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
         <ReactQueryProvider>
-          <div className="fixed right-6 top-6">
-            <Devtools />
-          </div>
-
           <Toaster richColors position="top-right" />
+          <Navbar />
           <main>{children}</main>
         </ReactQueryProvider>
       </body>

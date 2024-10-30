@@ -1,13 +1,13 @@
 'use client'
 
-import OauthFooter from '@/authentication/components/oauth-footer'
+import OauthFooter from '@/authentication/oauth/oauth-footer'
 import { BackButton, buttonVariants } from '@/components/ui/button'
-import { CardContent, CardHeader } from '@/components/ui/card'
+import { CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { useAuthToken } from '@/hooks/auth-token'
 import { ArrowLeftIcon } from 'lucide-react'
 import Link from 'next/link'
 import VerificationForm from '../verification/form'
-import ResendTokenFooter from '../verification/resend-token-footer'
+import ResendToken from '../verification/resend-token'
 import SignUpForm from './signup-form'
 import CreatePasswordForm from './create-password-form'
 
@@ -22,11 +22,13 @@ export default function SignUpProcedure() {
           <CardContent className="flex flex-col items-center justify-center">
             <VerificationForm />
           </CardContent>
-          <ResendTokenFooter />
+          <CardFooter className="justify-center">
+            <ResendToken />
+          </CardFooter>
         </>
       )
 
-    if (token.ui == 'creatingPassword')
+    if (token.ui == 'creating-password')
       return (
         <>
           <BackButton onClick={() => setToken(null)} className="ml-2 mt-2" />

@@ -16,3 +16,5 @@ export const passwordSchema = z.object({
     .regex(/[0-9]/, 'Must contain one digit')
     .regex(/^[^\s]+$/, 'Must not contain spaces'),
 })
+
+export const loginSchema = emailSchema.and(z.object({ password: z.string().min(1, 'Password is required') }))

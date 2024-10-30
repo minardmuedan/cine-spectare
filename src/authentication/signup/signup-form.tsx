@@ -3,15 +3,17 @@ import { Label } from '@/components/ui/label'
 import { signUpAction } from './action'
 import { useServerActionMutation } from '@/hooks/server-action'
 import AuthButton from '../components/auth-button'
-import { toast } from 'sonner'
 import { useAuthToken } from '@/hooks/auth-token'
 import FormError from '../components/form-error'
+import { useCountdown } from '@/hooks/countdown'
 
 export default function SignUpForm() {
+  const { timeLeft, setTimeLeft } = useCountdown()
   const { setToken } = useAuthToken()
-  const { mutate, data, error } = useServerActionMutation(signUpAction, {
+
+  const { mutate, error } = useServerActionMutation(signUpAction, {
     mutationKey: ['auth', 'signup'],
-    onSuccess: ({ id }) => setToken({ id, ui: 'verification', type: 'signup' }),
+    onSuccess: data => (data?.isExceed ? setTimeLeft(data.remainingSeconds) : setToken({ id: data.id, ui: 'verification', type: 'signup' })),
   })
 
   return (
@@ -25,10 +27,10 @@ export default function SignUpForm() {
       <FormError error={error?.fieldErrors?.email?.[0] || error?.message} />
 
       <Label htmlFor="emailInput">Email Address</Label>
-      <Input id="emailInput" name="emailInput" placeholder="minard@gmail.com" className="mb-6 mt-2" />
+      <Input id="emailInput" name="emailInput" type="email" required autoFocus placeholder="minard@gmail.com" className="mb-6 mt-2" />
 
-      <AuthButton type="submit" className="w-full">
-        Sign Up
+      <AuthButton disabled={timeLeft > 0} type="submit" className="w-full">
+        {timeLeft > 0 ? `Too many requests! wait for ${timeLeft} seconds` : 'Sign Up'}
       </AuthButton>
     </form>
   )

@@ -16,7 +16,7 @@ export const verifyTokenAction = createServerAction()
     const token = await verifyAndGetToken(tokenId)
 
     if (token.code !== code) throw 'Incorrect code!'
-    await upgradeTokenPurposeDb(token.id, 'create-password')
+    await upgradeTokenPurposeDb(token.id, token.purpose === 'change-password-verification' ? 'change-password' : 'create-password')
   })
 
 export const resendVerificationTokenAction = createServerAction()

@@ -2,7 +2,7 @@ import { create } from 'zustand'
 
 type AuthToken = {
   id: string
-  ui: 'verification' | 'creatingPassword' | 'changingPassword'
+  ui: 'verification' | 'creating-password'
   type: 'signup' | 'forgot-password'
 }
 
