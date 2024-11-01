@@ -29,7 +29,7 @@ AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
 function UserAvatar(user: TSessionUser | null) {
   return (
     <Avatar>
-      <AvatarImage src={`${user?.avatarUrl}`} />
+      {user?.avatarUrl && <AvatarImage src={user.avatarUrl} />}
       <AvatarFallback>{user?.name?.slice(0, 2) || user?.email?.slice(0, 2)}</AvatarFallback>
     </Avatar>
   )
