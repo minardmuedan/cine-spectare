@@ -1,14 +1,14 @@
 'use client'
 
-import Link from 'next/link'
-import { buttonVariants } from './ui/button'
-import Devtools from './__devtiools'
 import { useSession } from '@/hooks/session'
-import { UserAvatar } from './ui/avatar'
-import LogoutButton from '@/features/authentication/logout/logout-btn'
+import Link from 'next/link'
+import Devtools from './__devtiools'
+import { buttonVariants } from './ui/button'
+import { Skeleton } from './ui/skeleton'
+import UserSideNav from './user/side-navigation'
 
 export default function Navbar() {
-  const { data: session } = useSession()
+  const { data: session, isPending: gettingSession } = useSession()
 
   return (
     <header className="h-14 border-b px-20">
@@ -21,11 +21,10 @@ export default function Navbar() {
         </div>
 
         <div className="flex items-center gap-10">
-          {session ? (
-            <div className="flex items-center gap-5">
-              <UserAvatar {...session} />
-              <LogoutButton />
-            </div>
+          {gettingSession ? (
+            <Skeleton className="size-10 rounded-full" />
+          ) : session ? (
+            <UserSideNav />
           ) : (
             <Link href="/login" className={buttonVariants()}>
               Login

@@ -3,6 +3,7 @@ import { z } from 'zod'
 export const mediaSchema = z.object({
   id: z.number().min(1, 'Media id is Required'),
   posterPath: z.string(),
+  backdropPath: z.string(),
   releaseDate: z.string(),
   title: z.string(),
   voteAverage: z.number(),

@@ -4,6 +4,9 @@ import { and, eq, sql } from 'drizzle-orm'
 
 export const createLikeDb = async ({ ...values }: typeof likesTable.$inferInsert) => await db.insert(likesTable).values(values)
 
+export const getUserLikesDb = async (userId: string) =>
+  await db.select({ id: likesTable.id, media: likesTable.media }).from(likesTable).where(eq(likesTable.addedBy, userId))
+
 export const getUserLikeByMediaId = async (userId: string, mediaId: number) =>
   await db.query.likesTable.findFirst({
     where: and(eq(likesTable.addedBy, userId), sql`${likesTable.media} ->> 'id' = ${mediaId}`),

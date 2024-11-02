@@ -7,7 +7,7 @@ import ChangePasswordForm from './change-password-form'
 
 export function ForgotPasswordDialogTrigger() {
   return (
-    <DialogTrigger variant="link" className="size-fit p-0">
+    <DialogTrigger type="button" tabIndex={-1} variant="link" className="size-fit p-0">
       forgot password
     </DialogTrigger>
   )

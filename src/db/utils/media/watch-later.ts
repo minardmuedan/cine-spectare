@@ -4,12 +4,15 @@ import { and, eq, sql } from 'drizzle-orm'
 
 export const createWatchlaterDb = async ({ ...values }: typeof watchLaterTable.$inferInsert) => await db.insert(watchLaterTable).values(values)
 
+export const getUserWatchLaterDb = async (userId: string) =>
+  await db.select({ id: watchLaterTable.id, media: watchLaterTable.media }).from(watchLaterTable).where(eq(watchLaterTable.addedBy, userId))
+
 export const getUserWatchLaterByMediaIdDb = async (userId: string, mediaId: number) =>
   await db.query.watchLaterTable.findFirst({
     where: and(eq(watchLaterTable.addedBy, userId), sql`${watchLaterTable.media} ->> 'id' = ${mediaId}`),
   })
 
-export const getUserWatchLaterDb = async (userId: string) =>
+export const getUserWatchLaterIdDb = async (userId: string) =>
   await db
     .select({
       id: watchLaterTable.id,

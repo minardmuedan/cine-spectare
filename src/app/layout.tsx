@@ -14,7 +14,7 @@ export default function RootLayout({ children }: Props) {
     <html lang="en">
       <body className={`${poppins.className} antialiased`}>
         <ReactQueryProvider>
-          <Toaster richColors position="top-right" />
+          <Toaster richColors position="top-right" closeButton />
           <Navbar />
           <main>{children}</main>
         </ReactQueryProvider>
