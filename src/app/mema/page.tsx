@@ -1,13 +1,13 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
+import { useWatchLater } from '@/hooks/media/watch-later'
 
 export default function MemaPage() {
-  const { data: ewan } = useQuery({ queryKey: ['media', 'already-watched'], queryFn: fetcher })
-  return <pre>{JSON.stringify(ewan, null, 2)}</pre>
-}
-
-const fetcher = async () => {
-  const res = await fetch('https://jsonplaceholder.typicode.com/users')
-  return await res.json()
+  const { data: watchLater, isPending } = useWatchLater()
+  return (
+    <>
+      <p>isPenidng {JSON.stringify(isPending)}</p>
+      <pre>{JSON.stringify(watchLater, null, 2)}</pre>
+    </>
+  )
 }

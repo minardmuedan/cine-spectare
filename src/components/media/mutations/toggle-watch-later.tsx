@@ -1,16 +1,28 @@
 import { Button } from '@/components/ui/button'
-import { ClockIcon } from 'lucide-react'
+import { ClockIcon, Loader2Icon } from 'lucide-react'
 import { TToggleMutationProps } from './_type'
+import { useIsWatchLaterMutating, useWatchLater, useWatchLaterMutation } from '@/hooks/media/watch-later'
 
 export default function ToggleWatchLater({ media, render, ...buttonProps }: TToggleMutationProps) {
+  const { data: watchLaterMedias, isError, isPending: gettingWatchLater } = useWatchLater()
+  const { mutate } = useWatchLaterMutation()
+
+  const isMutating = useIsWatchLaterMutating()
+  const isAlreadyInWatchLater = watchLaterMedias?.find(watchLater => watchLater.mediaId === media.id && watchLater.type === media.type)
+
   const props = {
     ...buttonProps,
-    disabled: false,
-    onClick: () => console.log('watch later', media.title),
+    disabled: isError || isMutating || gettingWatchLater,
+    onClick: () => mutate(media),
     children: (
       <>
-        <ClockIcon />
-        <p>Add to Watch Later</p>
+        {gettingWatchLater || isMutating ? (
+          <Loader2Icon className="animate-spin" />
+        ) : (
+          <ClockIcon className={`${isAlreadyInWatchLater && 'stroke-blue-500'}`} />
+        )}
+
+        {isAlreadyInWatchLater ? 'Remove from Watch Later' : 'Add to Watch Later'}
       </>
     ),
   }

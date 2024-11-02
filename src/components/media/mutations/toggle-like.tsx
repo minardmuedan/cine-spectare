@@ -1,21 +1,22 @@
 import { Button } from '@/components/ui/button'
 import { Loader2Icon, StarIcon } from 'lucide-react'
 import { TToggleMutationProps } from './_type'
-import { useIsLikeMutating, useLikeMutation, useLikes } from '@/hooks/media'
+import { useIsLikeMutating, useLikeMutation, useLikes } from '@/hooks/media/likes'
 
 export default function ToggleLike({ media, render, ...buttonProps }: TToggleMutationProps) {
-  const { data: likes, isError, isPending, isFetching } = useLikes()
+  const { data: likes, isError, isPending: gettingLikes } = useLikes()
   const { mutate } = useLikeMutation()
 
   const isMutating = useIsLikeMutating()
-  const isAlreadyLiked = !!likes?.some(like => like.mediaId == media.id)
+  const isAlreadyLiked = !!likes?.some(like => like.mediaId === media.id && like.type === media.type)
 
   const props = {
     ...buttonProps,
-    disabled: isError || isMutating || isFetching,
+    disabled: isError || isMutating || gettingLikes,
+    onClick: () => mutate(media),
     children: (
       <>
-        {isPending || isMutating ? (
+        {gettingLikes || isMutating ? (
           <Loader2Icon className="animate-spin" />
         ) : (
           <StarIcon className={`${isAlreadyLiked && 'fill-yellow-500 stroke-yellow-500'}`} />
@@ -24,7 +25,6 @@ export default function ToggleLike({ media, render, ...buttonProps }: TToggleMut
         {isAlreadyLiked ? 'Remove from Like' : 'Add to Like'}
       </>
     ),
-    onClick: () => mutate(media),
   }
 
   if (render) return render(props)

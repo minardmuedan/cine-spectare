@@ -1,16 +1,28 @@
 import { Button } from '@/components/ui/button'
-import { CheckCheckIcon } from 'lucide-react'
+import { useIsAlreadyWatchedMutating, useAlreadyWatched, useAlreadyWatchedMutation } from '@/hooks/media/already-watched'
+import { CheckCheckIcon, Loader2Icon } from 'lucide-react'
 import { TToggleMutationProps } from './_type'
 
 export default function ToggleAlreadyWatched({ media, render, ...buttonProps }: TToggleMutationProps) {
+  const { data: alreadyWatchedMedias, isError, isPending: gettingAlreadyWatched } = useAlreadyWatched()
+  const { mutate } = useAlreadyWatchedMutation()
+
+  const isMutating = useIsAlreadyWatchedMutating()
+  const isInAlreadyWatched = alreadyWatchedMedias?.find(alreadyWatched => alreadyWatched.mediaId === media.id && alreadyWatched.type === media.type)
+
   const props = {
     ...buttonProps,
-    disabled: false,
-    onClick: () => console.log('already watched', media.title),
+    disabled: isError || isMutating || gettingAlreadyWatched,
+    onClick: () => mutate(media),
     children: (
       <>
-        <CheckCheckIcon />
-        <p>Already Watched</p>
+        {gettingAlreadyWatched || isMutating ? (
+          <Loader2Icon className="animate-spin" />
+        ) : (
+          <CheckCheckIcon className={`${isInAlreadyWatched && 'stroke-green-500'}`} />
+        )}
+
+        {isInAlreadyWatched ? 'Remove Already Watched' : 'Already Watched'}
       </>
     ),
   }

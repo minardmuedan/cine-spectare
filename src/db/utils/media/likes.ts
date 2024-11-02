@@ -9,7 +9,7 @@ export const getUserLikeByMediaId = async (userId: string, mediaId: number) =>
     where: and(eq(likesTable.addedBy, userId), sql`${likesTable.media} ->> 'id' = ${mediaId}`),
   })
 
-export const getUserLikesDb = async (userId: string) =>
+export const getUserLikesIdDb = async (userId: string) =>
   await db
     .select({
       id: likesTable.id,
@@ -19,4 +19,4 @@ export const getUserLikesDb = async (userId: string) =>
     .from(likesTable)
     .where(eq(likesTable.addedBy, userId))
 
-export const deleteLikeDb = async (likeId: string) => await db.delete(likesTable).where(eq(likesTable.id, likeId))
+export const deleteLikeDb = async (id: string) => await db.delete(likesTable).where(eq(likesTable.id, id))

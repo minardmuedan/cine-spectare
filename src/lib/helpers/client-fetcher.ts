@@ -1,9 +1,10 @@
 import tryCatchWrapper from './try-catch'
 
+/** /api */
 export const clientFetcher = async <T>(url: string): Promise<T | null> =>
   tryCatchWrapper(
     async () => {
-      const res = await fetch(url)
+      const res = await fetch(`/api${url}`)
       if (!res.ok) {
         if ([400, 401, 403, 404, 409].includes(res.status)) return null // status code that doesn't need a retry | refetch
 
