@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { ClockIcon, Loader2Icon } from 'lucide-react'
-import { TToggleMutationProps } from './_type'
-import { useIsWatchLaterMutating, useWatchLater, useWatchLaterMutation } from '@/hooks/media/watch-later'
+import { TToggleMutationProps } from '../../type'
+import { useIsWatchLaterMutating, useWatchLater, useWatchLaterMutation } from '../hooks'
 
-export default function ToggleWatchLater({ media, render, ...buttonProps }: TToggleMutationProps) {
+export default function ToggleWatchLaterMutationButton({ media, render, ...buttonProps }: TToggleMutationProps) {
   const { data: watchLaterMedias, isError, isPending: gettingWatchLater } = useWatchLater()
   const { mutate } = useWatchLaterMutation()
 

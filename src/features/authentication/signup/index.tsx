@@ -1,6 +1,6 @@
 'use client'
 
-import OauthFooter from '@/authentication/oauth/oauth-footer'
+import OauthFooter from '@/features/authentication/oauth/oauth-footer'
 import { BackButton, buttonVariants } from '@/components/ui/button'
 import { CardContent, CardFooter, CardHeader } from '@/components/ui/card'
 import { useAuthToken } from '@/hooks/auth-token'

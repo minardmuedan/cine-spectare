@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
 import { Loader2Icon, StarIcon } from 'lucide-react'
-import { TToggleMutationProps } from './_type'
-import { useIsLikeMutating, useLikeMutation, useLikes } from '@/hooks/media/likes'
+import { TToggleMutationProps } from '../../type'
+import { useIsLikeMutating, useLikeMutation, useLikes } from '../hooks'
 
-export default function ToggleLike({ media, render, ...buttonProps }: TToggleMutationProps) {
+export default function ToggleLikeMutationButton({ media, render, ...buttonProps }: TToggleMutationProps) {
   const { data: likes, isError, isPending: gettingLikes } = useLikes()
   const { mutate } = useLikeMutation()
 

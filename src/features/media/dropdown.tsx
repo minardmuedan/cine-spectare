@@ -4,9 +4,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { TMedia } from '@/lib/schema'
 import { EllipsisVerticalIcon } from 'lucide-react'
 
-import ToggleAlreadyWatched from './toggle-already-watch'
-import ToggleLikeButton from './toggle-like'
-import ToggleWatchLater from './toggle-watch-later'
+import ToggleLikeMutationButton from './likes/components/toggle-like-mutation'
+import ToggleWatchLaterMutationButton from './watch-later/components/toggle-watch-later-mutation'
+import ToggleAlreadyWatchedMutationButton from './already-watched/components/toggle-already-watched-mutation'
 
 export default function MediaMutationsDropdown({ media }: { media: TMedia }) {
   return (
@@ -17,9 +17,9 @@ export default function MediaMutationsDropdown({ media }: { media: TMedia }) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="flex min-w-60 flex-col gap-1 p-2">
-        <ToggleLikeButton media={media} render={props => <DropdownMenuItem {...props} />} />
-        <ToggleWatchLater media={media} render={props => <DropdownMenuItem {...props} />} />
-        <ToggleAlreadyWatched media={media} render={props => <DropdownMenuItem {...props} />} />
+        <ToggleLikeMutationButton media={media} render={props => <DropdownMenuItem {...props} />} />
+        <ToggleWatchLaterMutationButton media={media} render={props => <DropdownMenuItem {...props} />} />
+        <ToggleAlreadyWatchedMutationButton media={media} render={props => <DropdownMenuItem {...props} />} />
       </DropdownMenuContent>
     </DropdownMenu>
   )

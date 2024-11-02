@@ -1,9 +1,9 @@
 import { Button } from '@/components/ui/button'
-import { useIsAlreadyWatchedMutating, useAlreadyWatched, useAlreadyWatchedMutation } from '@/hooks/media/already-watched'
+import { useIsAlreadyWatchedMutating, useAlreadyWatched, useAlreadyWatchedMutation } from '../hooks'
 import { CheckCheckIcon, Loader2Icon } from 'lucide-react'
-import { TToggleMutationProps } from './_type'
+import { TToggleMutationProps } from '../../type'
 
-export default function ToggleAlreadyWatched({ media, render, ...buttonProps }: TToggleMutationProps) {
+export default function ToggleAlreadyWatchedMutationButton({ media, render, ...buttonProps }: TToggleMutationProps) {
   const { data: alreadyWatchedMedias, isError, isPending: gettingAlreadyWatched } = useAlreadyWatched()
   const { mutate } = useAlreadyWatchedMutation()
 

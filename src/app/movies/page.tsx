@@ -1,4 +1,4 @@
-import MediaMutationsDropdown from '@/components/media/mutations/dropdown'
+import MediaMutationsDropdown from '@/features/media/dropdown'
 import { getMovies } from '@/lib/tmdb/movies'
 
 export default async function PopularMovies() {

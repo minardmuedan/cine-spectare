@@ -1,5 +1,5 @@
+import { validateSession } from '@/lib/session/validate'
 import { createServerActionProcedure, ZSAError } from 'zsa'
-import { validateSession } from '../session/validate'
 
 export const authedProcedure = createServerActionProcedure()
   .handler(async () => {

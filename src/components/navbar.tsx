@@ -5,7 +5,7 @@ import { buttonVariants } from './ui/button'
 import Devtools from './__devtiools'
 import { useSession } from '@/hooks/session'
 import { UserAvatar } from './ui/avatar'
-import LogoutButton from '@/authentication/logout/logout-btn'
+import LogoutButton from '@/features/authentication/logout/logout-btn'
 
 export default function Navbar() {
   const { data: session } = useSession()

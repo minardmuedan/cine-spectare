@@ -1,9 +1,9 @@
 import { MutationKey, QueryKey, useQueryClient } from '@tanstack/react-query'
-import { useServerActionMutation } from '../server-action'
+import { useServerActionMutation } from '@/hooks/server-action'
 import { TAnyZodSafeFunctionHandler } from 'zsa'
 import { toast } from 'sonner'
 import { generateId } from '@/lib/helpers/generate'
-import { TUserDbMedia } from './_type'
+import { TUserDbMedia } from '../type'
 
 export const useCreateMediaMutation = (queryKey: QueryKey, mutationKey: MutationKey, action: TAnyZodSafeFunctionHandler) => {
   const queryClient = useQueryClient()

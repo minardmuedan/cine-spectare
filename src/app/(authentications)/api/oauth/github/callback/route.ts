@@ -1,4 +1,4 @@
-import { github, TGithubUser, TGithubUserEmails } from '@/authentication/oauth/provider'
+import { github, TGithubUser, TGithubUserEmails } from '@/features/authentication/oauth/provider'
 import { createUserDb, getUserByOauthIdDb } from '@/db/utils/users'
 import { generateId } from '@/lib/helpers/generate'
 import { getCookie } from '@/lib/helpers/headers'

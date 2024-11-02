@@ -1,5 +1,5 @@
-import OauthFooter from '@/authentication/oauth/oauth-footer'
-import LoginForm from '@/authentication/login/form'
+import OauthFooter from '@/features/authentication/oauth/oauth-footer'
+import LoginForm from '@/features/authentication/login/form'
 import { buttonVariants } from '@/components/ui/button'
 import { Card, CardContent, CardHeader } from '@/components/ui/card'
 import { ArrowRightIcon } from 'lucide-react'
