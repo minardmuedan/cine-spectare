@@ -1,5 +1,9 @@
 import { z } from 'zod'
 
+export const codeSchema = z.object({ code: z.string().min(1, 'Verification code is required').max(6) })
+
+export const tokenIdSchema = z.object({ tokenId: z.string().min(1, 'tokenId is required') })
+
 export const mediaSchema = z.object({
   id: z.number().min(1, 'Media id is Required'),
   posterPath: z.string(),

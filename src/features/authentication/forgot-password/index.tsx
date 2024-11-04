@@ -1,9 +1,9 @@
 import { DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
 import { useAuthToken } from '@/hooks/auth-token'
-import { ForgotPasswordForm } from './form'
-import VerificationForm from '../verification/form'
-import ResendToken from '../verification/resend-token'
+import VerificationForm from '@/components/authentications/verification-form'
 import ChangePasswordForm from './change-password-form'
+import { ForgotPasswordForm } from './form'
+import { verifyTokenAction } from '@/actions/verification'
 
 export function ForgotPasswordDialogTrigger() {
   return (
@@ -14,7 +14,7 @@ export function ForgotPasswordDialogTrigger() {
 }
 
 export function ForgotPasswordDialogContent({ closeModal }: { closeModal: () => void }) {
-  const { token } = useAuthToken()
+  const { token, setToken } = useAuthToken()
 
   const header =
     !token || token.type !== 'forgot-password'
@@ -26,14 +26,7 @@ export function ForgotPasswordDialogContent({ closeModal }: { closeModal: () => 
   const Content = () => {
     if (token && token.type == 'forgot-password') {
       if (token.ui == 'verification')
-        return (
-          <div className="flex flex-col items-center">
-            <VerificationForm />
-            <div className="mt-6">
-              <ResendToken />
-            </div>
-          </div>
-        )
+        return <VerificationForm action={verifyTokenAction} onSuccessFn={() => setToken({ ...token, ui: 'creating-password' })} />
       if (token.ui == 'creating-password') return <ChangePasswordForm closeModal={closeModal} />
     }
     return <ForgotPasswordForm />

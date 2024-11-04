@@ -1,11 +1,11 @@
 'use server'
 
 import { renewTokenDb, upgradeTokenPurposeDb } from '@/db/utils/token'
-import { codeSchema, tokenIdSchema } from '../schema'
+import { codeSchema, tokenIdSchema } from '@/lib/schema'
 import { rateLimiter } from '@/lib/rate-limiter'
 import { generate6DigitCode } from '@/lib/helpers/generate'
 import { createServerAction } from 'zsa'
-import { verifyAndGetToken } from '../_helpers'
+import { verifyAndGetToken } from '@/lib/helpers/verify-get-token'
 
 export const verifyTokenAction = createServerAction()
   .input(tokenIdSchema.and(codeSchema))

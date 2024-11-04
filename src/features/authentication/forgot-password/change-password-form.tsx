@@ -4,18 +4,18 @@ import { useServerActionMutation } from '@/hooks/server-action'
 import { Loader2Icon } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
-import FormError from '../components/form-error'
-import CreatePasswordInput from '../components/password-input'
+import FormError from '@/components/ui/form-error'
+import CreatePasswordInput from '@/components/authentications/password-input'
 import { passwordSchema } from '../schema'
-import { changePasswordAction } from './action'
+import { forgotPasswordChangePasswordAction } from './action'
 
 export default function ChangePasswordForm({ closeModal }: { closeModal: () => void }) {
   const { token, setToken } = useAuthToken()
   const [value, setValue] = useState('')
   const [typeError, setTypeError] = useState(passwordSchema.safeParse({ password: '' }).error?.flatten().fieldErrors.password)
 
-  const { mutate, isPending, error } = useServerActionMutation(changePasswordAction, {
-    mutationKey: ['auth', 'change-password'],
+  const { mutate, isPending, error } = useServerActionMutation(forgotPasswordChangePasswordAction, {
+    mutationKey: ['auth', 'forgot-change-password'],
     onError: err => err.code == 'NOT_FOUND' && (setToken(null), toast.error(err.message)),
     onSuccess: () => (closeModal(), setToken(null), toast.success('Password Updated Successfully! Try to Login')),
   })

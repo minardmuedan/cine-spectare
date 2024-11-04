@@ -1,7 +1,7 @@
 'use server'
 
 import { createLikeDb, deleteLikeDb, getUserLikeByMediaId } from '@/db/utils/media/likes'
-import { authedProcedure } from '../helpers/authed-procedure'
+import { authedProcedure } from '@/lib/helpers/authed-procedure'
 import { generateId } from '@/lib/helpers/generate'
 import { mediaSchema } from '@/lib/schema'
 

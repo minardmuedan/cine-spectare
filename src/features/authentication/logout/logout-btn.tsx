@@ -18,13 +18,9 @@ export default function LogoutButton() {
   })
 
   return (
-    <AuthButton
-      variant="outline"
-      onClick={() => mutate(undefined)}
-      className="border-2 border-destructive text-destructive hover:border-destructive/70 hover:bg-background hover:text-destructive/70"
-    >
-      Logout
+    <AuthButton variant="ghost" onClick={() => mutate(undefined)} className="hover:text-destructive-/75 text-destructive hover:bg-destructive/25">
       <LogOutIcon />
+      Logout
     </AuthButton>
   )
 }

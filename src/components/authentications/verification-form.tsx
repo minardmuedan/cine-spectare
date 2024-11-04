@@ -2,22 +2,38 @@ import { InputOTP, InputOTPSlot } from '@/components/ui/input-otp'
 import { useAuthToken } from '@/hooks/auth-token'
 import { useServerActionMutation } from '@/hooks/server-action'
 import { useRef, useState } from 'react'
-import FormError from '../components/form-error'
-import { verifyTokenAction } from './action'
+import FormError from '@/components/ui/form-error'
 import { toast } from 'sonner'
 import { useCountdown } from '@/hooks/countdown'
+import { THandlerFunc } from 'zsa'
+import { ZodIntersection } from 'zod'
+import { codeSchema, tokenIdSchema } from '@/lib/schema'
+import ResendToken from './resend-token'
 
-export default function VerificationForm() {
+type ServerAction = THandlerFunc<
+  ZodIntersection<typeof tokenIdSchema, typeof codeSchema>,
+  undefined,
+  'ShapeErrorNotSet',
+  Promise<{ isExceed: true; remainingSeconds: number } | undefined>,
+  undefined,
+  'json',
+  false
+>
+
+export default function VerificationForm({ action, onSuccessFn }: { action: ServerAction; onSuccessFn: () => void }) {
   const { token, setToken } = useAuthToken()
   const { timeLeft, setTimeLeft } = useCountdown()
 
   const ref = useRef<HTMLInputElement | null>(null)
   const [value, setValue] = useState('')
 
-  const { mutate, isPending, error } = useServerActionMutation(verifyTokenAction, {
+  const { mutate, isPending, error } = useServerActionMutation(action, {
     mutationKey: ['auth', 'verification'],
     onError: err => err.code == 'NOT_FOUND' && (setToken(null), toast.error(err.message)),
-    onSuccess: data => (data?.isExceed ? setTimeLeft(data.remainingSeconds) : setToken({ ...token!, ui: 'creating-password' })),
+    onSuccess: data => {
+      if (data?.isExceed) return setTimeLeft(data.remainingSeconds)
+      onSuccessFn()
+    },
     onSettled: () => {
       setValue('')
       setTimeout(() => ref?.current?.focus(), 300)
@@ -25,7 +41,7 @@ export default function VerificationForm() {
   })
 
   return (
-    <>
+    <div className="flex flex-col items-center">
       <FormError error={error?.message} className="min-w-[280px]" />
 
       {timeLeft > 0 ? (
@@ -48,6 +64,8 @@ export default function VerificationForm() {
           <InputOTPSlot index={5} />
         </InputOTP>
       )}
-    </>
+
+      <ResendToken />
+    </div>
   )
 }

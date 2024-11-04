@@ -1,5 +1,6 @@
 import BackgroundMediaImage from '@/components/pages/background-image'
 import PageHeader from '@/components/pages/header'
+import Section from '@/components/pages/section'
 import UnauthorizedUi from '@/components/pages/unauthorized'
 import { getUserLikesDb } from '@/db/utils/media/likes'
 import IndividualMedia from '@/features/media/components/individual'
@@ -15,7 +16,7 @@ export default async function LikesMediaPage() {
   if (error) return <p>{error.message}</p>
   if (!likes.length) return <p>no likes</p>
   return (
-    <section className="relative">
+    <Section>
       <BackgroundMediaImage src={`https://image.tmdb.org/t/p/w500${likes[likes.length - 1].media.backdropPath}`} />
       <PageHeader title="Your Likes" description="Movies and shows you've liked. Revisit your favorites anytime" />
 
@@ -24,6 +25,6 @@ export default async function LikesMediaPage() {
           <IndividualMedia key={media.id} {...media} />
         ))}
       </ul>
-    </section>
+    </Section>
   )
 }

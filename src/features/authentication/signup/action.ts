@@ -3,14 +3,15 @@
 import { createTokenDb, deleteTokenByPayloadDb, deleteTokenDb } from '@/db/utils/token'
 import { createUserDb, getCredentialsUserByEmailDb } from '@/db/utils/users'
 import { generate6DigitCode, generateId } from '@/lib/helpers/generate'
-import { createServerAction, ZSAError } from 'zsa'
-import { emailSchema, passwordSchema, tokenIdSchema } from '../schema'
-import { redirect } from 'next/navigation'
-import { verifyAndGetToken } from '../_helpers'
-import { Argon2id } from 'oslo/password'
-import { createSession } from '@/lib/session/create'
-import { rateLimiter } from '@/lib/rate-limiter'
 import { getIpAddress } from '@/lib/helpers/headers'
+import { verifyAndGetToken } from '@/lib/helpers/verify-get-token'
+import { rateLimiter } from '@/lib/rate-limiter'
+import { tokenIdSchema } from '@/lib/schema'
+import { createSession } from '@/lib/session/create'
+import { redirect } from 'next/navigation'
+import { Argon2id } from 'oslo/password'
+import { createServerAction, ZSAError } from 'zsa'
+import { emailSchema, passwordSchema } from '../schema'
 
 export const signUpAction = createServerAction()
   .input(emailSchema)

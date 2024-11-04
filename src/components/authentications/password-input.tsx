@@ -1,5 +1,5 @@
 import { ChangeEvent, Dispatch, SetStateAction, useState } from 'react'
-import { passwordSchema } from '../schema'
+import { passwordSchema } from '@/features/authentication/schema'
 import { Input } from '@/components/ui/input'
 import zxcvbn from 'zxcvbn'
 import { Label } from '@/components/ui/label'
@@ -9,9 +9,10 @@ type TProps = {
   setValue: Dispatch<SetStateAction<string>>
   typeError: string[] | undefined
   setTypeError: Dispatch<SetStateAction<string[] | undefined>>
+  autoFocus?: boolean
 }
 
-export default function CreatePasswordInput({ value, setValue, typeError, setTypeError }: TProps) {
+export default function CreatePasswordInput({ value, setValue, typeError, setTypeError, autoFocus = true }: TProps) {
   const [passwordScore, setPasswordScore] = useState(0)
 
   function handleOnChange(e: ChangeEvent<HTMLInputElement>) {
@@ -25,8 +26,16 @@ export default function CreatePasswordInput({ value, setValue, typeError, setTyp
   return (
     <>
       <div className="space-y-2">
-        <Label htmlFor="passwordInput">Password</Label>
-        <Input autoFocus id="passwordInput" type="text" placeholder="********" autoComplete="off" onChange={handleOnChange} value={value} />
+        <Label htmlFor="passwordInput">New Password</Label>
+        <Input
+          autoFocus={autoFocus}
+          id="passwordInput"
+          type="text"
+          placeholder="********"
+          autoComplete="off"
+          onChange={handleOnChange}
+          value={value}
+        />
 
         <ul className="flex gap-2">
           {Array(4)

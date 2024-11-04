@@ -26,9 +26,9 @@ const AvatarFallback = React.forwardRef<
 ))
 AvatarFallback.displayName = AvatarPrimitive.Fallback.displayName
 
-function UserAvatar(user: TSessionUser | null) {
+function UserAvatar({ className, ...user }: { className?: string } & (TSessionUser | null)) {
   return (
-    <Avatar>
+    <Avatar className={className}>
       {user?.avatarUrl && <AvatarImage src={user.avatarUrl} />}
       <AvatarFallback>{user?.name?.slice(0, 2) || user?.email?.slice(0, 2)}</AvatarFallback>
     </Avatar>

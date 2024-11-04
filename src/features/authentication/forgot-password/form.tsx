@@ -4,7 +4,7 @@ import { useAuthToken } from '@/hooks/auth-token'
 import AuthButton from '../components/auth-button'
 import { useServerActionMutation } from '@/hooks/server-action'
 import { forgotPasswordAction } from './action'
-import FormError from '../components/form-error'
+import FormError from '@/components/ui/form-error'
 import { useCountdown } from '@/hooks/countdown'
 
 export function ForgotPasswordForm() {

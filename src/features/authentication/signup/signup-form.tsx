@@ -4,7 +4,7 @@ import { signUpAction } from './action'
 import { useServerActionMutation } from '@/hooks/server-action'
 import AuthButton from '../components/auth-button'
 import { useAuthToken } from '@/hooks/auth-token'
-import FormError from '../components/form-error'
+import FormError from '@/components/ui/form-error'
 import { useCountdown } from '@/hooks/countdown'
 
 export default function SignUpForm() {

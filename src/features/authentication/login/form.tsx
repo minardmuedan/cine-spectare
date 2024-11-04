@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Dialog } from '@/components/ui/dialog'
+import FormError from '@/components/ui/form-error'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { useCountdown } from '@/hooks/countdown'
@@ -11,7 +12,6 @@ import { EyeIcon, EyeOffIcon, LogInIcon } from 'lucide-react'
 import { useState } from 'react'
 import { toast } from 'sonner'
 import AuthButton from '../components/auth-button'
-import FormError from '../components/form-error'
 import { ForgotPasswordDialogContent, ForgotPasswordDialogTrigger } from '../forgot-password'
 import { loginAction } from './action'
 

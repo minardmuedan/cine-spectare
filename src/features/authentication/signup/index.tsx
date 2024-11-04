@@ -1,15 +1,15 @@
 'use client'
 
-import OauthFooter from '@/features/authentication/oauth/oauth-footer'
 import { BackButton, buttonVariants } from '@/components/ui/button'
-import { CardContent, CardFooter, CardHeader } from '@/components/ui/card'
+import { CardContent, CardHeader } from '@/components/ui/card'
+import OauthFooter from '@/features/authentication/oauth/oauth-footer'
 import { useAuthToken } from '@/hooks/auth-token'
 import { ArrowLeftIcon } from 'lucide-react'
 import Link from 'next/link'
-import VerificationForm from '../verification/form'
-import ResendToken from '../verification/resend-token'
-import SignUpForm from './signup-form'
+import VerificationForm from '@/components/authentications/verification-form'
 import CreatePasswordForm from './create-password-form'
+import SignUpForm from './signup-form'
+import { verifyTokenAction } from '@/actions/verification'
 
 export default function SignUpProcedure() {
   const { token, setToken } = useAuthToken()
@@ -20,11 +20,8 @@ export default function SignUpProcedure() {
           <BackButton onClick={() => setToken(null)} className="ml-2 mt-2" />
           <CardHeader title="Enter Code" description="Check email for verification code" />
           <CardContent className="flex flex-col items-center justify-center">
-            <VerificationForm />
+            <VerificationForm action={verifyTokenAction} onSuccessFn={() => setToken({ ...token, ui: 'creating-password' })} />
           </CardContent>
-          <CardFooter className="justify-center">
-            <ResendToken />
-          </CardFooter>
         </>
       )
 

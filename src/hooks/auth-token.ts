@@ -3,7 +3,7 @@ import { create } from 'zustand'
 type AuthToken = {
   id: string
   ui: 'verification' | 'creating-password'
-  type: 'signup' | 'forgot-password'
+  type: 'signup' | 'forgot-password' | 'change-email'
 }
 
 type AuthTokenStore = {

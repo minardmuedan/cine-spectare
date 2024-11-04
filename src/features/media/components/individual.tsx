@@ -3,7 +3,7 @@ import MediaMutationsDropdown from './dropdown'
 
 export default function IndividualMedia(media: TMedia) {
   return (
-    <li className="rounded border bg-accent/30 p-2">
+    <div className="rounded border bg-accent/30 p-2">
       <div className="aspect-[1/1.5] bg-accent">
         <img src={`https://image.tmdb.org/t/p/w500${media.posterPath}`} className="object-fill" />
       </div>
@@ -13,6 +13,6 @@ export default function IndividualMedia(media: TMedia) {
 
         <MediaMutationsDropdown media={media} />
       </div>
-    </li>
+    </div>
   )
 }

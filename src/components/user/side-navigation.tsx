@@ -1,14 +1,31 @@
-import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import LogoutButton from '@/features/authentication/logout/logout-btn'
 import { useSession } from '@/hooks/session'
-import { CheckCheckIcon, ClockIcon, StarIcon } from 'lucide-react'
+import { EyeIcon, HistoryIcon, SettingsIcon, StarIcon } from 'lucide-react'
 import Link from 'next/link'
 import { UserAvatar } from '../ui/avatar'
 import { buttonVariants } from '../ui/button'
+import { Skeleton } from '../ui/skeleton'
 
 export default function UserSideNav() {
-  const { data } = useSession()
-  const userSession = data!
+  const { data: userSession, isPending: gettingUser } = useSession()
+
+  if (gettingUser) return <Skeleton className="size-10 rounded-full" />
+
+  if (!userSession)
+    return (
+      <Link href="/login" className={buttonVariants()}>
+        Login
+      </Link>
+    )
+
+  const navlinks = [
+    { icon: <SettingsIcon />, title: 'Settings', href: '/settings' },
+    { icon: <HistoryIcon />, title: 'History', href: '/settings/history' },
+    { icon: <StarIcon />, title: 'Your Likes', href: '/media/likes' },
+    { icon: <EyeIcon />, title: 'Your Watchlist', href: '/media/watchlist' },
+    { icon: <HistoryIcon />, title: 'Your Watched History', href: '/media/watched-history' },
+  ]
 
   return (
     <Sheet>
@@ -28,23 +45,29 @@ export default function UserSideNav() {
           </div>
         </SheetHeader>
 
-        <div className="flex flex-col *:justify-start *:gap-3">
-          <Link href="/user/media/likes" className={buttonVariants({ variant: 'ghost' })}>
-            <StarIcon className="fill-yellow-500 stroke-yellow-500" /> Your Likes
-          </Link>
-
-          <Link href="/user/media/watch-later" className={buttonVariants({ variant: 'ghost' })}>
-            <ClockIcon className="stroke-blue-500" /> Your Watch Later
-          </Link>
-
-          <Link href="/user/media/already-watched" className={buttonVariants({ variant: 'ghost' })}>
-            <CheckCheckIcon className="stroke-green-500" /> Your Already Watched
-          </Link>
-        </div>
-
-        <SheetFooter>
-          <LogoutButton />
-        </SheetFooter>
+        <ul className="*:flex *:flex-col *:*:justify-start *:*:gap-3">
+          <li className="mb-3 border-b pb-3">
+            {navlinks.slice(0, 2).map(({ icon, title, href }, i) => (
+              <SheetClose key={i} asChild>
+                <Link href={href} className={buttonVariants({ variant: 'ghost' })}>
+                  {icon}
+                  {title}
+                </Link>
+              </SheetClose>
+            ))}
+            <LogoutButton />
+          </li>
+          <li>
+            {navlinks.slice(2).map(({ icon, title, href }, i) => (
+              <SheetClose key={i} asChild>
+                <Link href={href} className={buttonVariants({ variant: 'ghost' })}>
+                  {icon}
+                  {title}
+                </Link>
+              </SheetClose>
+            ))}
+          </li>
+        </ul>
       </SheetContent>
     </Sheet>
   )

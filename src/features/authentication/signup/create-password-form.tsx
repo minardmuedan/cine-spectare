@@ -1,14 +1,14 @@
-import { useState } from 'react'
-import CreatePasswordInput from '../components/password-input'
-import { passwordSchema } from '../schema'
+import CreatePasswordInput from '@/components/authentications/password-input'
 import { Button } from '@/components/ui/button'
-import { useServerActionMutation } from '@/hooks/server-action'
-import { createPasswordAction } from './action'
-import { Loader2Icon } from 'lucide-react'
-import FormError from '../components/form-error'
-import { toast } from 'sonner'
+import FormError from '@/components/ui/form-error'
 import { useAuthToken } from '@/hooks/auth-token'
+import { useServerActionMutation } from '@/hooks/server-action'
 import { useQueryClient } from '@tanstack/react-query'
+import { Loader2Icon } from 'lucide-react'
+import { useState } from 'react'
+import { toast } from 'sonner'
+import { passwordSchema } from '../schema'
+import { createPasswordAction } from './action'
 
 export default function CreatePasswordForm() {
   const { token, setToken } = useAuthToken()

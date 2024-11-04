@@ -17,8 +17,8 @@ export default function MediaMutationsDropdown({ media }: { media: TMedia }) {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent className="flex min-w-60 flex-col gap-1 p-2">
-        <ToggleLikeMutationButton media={media} render={props => <DropdownMenuItem {...props} />} />
         <ToggleWatchLaterMutationButton media={media} render={props => <DropdownMenuItem {...props} />} />
+        <ToggleLikeMutationButton media={media} render={props => <DropdownMenuItem {...props} />} />
         <ToggleAlreadyWatchedMutationButton media={media} render={props => <DropdownMenuItem {...props} />} />
       </DropdownMenuContent>
     </DropdownMenu>

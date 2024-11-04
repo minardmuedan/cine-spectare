@@ -4,7 +4,7 @@ import { HomeIcon, LogInIcon, ShieldAlertIcon } from 'lucide-react'
 
 export default function UnauthorizedUi() {
   return (
-    <div className="flex min-h-[calc(100dvh-3.5rem)] flex-col items-center justify-center px-3 py-10 text-center">
+    <section className="flex min-h-[calc(100dvh-3.5rem)] flex-col items-center justify-center px-3 py-10 text-center">
       <ShieldAlertIcon className="mb-3 size-20 stroke-primary" />
 
       <h1 className="text-3xl font-semibold text-primary">Unauthorized Access!</h1>
@@ -20,6 +20,6 @@ export default function UnauthorizedUi() {
           Login <LogInIcon />
         </Link>
       </div>
-    </div>
+    </section>
   )
 }

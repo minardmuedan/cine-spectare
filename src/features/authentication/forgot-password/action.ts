@@ -1,14 +1,15 @@
 'use server'
 
-import { createServerAction, ZSAError } from 'zsa'
-import { emailSchema, passwordSchema, tokenIdSchema } from '../schema'
-import { rateLimiter } from '@/lib/rate-limiter'
-import { getIpAddress } from '@/lib/helpers/headers'
-import { getCredentialsUserByEmailDb, updateUserPasswordByEmailDb } from '@/db/utils/users'
 import { createTokenDb, deleteTokenByPayloadDb, deleteTokenDb } from '@/db/utils/token'
+import { getCredentialsUserByEmailDb, updateUserPasswordDb } from '@/db/utils/users'
 import { generate6DigitCode, generateId } from '@/lib/helpers/generate'
-import { verifyAndGetToken } from '../_helpers'
+import { getIpAddress } from '@/lib/helpers/headers'
+import { verifyAndGetToken } from '@/lib/helpers/verify-get-token'
+import { rateLimiter } from '@/lib/rate-limiter'
+import { tokenIdSchema } from '@/lib/schema'
 import { Argon2id } from 'oslo/password'
+import { createServerAction, ZSAError } from 'zsa'
+import { emailSchema, passwordSchema } from '../schema'
 
 export const forgotPasswordAction = createServerAction()
   .input(emailSchema)
@@ -31,14 +32,17 @@ export const forgotPasswordAction = createServerAction()
     return { id } as { isExceed: undefined; id: string }
   })
 
-export const changePasswordAction = createServerAction()
+export const forgotPasswordChangePasswordAction = createServerAction()
   .input(tokenIdSchema.and(passwordSchema))
   .handler(async ({ input: { tokenId, password } }) => {
     const token = await verifyAndGetToken(tokenId)
 
     if (token.purpose !== 'change-password') throw new ZSAError('NOT_FOUND', 'Incorrect token purpose')
 
+    const user = await getCredentialsUserByEmailDb(token.emailPayload)
+    if (!user) throw new ZSAError('NOT_FOUND', 'User was not found! Please try again')
+
     const hashedPassword = await new Argon2id().hash(password)
     await deleteTokenDb(tokenId).catch(() => {})
-    await updateUserPasswordByEmailDb(token.emailPayload, hashedPassword)
+    await updateUserPasswordDb(user.id, hashedPassword)
   })
