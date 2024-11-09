@@ -10,17 +10,19 @@ import { ZodIntersection } from 'zod'
 import { codeSchema, tokenIdSchema } from '@/lib/schema'
 import ResendToken from './resend-token'
 
-type ServerAction = THandlerFunc<
+type ServerAction<TProcedureChainOutput> = THandlerFunc<
   ZodIntersection<typeof tokenIdSchema, typeof codeSchema>,
   undefined,
   'ShapeErrorNotSet',
   Promise<{ isExceed: true; remainingSeconds: number } | undefined>,
-  undefined,
+  TProcedureChainOutput,
   'json',
-  false
+  boolean
 >
 
-export default function VerificationForm({ action, onSuccessFn }: { action: ServerAction; onSuccessFn: () => void }) {
+type Props<TProcedureChainOutput> = { action: ServerAction<TProcedureChainOutput>; onSuccessFn: () => void }
+
+export default function VerificationForm<TProcedureChainOutput>({ action, onSuccessFn }: Props<TProcedureChainOutput>) {
   const { token, setToken } = useAuthToken()
   const { timeLeft, setTimeLeft } = useCountdown()
 

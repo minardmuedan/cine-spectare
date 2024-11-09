@@ -14,4 +14,12 @@ export const mediaSchema = z.object({
   type: z.enum(['movie', 'tv']),
 })
 
+export const viewHistorySchema = z.object({
+  id: z.number().min(1, 'Media id is Required'),
+  posterPath: z.string(),
+  title: z.string(),
+  type: z.enum(['movie', 'tv']),
+})
+
 export type TMedia = z.infer<typeof mediaSchema>
+export type TViewHistoryMedia = z.infer<typeof viewHistorySchema>

@@ -3,7 +3,7 @@ import PageHeader from '@/components/pages/header'
 import Section from '@/components/pages/section'
 import UnauthorizedUi from '@/components/pages/unauthorized'
 import { getUserAlreadyWatchedDb } from '@/db/utils/media/already-watched'
-import IndividualMedia from '@/features/media/components/individual'
+import MediaCard from '@/features/media/components/media-card'
 import tryCatchWrapper from '@/lib/helpers/try-catch'
 import { validateSession } from '@/lib/session/validate'
 
@@ -22,7 +22,7 @@ export default async function WatchedHistoryPage() {
 
       <ul className="grid grid-cols-5 gap-3">
         {alreadyWatchedMedia.toReversed().map(({ media }) => (
-          <IndividualMedia key={media.id} {...media} />
+          <MediaCard key={media.id} media={media} />
         ))}
       </ul>
     </Section>

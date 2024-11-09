@@ -12,5 +12,11 @@ export const getCredentialsUserByEmailDb = async (email: string) =>
 
 export const getUserByOauthIdDb = async (oauthId: string) => await db.query.userTable.findFirst({ where: eq(userTable.oauthId, oauthId) })
 
+export const updateUserEmailDb = async (userId: string, email: string) =>
+  db.update(userTable).set({ email, updatedAt: new Date() }).where(eq(userTable.id, userId))
+
 export const updateUserPasswordDb = async (userId: string, hashedPassword: string) =>
   db.update(userTable).set({ hashedPassword, updatedAt: new Date() }).where(eq(userTable.id, userId))
+
+export const updateUserProfileDb = async ({ userId, name, avatarUrl }: { userId: string; name: string | null; avatarUrl?: string }) =>
+  await db.update(userTable).set({ name, avatarUrl, updatedAt: new Date() }).where(eq(userTable.id, userId))

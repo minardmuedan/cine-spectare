@@ -2,7 +2,7 @@
 
 import { buttonVariants } from '@/components/ui/button'
 import LogoutButton from '@/features/authentication/logout/logout-btn'
-import { ChevronRightIcon, HistoryIcon, Settings2Icon, ShieldIcon, User2Icon } from 'lucide-react'
+import { ChevronRightIcon, HistoryIcon, ShieldIcon, User2Icon } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
@@ -12,7 +12,6 @@ export default function SettingsSideNav() {
   const navlinks = [
     { icon: <User2Icon />, title: 'Profile', href: '/settings/profile' },
     { icon: <ShieldIcon />, title: 'Privacy & Security', href: '/settings/privacy-security' },
-    { icon: <Settings2Icon />, title: 'Preferences', href: '/settings/preferences' },
     { icon: <HistoryIcon />, title: 'History', href: '/settings/history' },
   ] as const
 

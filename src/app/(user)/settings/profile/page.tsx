@@ -1,36 +1,20 @@
 import Back from '@/components/back-button'
 import UnauthorizedUi from '@/components/pages/unauthorized'
-import { UserAvatar } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
+import Profile from '@/features/settings/profile'
 import { validateSession } from '@/lib/session/validate'
 
 export default async function UserProfilePage() {
+  await new Promise(res => setTimeout(res, 5000))
+
   const { user } = await validateSession()
-  if (!user) return <UnauthorizedUi />
+  if (!user) return <UnauthorizedUi className="min-h-full" />
 
   return (
-    <div className="max-w-[700px] flex-1 space-y-3 p-2">
-      <Back className="md:hidden" />
-
+    <div className="flex-1">
+      <Back className="mb-3 md:hidden" />
       <h2 className="mb-5 text-muted-foreground">Your Profile</h2>
 
-      <UserAvatar {...user} className="size-20" />
-
-      <p>
-        <span className="text-muted-foreground">email : </span>
-        {user.email}
-      </p>
-
-      <form>
-        <Label>Username</Label>
-        <Input placeholder="no username" defaultValue={user.name ?? undefined} className="mb-6 mt-2" />
-
-        <Button disabled className="w-full md:w-fit">
-          Update Profile
-        </Button>
-      </form>
+      <Profile user={user} />
     </div>
   )
 }

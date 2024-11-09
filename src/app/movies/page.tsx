@@ -2,7 +2,7 @@ import BackgroundMediaImage from '@/components/pages/background-image'
 import PageHeader from '@/components/pages/header'
 import Section from '@/components/pages/section'
 import MediaGrid from '@/features/media/components/grid'
-import IndividualMedia from '@/features/media/components/individual'
+import MediaCard from '@/features/media/components/media-card'
 import { getMovies } from '@/lib/tmdb/movies'
 
 export default async function PopularMovies() {
@@ -16,15 +16,17 @@ export default async function PopularMovies() {
 
       <MediaGrid>
         {movies.results.map(movie => (
-          <IndividualMedia
+          <MediaCard
             key={movie.id}
-            id={movie.id}
-            title={movie.title}
-            posterPath={movie.poster_path}
-            backdropPath={movie.backdrop_path}
-            voteAverage={movie.vote_average}
-            releaseDate={movie.release_date}
-            type="movie"
+            media={{
+              id: movie.id,
+              title: movie.title,
+              posterPath: movie.poster_path,
+              backdropPath: movie.backdrop_path,
+              voteAverage: movie.vote_average,
+              releaseDate: movie.release_date,
+              type: 'movie',
+            }}
           />
         ))}
       </MediaGrid>

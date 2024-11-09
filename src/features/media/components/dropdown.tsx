@@ -12,7 +12,7 @@ export default function MediaMutationsDropdown({ media }: { media: TMedia }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
-        <EllipsisVerticalIcon size={20} />
+        <EllipsisVerticalIcon size={18} />
         <span className="sr-only">Open Media Menu</span>
       </DropdownMenuTrigger>
 

@@ -10,10 +10,7 @@ export default function Navbar() {
       <div className="flex h-full items-center justify-between">
         <Link href="/">Home</Link>
 
-        <div className="flex gap-10">
-          <Link href="/movies">Movies</Link>
-          <Link href="/mema">Mema</Link>
-        </div>
+        <Link href="/movies">Movies</Link>
 
         <div className="flex items-center gap-10">
           <UserSideNav />

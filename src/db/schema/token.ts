@@ -1,6 +1,13 @@
 import { pgEnum, pgTable, text, timestamp } from 'drizzle-orm/pg-core'
 
-export const purposeEnum = pgEnum('purpose', ['email-verification', 'create-password', 'change-password-verification', 'change-password'])
+export const purposeEnum = pgEnum('purpose', [
+  'email-verification',
+  'create-password',
+  'change-password-verification',
+  'change-password',
+  'change-email-verification',
+  'change-email',
+])
 
 export const tokenTable = pgTable('token', {
   id: text().primaryKey(),
