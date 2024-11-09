@@ -3,24 +3,26 @@ import Link from 'next/link'
 import { ButtonProps, buttonVariants } from './button'
 import { cn } from '@/lib/utils'
 
-const PaginationLink = (props: ButtonProps & { href: string; isActive?: boolean }) => {
+type Href = string
+
+const PaginationLink = (props: ButtonProps & { href: Href; isActive?: boolean }) => {
   return (
     <li className={props.className}>
-      <Link href={props.href} className={buttonVariants({ variant: props.isActive ? 'outline' : 'ghost', size: props.size || 'icon' })}>
+      <Link href={props.href} className={buttonVariants({ variant: props.isActive ? 'default' : 'ghost', size: props.size || 'icon' })}>
         {props.children}
       </Link>
     </li>
   )
 }
 
-const PaginationPrevious = () => (
-  <PaginationLink size="default" href="#">
+const PaginationPrevious = ({ href }: { href: Href }) => (
+  <PaginationLink size="default" href={href}>
     <ChevronLeft className="size-4" /> <span>Previous</span>
   </PaginationLink>
 )
 
-const PaginationNext = () => (
-  <PaginationLink size="default" href="#">
+const PaginationNext = ({ href }: { href: Href }) => (
+  <PaginationLink size="default" href={href}>
     <span>Next</span> <ChevronRight className="size-4" />
   </PaginationLink>
 )
@@ -39,12 +41,12 @@ export default function Pagination({ currentPage, maxPage }: { currentPage: numb
   let page = currentPage > 1 ? currentPage - 1 : currentPage
 
   return (
-    <ul className="flex items-center gap-1">
+    <ul className="my-10 flex items-center justify-center gap-1">
       {currentPage > 1 ? (
-        <PaginationPrevious />
+        <PaginationPrevious href={`?page=${currentPage - 1}`} />
       ) : (
         [...Array(2)].map(() => (
-          <PaginationLink key={page} href="#" isActive={page === currentPage}>
+          <PaginationLink key={page} href={`?page=${page}`} isActive={page === currentPage}>
             {page++}
           </PaginationLink>
         ))
@@ -53,7 +55,7 @@ export default function Pagination({ currentPage, maxPage }: { currentPage: numb
       {[...Array(4)].map(
         () =>
           page <= maxPage && (
-            <PaginationLink key={page} href="#" isActive={page === currentPage}>
+            <PaginationLink key={page} href={`?page=${page}`} isActive={page === currentPage}>
               {page++}
             </PaginationLink>
           ),
@@ -61,7 +63,12 @@ export default function Pagination({ currentPage, maxPage }: { currentPage: numb
 
       {/* for md show 2 more item */}
       {[...Array(2)].map(() => (
-        <PaginationLink key={page} href="#" isActive={page === currentPage} className={` ${page > maxPage ? 'hidden' : 'hidden md:block'}`}>
+        <PaginationLink
+          key={page}
+          href={`?page=${page}`}
+          isActive={page === currentPage}
+          className={` ${page > maxPage ? 'hidden' : 'hidden md:block'}`}
+        >
           {page++}
         </PaginationLink>
       ))}
@@ -69,7 +76,7 @@ export default function Pagination({ currentPage, maxPage }: { currentPage: numb
       {page <= maxPage && <PaginationMore className="hidden md:grid" />}
       {page - 2 <= maxPage && <PaginationMore className="md:hidden" />}
 
-      {currentPage < maxPage && <PaginationNext />}
+      {currentPage < maxPage && <PaginationNext href={`?page=${currentPage + 1}`} />}
     </ul>
   )
 }

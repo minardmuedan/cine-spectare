@@ -1,18 +1,39 @@
-export type TMovie = {
+type SharedType = {
   adult: boolean
+  poster_path: string
   backdrop_path: string
-  genre_ids: number[]
   id: number
-  original_language: string
+  title: string
   original_title: string
   overview: string
+  original_language: string
   popularity: number
-  poster_path: string
-  release_date: string
-  title: string
   video: boolean
   vote_average: number
   vote_count: number
+  release_date: string
+}
+
+export type TFullMovie = SharedType & {
+  runtime: number
+  genres: {
+    id: number
+    name: string
+  }[]
+  homepage: string
+  tagline: string
+  production_companies: {
+    id: number
+    logo_path: string
+    name: string
+    origin_country: string
+  }[]
+  budget: number
+  revenue: number
+}
+
+export type TMovie = SharedType & {
+  genre_ids: number[]
 }
 
 export type TMovies = {

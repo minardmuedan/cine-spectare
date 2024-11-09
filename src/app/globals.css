@@ -68,6 +68,10 @@
   * {
     @apply border-border;
   }
+  html {
+    @apply scroll-smooth;
+  }
+
   body {
     @apply dark bg-background text-foreground;
   }

@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { useIsAlreadyWatchedMutating, useAlreadyWatched, useAlreadyWatchedMutation } from '../hooks'
 import { CheckCheckIcon, Loader2Icon } from 'lucide-react'
@@ -28,5 +30,5 @@ export default function ToggleAlreadyWatchedMutationButton({ media, render, ...b
   }
 
   if (render) return render(props)
-  return <Button {...props} />
+  return <Button {...props} variant="outline" />
 }

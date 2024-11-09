@@ -1,3 +1,5 @@
+'use client'
+
 import { Button } from '@/components/ui/button'
 import { ClockIcon, Loader2Icon } from 'lucide-react'
 import { TToggleMutationProps } from '../../type'
@@ -28,5 +30,5 @@ export default function ToggleWatchLaterMutationButton({ media, render, ...butto
   }
 
   if (render) return render(props)
-  return <Button {...props} />
+  return <Button {...props} variant="outline" />
 }

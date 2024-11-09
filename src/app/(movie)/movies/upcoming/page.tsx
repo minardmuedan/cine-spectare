@@ -1,17 +1,23 @@
 import BackgroundMediaImage from '@/components/pages/background-image'
+import Pagination from '@/components/ui/pagination'
 import MediaGrid from '@/features/media/components/grid'
 import MediaCard from '@/features/media/components/media-card'
-import { getMovies } from '@/lib/tmdb/movies'
+import { getUpcomingMovies } from '@/lib/tmdb/movies'
+import { Fragment } from 'react'
 
-export default async function PopularMovies() {
-  await new Promise(res => setTimeout(res, 5000))
+type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
 
-  const [error, movies] = await getMovies()
+export default async function UpcomingMoviesPage(props: { searchParams: SearchParams }) {
+  const searchParams = await props.searchParams
+  const page = Number(searchParams.page || 1)
+
+  const [error, movies] = await getUpcomingMovies(page)
 
   if (error) return <p>{error.message}</p>
   return (
-    <>
+    <Fragment key={page}>
       <BackgroundMediaImage src={movies.results[0].backdrop_path} />
+
       <MediaGrid>
         {movies.results.map(movie => (
           <MediaCard
@@ -29,7 +35,7 @@ export default async function PopularMovies() {
         ))}
       </MediaGrid>
 
-      <div className="border">pagination</div>
-    </>
+      <Pagination currentPage={page} maxPage={movies.total_pages} />
+    </Fragment>
   )
 }

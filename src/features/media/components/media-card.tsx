@@ -8,7 +8,7 @@ export default function MediaCard({ media }: { media: TMedia }) {
   return (
     <div className="rounded border bg-accent-muted">
       <ViewHistoryWrapper className="px-2 pt-2" media={media}>
-        <Link href={'/'}>
+        <Link href={`/${media.type}/${media.id}`}>
           <div className="aspect-[1/1.5] overflow-hidden rounded bg-accent">
             <img src={`https://image.tmdb.org/t/p/w500${media.posterPath}`} className="object-fill" />
           </div>
