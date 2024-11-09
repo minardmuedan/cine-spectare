@@ -4,8 +4,6 @@ import Profile from '@/features/settings/profile'
 import { validateSession } from '@/lib/session/validate'
 
 export default async function UserProfilePage() {
-  await new Promise(res => setTimeout(res, 5000))
-
   const { user } = await validateSession()
   if (!user) return <UnauthorizedUi className="min-h-full" />
 

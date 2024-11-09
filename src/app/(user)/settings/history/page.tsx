@@ -32,7 +32,7 @@ export default async function UserHistoryPage() {
           </ul>
         </>
       ) : (
-        <p>no history</p>
+        <p className="mt-5 text-sm text-muted-foreground">no history found</p>
       )}
     </div>
   )

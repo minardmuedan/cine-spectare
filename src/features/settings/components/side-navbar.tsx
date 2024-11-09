@@ -22,7 +22,7 @@ export default function SettingsSideNav() {
   )
 
   return (
-    <aside className={`sticky top-2 h-fit w-full rounded border p-4 md:w-80 ${pathname !== '/settings' && 'hidden md:block'}`}>
+    <aside className={`top-16 h-fit w-full rounded border p-4 md:sticky md:w-80 ${pathname !== '/settings' && 'hidden md:block'}`}>
       <h1 className="mb-4 text-center text-xl font-medium text-muted-foreground md:text-start">Settings</h1>
       <nav className="flex flex-col gap-1 *:justify-start">
         <Link
