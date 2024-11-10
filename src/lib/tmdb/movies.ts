@@ -1,6 +1,6 @@
 import tryCatchWrapper from '../helpers/try-catch'
 import { TMDBFetcher } from './fetcher'
-import { TFullMovie, TMovies } from './type'
+import { TCredits, TFullMovie, TMovies } from './type'
 
 export const getPopularMovies = (page: number) =>
   tryCatchWrapper(async () => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/popular?page=${page}`))
@@ -15,3 +15,6 @@ export const getUpcomingMovies = (page: number) =>
   tryCatchWrapper(async () => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/upcoming?page=${page}`))
 
 export const getMovieDetails = (id: string) => tryCatchWrapper(async () => await TMDBFetcher<TFullMovie>(`https://api.themoviedb.org/3/movie/${id}`))
+
+export const getMovieCredits = (id: string) =>
+  tryCatchWrapper(async () => await TMDBFetcher<TCredits>(`https://api.themoviedb.org/3/movie/${id}/credits`))

@@ -73,6 +73,6 @@
   }
 
   body {
-    @apply dark bg-background text-foreground;
+    @apply dark overflow-x-hidden bg-background text-foreground;
   }
 }
