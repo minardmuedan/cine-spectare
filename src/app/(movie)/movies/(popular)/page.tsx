@@ -1,7 +1,7 @@
 import BackgroundMediaImage from '@/components/pages/background-image'
 import Pagination from '@/components/ui/pagination'
 import MediaGrid from '@/features/media/components/grid'
-import MediaCard from '@/features/media/components/media-card'
+import MediaCard from '@/features/media/components/card'
 import { getPopularMovies } from '@/lib/tmdb/movies'
 import { Fragment } from 'react'
 

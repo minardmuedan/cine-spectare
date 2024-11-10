@@ -18,8 +18,8 @@ export default function MediaCredits({ casts }: { casts: TCast[] }) {
       </div>
 
       <CarouselContent>
-        {casts.map(cast => (
-          <CarouselItem key={cast.id} className="basis-28">
+        {casts.map((cast, i) => (
+          <CarouselItem key={i} className="basis-28">
             <TmdbImage
               title={cast.name}
               src={cast.profile_path}

@@ -1,6 +1,6 @@
 import PageHeader from '@/components/pages/header'
 import Section from '@/components/pages/section'
-import { MediaLoadingFallback } from '@/features/media/components/loading-fallback'
+import { MediaGridLoadingFallback } from '@/features/media/components/grid'
 import { Suspense } from 'react'
 
 export default function PopularMoviesLayout({ children }: { children: React.ReactNode }) {
@@ -8,7 +8,7 @@ export default function PopularMoviesLayout({ children }: { children: React.Reac
     <Section>
       <PageHeader title="Popular Movies" description="Discover the latest trending films loved by audiences worldwide" />
 
-      <Suspense fallback={<MediaLoadingFallback />}>{children}</Suspense>
+      <Suspense fallback={<MediaGridLoadingFallback />}>{children}</Suspense>
     </Section>
   )
 }

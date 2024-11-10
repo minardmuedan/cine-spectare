@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { create } from 'zustand'
 import { InView } from 'react-intersection-observer'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 
 const movieDetailsSectionStore = create<{ activeSection: Sections | null }>(() => ({ activeSection: null }))
 
@@ -14,7 +15,7 @@ export const MovieDetailsSectionsSideNav = () => {
   const activeIndex = activeSection ? navs.indexOf(activeSection) : -1
 
   return (
-    <div className="sticky top-16 hidden h-fit md:block">
+    <div className="sticky top-0 hidden h-fit pt-20 md:block">
       <h2 className="text-xl font-medium text-muted-foreground">On this Page</h2>
       <nav className="relative mt-2 flex flex-col *:justify-start *:rounded-none">
         <div
@@ -34,13 +35,15 @@ export const MovieDetailsSectionsSideNav = () => {
   )
 }
 
-export const MovieSection = ({ section, ...props }: SectionProps) => {
+export const MovieSection = ({ section, className, ...props }: SectionProps) => {
   return (
     <InView
       id={section.split(' & ').join('-').toLowerCase()}
       as="section"
-      threshold={[0.5, 1]}
+      threshold={0.01}
+      rootMargin="-25% 0px -65% 0px"
       onChange={inView => inView && movieDetailsSectionStore.setState({ activeSection: section })}
+      className={cn('pt-20', className)}
       {...props}
     />
   )

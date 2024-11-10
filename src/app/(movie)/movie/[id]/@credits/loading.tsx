@@ -1,11 +1,11 @@
 import { Skeleton } from '@/components/ui/skeleton'
-import { MediaCreditsLoadingFallback } from '@/features/media/components/media-credits'
+import { MediaCreditsLoadingFallback } from '@/features/media/components/credits'
 
 export default function MovieCreditsLoading() {
   return (
-    <div>
+    <>
       <div className="mb-4 flex items-center justify-between gap-2">
-        <Skeleton className="h-7 w-40" />
+        <h3 className="text-xl font-medium text-muted-foreground">Credits</h3>
 
         <div className="flex gap-2">
           <Skeleton className="size-10" />
@@ -14,6 +14,6 @@ export default function MovieCreditsLoading() {
       </div>
 
       <MediaCreditsLoadingFallback />
-    </div>
+    </>
   )
 }

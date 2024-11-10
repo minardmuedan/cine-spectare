@@ -3,7 +3,7 @@ import PageHeader from '@/components/pages/header'
 import Section from '@/components/pages/section'
 import UnauthorizedUi from '@/components/pages/unauthorized'
 import { getUserAlreadyWatchedDb } from '@/db/utils/media/already-watched'
-import MediaCard from '@/features/media/components/media-card'
+import MediaCard from '@/features/media/components/card'
 import tryCatchWrapper from '@/lib/helpers/try-catch'
 import { validateSession } from '@/lib/session/validate'
 

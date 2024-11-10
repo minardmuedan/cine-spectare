@@ -3,14 +3,15 @@ import { TMedia } from '@/lib/schema'
 import { StarIcon } from 'lucide-react'
 import MediaMutationsDropdown from './dropdown'
 import Link from 'next/link'
+import TmdbImage from '@/components/tmdb-image'
 
 export default function MediaCard({ media }: { media: TMedia }) {
   return (
-    <div className="rounded border bg-accent-muted">
+    <li className="rounded border bg-accent-muted">
       <ViewHistoryWrapper className="px-2 pt-2" media={media}>
         <Link href={`/${media.type}/${media.id}`}>
           <div className="aspect-[1/1.5] overflow-hidden rounded bg-accent">
-            <img src={`https://image.tmdb.org/t/p/w500${media.posterPath}`} className="object-fill" />
+            <TmdbImage src={media.posterPath} alt={`${media.title} poster`} className="object-fill" />
           </div>
 
           <p title={media.title} className="mb-2 mt-1 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
@@ -28,6 +29,6 @@ export default function MediaCard({ media }: { media: TMedia }) {
 
         <MediaMutationsDropdown media={media} />
       </div>
-    </div>
+    </li>
   )
 }

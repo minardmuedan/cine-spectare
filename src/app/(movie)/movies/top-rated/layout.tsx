@@ -1,6 +1,6 @@
 import PageHeader from '@/components/pages/header'
 import Section from '@/components/pages/section'
-import { MediaLoadingFallback } from '@/features/media/components/loading-fallback'
+import { MediaGridLoadingFallback } from '@/features/media/components/grid'
 import { Suspense } from 'react'
 
 export default function TopRatedMoviesLayout({ children }: { children: React.ReactNode }) {
@@ -8,7 +8,7 @@ export default function TopRatedMoviesLayout({ children }: { children: React.Rea
     <Section>
       <PageHeader title="Top Rated Movies" description="Explore critically acclaimed films with the highest ratings" />
 
-      <Suspense fallback={<MediaLoadingFallback />}>{children}</Suspense>
+      <Suspense fallback={<MediaGridLoadingFallback />}>{children}</Suspense>
     </Section>
   )
 }

@@ -1,5 +1,5 @@
 import { Skeleton } from '@/components/ui/skeleton'
-import { MediaGenresLoadingFallback } from '@/features/media/components/media-genres'
+import { MediaGenresKeywordsLoadingFallback } from '@/features/media/components/genres-keywords'
 
 export default function MovieDetailsLoading() {
   return (
@@ -26,7 +26,7 @@ export default function MovieDetailsLoading() {
           ))}
         </div>
 
-        <MediaGenresLoadingFallback />
+        <MediaGenresKeywordsLoadingFallback />
       </div>
     </>
   )

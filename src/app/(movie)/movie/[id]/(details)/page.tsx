@@ -1,14 +1,13 @@
 import BackgroundMediaImage from '@/components/pages/background-image'
+import TmdbImage from '@/components/tmdb-image'
 import ToggleAlreadyWatchedMutationButton from '@/features/media/already-watched/components/toggle-already-watched-mutation'
-import { MediaGenres } from '@/features/media/components/media-genres'
+import { MediaGenres } from '@/features/media/components/genres-keywords'
 import ToggleLikeMutationButton from '@/features/media/likes/components/toggle-like-mutation'
 import ToggleWatchLaterMutationButton from '@/features/media/watch-later/components/toggle-watch-later-mutation'
 import { getMovieDetails } from '@/lib/tmdb/movies'
 import { Building2Icon, CalendarFoldIcon, HourglassIcon } from 'lucide-react'
 
 export default async function MovieDetailsPage(props: { params: Promise<{ id: string }> }) {
-  await new Promise(res => setTimeout(res, 5000))
-
   const { id } = await props.params
   const [error, movie] = await getMovieDetails(id)
   if (error) return <p>{error.message}</p>
@@ -28,7 +27,7 @@ export default async function MovieDetailsPage(props: { params: Promise<{ id: st
       <BackgroundMediaImage src={movie.backdrop_path} />
 
       <div className="mx-auto aspect-[1/1.5] w-full max-w-72 overflow-hidden rounded md:mx-0">
-        <img src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`} className="object-cover" />
+        <TmdbImage src={movie.poster_path} alt={`${movie.title} poster`} className="object-cover" />
       </div>
 
       <div className="flex-1">
@@ -42,7 +41,7 @@ export default async function MovieDetailsPage(props: { params: Promise<{ id: st
           <ToggleAlreadyWatchedMutationButton media={media} />
         </div>
 
-        <ul className="mt-10 flex max-w-[700px] flex-col gap-4 text-sm *:flex *:gap-3">
+        <ul className="my-10 flex max-w-[700px] flex-col gap-4 text-sm *:flex *:gap-3">
           {movie.release_date && (
             <li>
               <CalendarFoldIcon size={16} />
@@ -66,7 +65,7 @@ export default async function MovieDetailsPage(props: { params: Promise<{ id: st
           )}
         </ul>
 
-        <MediaGenres genres={movie.genres} className="mt-10" />
+        <MediaGenres genres={movie.genres} />
       </div>
     </>
   )
