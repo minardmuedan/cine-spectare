@@ -1,6 +1,6 @@
 import PageHeader from '@/components/pages/header'
 import Section from '@/components/pages/section'
-import { MediaGridLoadingFallback } from '@/features/media/components/grid'
+import { MediaListLoadingFallback } from '@/features/media/components/list'
 import { Suspense } from 'react'
 
 export default function NowPlayingMoviesLayout({ children }: { children: React.ReactNode }) {
@@ -8,7 +8,7 @@ export default function NowPlayingMoviesLayout({ children }: { children: React.R
     <Section>
       <PageHeader title="Now Playing Movies" description="Check out the hottest movies currently in theater" />
 
-      <Suspense fallback={<MediaGridLoadingFallback />}>{children}</Suspense>
+      <Suspense fallback={<MediaListLoadingFallback />}>{children}</Suspense>
     </Section>
   )
 }

@@ -1,7 +1,7 @@
 import MediaCredits from '@/features/media/components/credits'
 import { getMovieCredits } from '@/lib/tmdb/movies'
 
-export default async function MovieCredits(props: { params: Promise<{ id: string }> }) {
+export default async function MovieCreditsPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params
   const [error, credits] = await getMovieCredits(id)
 

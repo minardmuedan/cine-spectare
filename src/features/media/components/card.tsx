@@ -4,19 +4,23 @@ import { StarIcon } from 'lucide-react'
 import MediaMutationsDropdown from './dropdown'
 import Link from 'next/link'
 import TmdbImage from '@/components/tmdb-image'
+import { Skeleton } from '@/components/ui/skeleton'
+import { cn } from '@/lib/utils'
 
 export default function MediaCard({ media }: { media: TMedia }) {
   return (
-    <li className="rounded border bg-accent-muted">
-      <ViewHistoryWrapper className="px-2 pt-2" media={media}>
+    <div className="rounded border bg-accent-muted">
+      <ViewHistoryWrapper media={media}>
         <Link href={`/${media.type}/${media.id}`}>
-          <div className="aspect-[1/1.5] overflow-hidden rounded bg-accent">
-            <TmdbImage src={media.posterPath} alt={`${media.title} poster`} className="object-fill" />
-          </div>
+          <div className="p-2">
+            <div className="aspect-[1/1.5] overflow-hidden rounded bg-accent">
+              <TmdbImage src={media.posterPath} alt={`${media.title} poster`} className="object-fill" />
+            </div>
 
-          <p title={media.title} className="mb-2 mt-1 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
-            {media.title}
-          </p>
+            <p title={media.title} className="mt-1 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm">
+              {media.title}
+            </p>
+          </div>
         </Link>
       </ViewHistoryWrapper>
 
@@ -29,6 +33,16 @@ export default function MediaCard({ media }: { media: TMedia }) {
 
         <MediaMutationsDropdown media={media} />
       </div>
-    </li>
+    </div>
+  )
+}
+
+export function MediaCardLoadingFallback({ className }: { className?: string }) {
+  return (
+    <div className={cn('flex h-full flex-col gap-2 rounded border bg-accent-muted p-2', className)}>
+      <Skeleton className="aspect-[1/1.5] h-full rounded" />
+      <Skeleton className="h-4 w-3/4" />
+      <Skeleton className="h-3.5 w-1/3" />
+    </div>
   )
 }

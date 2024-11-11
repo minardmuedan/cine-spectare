@@ -14,7 +14,7 @@ export default async function UserPrivacyAndSecurityPage() {
     <div className="flex-1">
       <Back className="mb-3 md:hidden" />
 
-      <h2 className="mb-5 mt-0 text-muted-foreground">Privacy & Security</h2>
+      <h2 className="mb-4 mt-0 text-muted-foreground">Privacy & Security</h2>
 
       {user?.provider !== 'credentials' ? (
         <>

@@ -1,4 +1,4 @@
-import { TCast } from '@/lib/tmdb/type'
+import { TCast } from '@/lib/tmdb/_movie-type'
 import TmdbImage from '@/components/tmdb-image'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { Skeleton } from '@/components/ui/skeleton'

@@ -1,7 +1,7 @@
 import { Button } from '@/components/ui/button'
 import { getMovieKeywords } from '@/lib/tmdb/movies'
 
-export default async function MovieKeywords(props: { params: Promise<{ id: string }> }) {
+export default async function MovieKeywordsPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params
   const [error, keywords] = await getMovieKeywords(id)
 
@@ -9,7 +9,7 @@ export default async function MovieKeywords(props: { params: Promise<{ id: strin
 
   return (
     <div>
-      <h3 className="mb-5 text-xl font-medium text-muted-foreground">
+      <h3 className="mb-4 text-xl font-medium text-muted-foreground">
         Keywords <span className="text-sm">{keywords.keywords.length}</span>
       </h3>
 

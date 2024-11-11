@@ -3,7 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 export default function MovieReviewsLoading() {
   return (
     <div className="max-w-[700px]">
-      <h3 className="mb-5 text-xl font-medium text-muted-foreground">Reviews</h3>
+      <h3 className="mb-4 text-xl font-medium text-muted-foreground">Reviews</h3>
 
       <ul className="flex flex-col gap-2">
         {[...Array(2)].map((_, i) => (

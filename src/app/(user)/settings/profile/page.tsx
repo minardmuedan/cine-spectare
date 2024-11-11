@@ -10,7 +10,7 @@ export default async function UserProfilePage() {
   return (
     <div className="flex-1">
       <Back className="mb-3 md:hidden" />
-      <h2 className="mb-5 text-muted-foreground">Your Profile</h2>
+      <h2 className="mb-4 text-muted-foreground">Your Profile</h2>
 
       <Profile user={user} />
     </div>

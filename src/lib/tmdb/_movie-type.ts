@@ -37,10 +37,6 @@ export type TMovie = SharedType & {
 }
 
 export type TMovies = {
-  dates: {
-    maximum: string
-    minimum: string
-  }
   page: number
   results: TMovie[]
   total_pages: number
@@ -93,5 +89,37 @@ export type TKeywords = {
   keywords: {
     id: number
     name: string
+  }[]
+}
+
+type Image = {
+  aspect_ratio: number
+  height: number
+  file_path: string
+  vote_average: number
+  vote_count: number
+  width: number
+}
+
+export type TMovieImages = {
+  id: 558449
+  backdrops: Image[]
+  logos: Image[]
+  posters: Image[]
+}
+
+export type TMovieVideos = {
+  id: 558449
+  results: {
+    iso_639_1: string
+    iso_3166_1: string
+    name: string
+    key: string
+    site: string
+    size: 1080
+    type: string
+    official: boolean
+    published_at: string
+    id: string
   }[]
 }

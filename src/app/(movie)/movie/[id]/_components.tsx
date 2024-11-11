@@ -5,17 +5,20 @@ import { create } from 'zustand'
 import { InView } from 'react-intersection-observer'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
+import Back from '@/components/back-button'
 
 const movieDetailsSectionStore = create<{ activeSection: Sections | null }>(() => ({ activeSection: null }))
 
 export const MovieDetailsSectionsSideNav = () => {
   const { activeSection } = movieDetailsSectionStore()
-  const navs: Sections[] = ['Details', 'Credits', 'Reviews & Keywords', 'Media', 'Similarities', 'Recommendations']
+  const navs: Sections[] = ['Details', 'Credits', 'Reviews & Keywords', 'Media', 'Similar', 'Recommendations']
 
   const activeIndex = activeSection ? navs.indexOf(activeSection) : -1
 
   return (
-    <div className="sticky top-0 hidden h-fit pt-20 md:block">
+    <div className="sticky top-10 hidden h-fit pt-8 md:block">
+      <Back className="mb-2" />
+
       <h2 className="text-xl font-medium text-muted-foreground">On this Page</h2>
       <nav className="relative mt-2 flex flex-col *:justify-start *:rounded-none">
         <div
@@ -37,17 +40,19 @@ export const MovieDetailsSectionsSideNav = () => {
 
 export const MovieSection = ({ section, className, ...props }: SectionProps) => {
   return (
-    <InView
-      id={section.split(' & ').join('-').toLowerCase()}
-      as="section"
-      threshold={0.01}
-      rootMargin="-25% 0px -65% 0px"
-      onChange={inView => inView && movieDetailsSectionStore.setState({ activeSection: section })}
-      className={cn('pt-20', className)}
-      {...props}
-    />
+    <>
+      <InView
+        id={section.split(' & ').join('-').toLowerCase()}
+        as="section"
+        threshold={0.01}
+        rootMargin="-25% 0px -65% 0px"
+        onChange={inView => inView && movieDetailsSectionStore.setState({ activeSection: section })}
+        className={cn('pt-20', className)}
+        {...props}
+      />
+    </>
   )
 }
 
-type Sections = 'Details' | 'Credits' | 'Reviews & Keywords' | 'Media' | 'Similarities' | 'Recommendations'
+type Sections = 'Details' | 'Credits' | 'Reviews & Keywords' | 'Media' | 'Similar' | 'Recommendations'
 type SectionProps = { section: Sections; className?: string; children: React.ReactNode }

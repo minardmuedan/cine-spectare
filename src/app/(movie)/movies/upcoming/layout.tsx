@@ -1,6 +1,6 @@
 import PageHeader from '@/components/pages/header'
 import Section from '@/components/pages/section'
-import { MediaGridLoadingFallback } from '@/features/media/components/grid'
+import { MediaListLoadingFallback } from '@/features/media/components/list'
 import { Suspense } from 'react'
 
 export default function UpcomingMoviesLayout({ children }: { children: React.ReactNode }) {
@@ -8,7 +8,7 @@ export default function UpcomingMoviesLayout({ children }: { children: React.Rea
     <Section>
       <PageHeader title="Upcoming Movies" description="Get a sneak peek of exciting films set to release soon" />
 
-      <Suspense fallback={<MediaGridLoadingFallback />}>{children}</Suspense>
+      <Suspense fallback={<MediaListLoadingFallback />}>{children}</Suspense>
     </Section>
   )
 }
