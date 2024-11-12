@@ -5,7 +5,6 @@ import { create } from 'zustand'
 import { InView } from 'react-intersection-observer'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
-import Back from '@/components/back-button'
 
 const movieDetailsSectionStore = create<{ activeSection: Sections | null }>(() => ({ activeSection: null }))
 
@@ -16,9 +15,7 @@ export const MovieDetailsSectionsSideNav = () => {
   const activeIndex = activeSection ? navs.indexOf(activeSection) : -1
 
   return (
-    <div className="sticky top-10 hidden h-fit pt-8 md:block">
-      <Back className="mb-2" />
-
+    <div className="sticky top-[6.5rem] mt-20 hidden h-fit md:block">
       <h2 className="text-xl font-medium text-muted-foreground">On this Page</h2>
       <nav className="relative mt-2 flex flex-col *:justify-start *:rounded-none">
         <div

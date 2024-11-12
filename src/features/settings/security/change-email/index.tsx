@@ -9,6 +9,7 @@ import { changeEmailAction } from './action'
 import { toast } from 'sonner'
 import { useState } from 'react'
 import { useQueryClient } from '@tanstack/react-query'
+import { buttonVariants } from '@/components/ui/button'
 
 export default function ChangeEmailDialog() {
   const queryClient = useQueryClient()
@@ -36,7 +37,7 @@ export default function ChangeEmailDialog() {
 
   return (
     <Dialog open={modalOpen} onOpenChange={setModalOpen}>
-      <DialogTrigger variant="outline" className="mb-2 h-14 w-full justify-between">
+      <DialogTrigger className={buttonVariants({ variant: 'outline', className: 'mb-2 h-14 w-full justify-between' })}>
         Change Email
         <ChevronRightIcon />
       </DialogTrigger>

@@ -1,40 +1,30 @@
-import tryCatchWrapper from '../helpers/try-catch'
 import { TMDBFetcher } from './fetcher'
 import { TCredits, TFullMovie, TKeywords, TMovieImages, TMovies, TMovieVideos, TReviews } from './_movie-type'
 
-export const getPopularMovies = (page: number) =>
-  tryCatchWrapper(async () => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/popular?page=${page}`))
+// movies
 
-export const getNowPlayingMovies = (page: number) =>
-  tryCatchWrapper(async () => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/now_playing?page=${page}`))
+export const getPopularMovies = async (page: number) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/popular?page=${page}`)
 
-export const getTopRatedMovies = (page: number) =>
-  tryCatchWrapper(async () => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/top_rated?page=${page}`))
+export const getNowPlayingMovies = async (page: number) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/now_playing?page=${page}`)
 
-export const getUpcomingMovies = (page: number) =>
-  tryCatchWrapper(async () => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/upcoming?page=${page}`))
+export const getTopRatedMovies = async (page: number) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/top_rated?page=${page}`)
+
+export const getUpcomingMovies = async (page: number) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/upcoming?page=${page}`)
 
 // movie
 
-export const getMovieDetails = (id: string) => tryCatchWrapper(async () => await TMDBFetcher<TFullMovie>(`https://api.themoviedb.org/3/movie/${id}`))
+export const getMovieDetails = async (id: string) => await TMDBFetcher<TFullMovie>(`https://api.themoviedb.org/3/movie/${id}`)
 
-export const getMovieCredits = (id: string) =>
-  tryCatchWrapper(async () => await TMDBFetcher<TCredits>(`https://api.themoviedb.org/3/movie/${id}/credits`))
+export const getMovieCredits = async (id: string) => await TMDBFetcher<TCredits>(`https://api.themoviedb.org/3/movie/${id}/credits`)
 
-export const getMovieReviews = (id: string) =>
-  tryCatchWrapper(async () => await TMDBFetcher<TReviews>(`https://api.themoviedb.org/3/movie/${id}/reviews`))
+export const getMovieReviews = async (id: string) => await TMDBFetcher<TReviews>(`https://api.themoviedb.org/3/movie/${id}/reviews`)
 
-export const getMovieKeywords = (id: string) =>
-  tryCatchWrapper(async () => await TMDBFetcher<TKeywords>(`https://api.themoviedb.org/3/movie/${id}/keywords`))
+export const getMovieKeywords = async (id: string) => await TMDBFetcher<TKeywords>(`https://api.themoviedb.org/3/movie/${id}/keywords`)
 
-export const getMovieImages = (id: string) =>
-  tryCatchWrapper(async () => await TMDBFetcher<TMovieImages>(`https://api.themoviedb.org/3/movie/${id}/images`))
+export const getMovieImages = async (id: string) => await TMDBFetcher<TMovieImages>(`https://api.themoviedb.org/3/movie/${id}/images`)
 
-export const getMovieVideos = (id: string) =>
-  tryCatchWrapper(async () => await TMDBFetcher<TMovieVideos>(`https://api.themoviedb.org/3/movie/${id}/videos`))
+export const getMovieVideos = async (id: string) => await TMDBFetcher<TMovieVideos>(`https://api.themoviedb.org/3/movie/${id}/videos`)
 
-export const getMovieSimilar = (id: string) =>
-  tryCatchWrapper(async () => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/${id}/similar`))
+export const getMovieSimilar = async (id: string) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/${id}/similar`)
 
-export const getMovieRecommendations = (id: string) =>
-  tryCatchWrapper(async () => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/${id}/recommendations`))
+export const getMovieRecommendations = async (id: string) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/${id}/recommendations`)

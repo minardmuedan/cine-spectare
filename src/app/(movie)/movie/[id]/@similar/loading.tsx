@@ -1,3 +1,4 @@
+import { H3 } from '@/components/typography'
 import { Skeleton } from '@/components/ui/skeleton'
 import { MediaCardLoadingFallback } from '@/features/media/components/card'
 import { Fragment } from 'react'
@@ -6,7 +7,7 @@ export default function MovieSimilarLoading() {
   return (
     <>
       <div className="mb-4 flex items-center justify-between gap-2">
-        <h3 className="text-xl font-medium text-muted-foreground">Credits</h3>
+        <H3>Similar</H3>
 
         <div className="flex gap-2">
           <Skeleton className="size-10" />

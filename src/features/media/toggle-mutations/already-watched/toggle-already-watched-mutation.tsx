@@ -1,8 +1,8 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { useIsAlreadyWatchedMutating, useAlreadyWatched, useAlreadyWatchedMutation } from '../hooks'
-import { CheckCheckIcon, Loader2Icon } from 'lucide-react'
+import { useIsAlreadyWatchedMutating, useAlreadyWatched, useAlreadyWatchedMutation } from './hooks'
+import { CheckCheckIcon, Loader2Icon, TriangleAlertIcon } from 'lucide-react'
 import { TToggleMutationProps } from '../../type'
 
 export default function ToggleAlreadyWatchedMutationButton({ media, render, ...buttonProps }: TToggleMutationProps) {
@@ -18,7 +18,9 @@ export default function ToggleAlreadyWatchedMutationButton({ media, render, ...b
     onClick: () => mutate(media),
     children: (
       <>
-        {gettingAlreadyWatched || isMutating ? (
+        {isError ? (
+          <TriangleAlertIcon />
+        ) : gettingAlreadyWatched || isMutating ? (
           <Loader2Icon className="animate-spin" />
         ) : (
           <CheckCheckIcon className={`${isInAlreadyWatched && 'stroke-green-500'}`} />

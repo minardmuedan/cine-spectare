@@ -14,7 +14,7 @@ export default function MediaCard({ media }: { media: TMedia }) {
         <Link href={`/${media.type}/${media.id}`}>
           <div className="p-2">
             <div className="aspect-[1/1.5] overflow-hidden rounded bg-accent">
-              <TmdbImage src={media.posterPath} alt={`${media.title} poster`} className="object-fill" />
+              <TmdbImage src={media.posterPath} alt={`${media.title} poster`} className="size-full object-fill" />
             </div>
 
             <p title={media.title} className="mt-1 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm">

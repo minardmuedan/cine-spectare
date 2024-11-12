@@ -92,7 +92,7 @@ export type TKeywords = {
   }[]
 }
 
-type Image = {
+export type Image = {
   aspect_ratio: number
   height: number
   file_path: string
@@ -117,7 +117,7 @@ export type TMovieVideos = {
     key: string
     site: string
     size: 1080
-    type: string
+    type: 'Trailer' | 'Teaser' | 'Clip' | 'Behind the Scenes' | 'Bloopers' | 'Featurette'
     official: boolean
     published_at: string
     id: string

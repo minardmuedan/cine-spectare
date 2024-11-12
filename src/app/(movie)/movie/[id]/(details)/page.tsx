@@ -1,9 +1,9 @@
 import BackgroundMediaImage from '@/components/pages/background-image'
 import TmdbImage from '@/components/tmdb-image'
-import ToggleAlreadyWatchedMutationButton from '@/features/media/already-watched/components/toggle-already-watched-mutation'
+import ToggleAlreadyWatchedMutationButton from '@/features/media/toggle-mutations/already-watched/toggle-already-watched-mutation'
 import { MediaGenres } from '@/features/media/components/genres-keywords'
-import ToggleLikeMutationButton from '@/features/media/likes/components/toggle-like-mutation'
-import ToggleWatchLaterMutationButton from '@/features/media/watch-later/components/toggle-watch-later-mutation'
+import ToggleLikeMutationButton from '@/features/media/toggle-mutations/likes/toggle-like-mutation'
+import ToggleWatchLaterMutationButton from '@/features/media/toggle-mutations/watch-later/toggle-watch-later-mutation'
 import { getMovieDetails } from '@/lib/tmdb/movies'
 import { Building2Icon, CalendarFoldIcon, HourglassIcon } from 'lucide-react'
 

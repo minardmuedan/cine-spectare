@@ -1,13 +1,13 @@
+import { verifyTokenAction } from '@/actions/verification'
+import VerificationForm from '@/components/authentications/verification-form'
 import { DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
 import { useAuthToken } from '@/hooks/auth-token'
-import VerificationForm from '@/components/authentications/verification-form'
 import ChangePasswordForm from './change-password-form'
 import { ForgotPasswordForm } from './form'
-import { verifyTokenAction } from '@/actions/verification'
 
 export function ForgotPasswordDialogTrigger() {
   return (
-    <DialogTrigger type="button" tabIndex={-1} variant="link" className="size-fit p-0">
+    <DialogTrigger type="button" tabIndex={-1} className="text-sm font-medium text-primary underline-offset-4 hover:underline">
       forgot password
     </DialogTrigger>
   )

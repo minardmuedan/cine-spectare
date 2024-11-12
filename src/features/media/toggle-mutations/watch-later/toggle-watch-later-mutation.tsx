@@ -1,9 +1,9 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { ClockIcon, Loader2Icon } from 'lucide-react'
+import { ClockIcon, Loader2Icon, TriangleAlertIcon } from 'lucide-react'
 import { TToggleMutationProps } from '../../type'
-import { useIsWatchLaterMutating, useWatchLater, useWatchLaterMutation } from '../hooks'
+import { useIsWatchLaterMutating, useWatchLater, useWatchLaterMutation } from './hooks'
 
 export default function ToggleWatchLaterMutationButton({ media, render, ...buttonProps }: TToggleMutationProps) {
   const { data: watchLaterMedias, isError, isPending: gettingWatchLater } = useWatchLater()
@@ -18,7 +18,9 @@ export default function ToggleWatchLaterMutationButton({ media, render, ...butto
     onClick: () => mutate(media),
     children: (
       <>
-        {gettingWatchLater || isMutating ? (
+        {isError ? (
+          <TriangleAlertIcon />
+        ) : gettingWatchLater || isMutating ? (
           <Loader2Icon className="animate-spin" />
         ) : (
           <ClockIcon className={`${isAlreadyInWatchLater && 'stroke-blue-500'}`} />

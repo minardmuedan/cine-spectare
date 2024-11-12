@@ -2,14 +2,16 @@ import { TCast } from '@/lib/tmdb/_movie-type'
 import TmdbImage from '@/components/tmdb-image'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { Skeleton } from '@/components/ui/skeleton'
+import { H3 } from '@/components/typography'
+import Link from 'next/link'
 
 export default function MediaCredits({ casts }: { casts: TCast[] }) {
   return (
     <Carousel opts={{ slidesToScroll: 'auto' }}>
       <div className="mb-4 flex items-center justify-between gap-2">
-        <h3 className="text-xl font-medium text-muted-foreground">
+        <H3>
           Credits <span className="text-sm">{casts.length}</span>
-        </h3>
+        </H3>
 
         <div className="flex gap-2">
           <CarouselPrevious />
@@ -20,21 +22,23 @@ export default function MediaCredits({ casts }: { casts: TCast[] }) {
       <CarouselContent>
         {casts.map((cast, i) => (
           <CarouselItem key={i} className="basis-28">
-            <TmdbImage
-              title={cast.name}
-              src={cast.profile_path}
-              alt={`${cast.name} profile`}
-              className="aspect-square w-full rounded-full object-cover"
-            />
+            <Link href={`/person/${cast.id}`}>
+              <TmdbImage
+                title={cast.name}
+                src={cast.profile_path}
+                alt={`${cast.name} profile`}
+                className="aspect-square w-full rounded-full object-cover"
+              />
 
-            <div className="w-full overflow-hidden text-center *:overflow-hidden *:text-ellipsis *:whitespace-nowrap">
-              <p title={cast.name} className="text-sm">
-                {cast.name}
-              </p>
-              <p title={cast.character} className="text-xs text-muted-foreground">
-                {cast.character}
-              </p>
-            </div>
+              <div className="w-full overflow-hidden text-center *:overflow-hidden *:text-ellipsis *:whitespace-nowrap">
+                <p title={cast.name} className="text-sm">
+                  {cast.name}
+                </p>
+                <p title={cast.character} className="text-xs text-muted-foreground">
+                  {cast.character}
+                </p>
+              </div>
+            </Link>
           </CarouselItem>
         ))}
       </CarouselContent>

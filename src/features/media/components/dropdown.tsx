@@ -4,9 +4,9 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { TMedia } from '@/lib/schema'
 import { EllipsisVerticalIcon } from 'lucide-react'
 
-import ToggleLikeMutationButton from '../likes/components/toggle-like-mutation'
-import ToggleWatchLaterMutationButton from '../watch-later/components/toggle-watch-later-mutation'
-import ToggleAlreadyWatchedMutationButton from '../already-watched/components/toggle-already-watched-mutation'
+import ToggleLikeMutationButton from '../toggle-mutations/likes/toggle-like-mutation'
+import ToggleWatchLaterMutationButton from '../toggle-mutations/watch-later/toggle-watch-later-mutation'
+import ToggleAlreadyWatchedMutationButton from '../toggle-mutations/already-watched/toggle-already-watched-mutation'
 
 export default function MediaMutationsDropdown({ media }: { media: TMedia }) {
   return (

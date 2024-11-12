@@ -1,5 +1,6 @@
 import Back from '@/components/back-button'
 import { MovieDetailsSectionsSideNav, MovieSection } from './_components'
+import { H3 } from '@/components/typography'
 
 type RRN = React.ReactNode
 type LayoutProps = { children: RRN; credits: RRN; reviews: RRN; keywords: RRN; images: RRN; videos: RRN; similar: RRN; recommendations: RRN }
@@ -7,12 +8,12 @@ type LayoutProps = { children: RRN; credits: RRN; reviews: RRN; keywords: RRN; i
 export default function MovieLayout({ children, credits, reviews, keywords, images, videos, similar, recommendations }: LayoutProps) {
   return (
     <div className="relative">
-      <Back className="ml-2 mt-2 md:hidden" />
+      <Back className="top-16 z-20 ml-2 mt-2 md:sticky" />
 
       <div className="flex gap-5 p-2 pt-[20dvh] md:px-5 md:pb-5">
         <MovieDetailsSectionsSideNav />
 
-        <div className="flex-1 overflow-hidden">
+        <div className="container flex-1 overflow-hidden">
           <MovieSection section="Details" className="flex flex-col gap-5 md:flex-row">
             {children}
           </MovieSection>
@@ -25,9 +26,9 @@ export default function MovieLayout({ children, credits, reviews, keywords, imag
           </MovieSection>
 
           <MovieSection section="Media">
-            <h3 className="mb-4 text-xl font-medium text-muted-foreground">Media</h3>
+            <H3 className="mb-4">Media</H3>
 
-            <ul className="container flex flex-wrap gap-10 *:w-full *:min-w-64 *:flex-1 md:flex-row md:gap-4">
+            <ul className="grid grid-cols-2 gap-10 *:w-full *:last:col-span-2 md:gap-4 lg:grid-cols-3 *:last:lg:col-span-1">
               {images}
               {videos}
             </ul>
@@ -36,7 +37,7 @@ export default function MovieLayout({ children, credits, reviews, keywords, imag
           <MovieSection section="Similar">{similar}</MovieSection>
 
           <MovieSection section="Recommendations">
-            <h3 className="mb-4 text-xl font-medium text-muted-foreground">Recommendations</h3>
+            <H3 className="mb-4">Recommendations</H3>
 
             {recommendations}
           </MovieSection>

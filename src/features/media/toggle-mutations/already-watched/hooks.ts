@@ -1,7 +1,7 @@
 import { clientFetcher } from '@/lib/helpers/client-fetcher'
 import { useIsMutating, useQuery } from '@tanstack/react-query'
-import { useCreateMediaMutation } from '../helpers/mutation'
-import { TUserDbMedia } from '../type'
+import { useCreateMediaMutation } from '../../helpers/mutation'
+import { TUserDbMedia } from '../../type'
 import { toggleAlreadyWatchedAction } from './action'
 
 const queryKey = ['media', 'already-watched']

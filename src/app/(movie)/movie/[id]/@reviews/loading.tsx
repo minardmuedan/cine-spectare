@@ -1,9 +1,10 @@
+import { H3 } from '@/components/typography'
 import { Skeleton } from '@/components/ui/skeleton'
 
 export default function MovieReviewsLoading() {
   return (
     <div className="max-w-[700px]">
-      <h3 className="mb-4 text-xl font-medium text-muted-foreground">Reviews</h3>
+      <H3 className="mb-4">Reviews</H3>
 
       <ul className="flex flex-col gap-2">
         {[...Array(2)].map((_, i) => (

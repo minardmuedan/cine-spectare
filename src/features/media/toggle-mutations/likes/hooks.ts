@@ -1,8 +1,8 @@
 import { toggleLikeAction } from './action'
 import { clientFetcher } from '@/lib/helpers/client-fetcher'
 import { useIsMutating, useQuery } from '@tanstack/react-query'
-import { useCreateMediaMutation } from '../helpers/mutation'
-import { TUserDbMedia } from '../type'
+import { useCreateMediaMutation } from '../../helpers/mutation'
+import { TUserDbMedia } from '../../type'
 
 const queryKey = ['media', 'likes']
 const mutationKey = ['media', 'toggle-like']

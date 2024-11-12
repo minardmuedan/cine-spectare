@@ -1,6 +1,6 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -26,7 +26,7 @@ export default function ChangePasswordDialog() {
 
   return (
     <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-      <DialogTrigger variant="outline" className="h-14 w-full justify-between">
+      <DialogTrigger className={buttonVariants({ variant: 'outline', className: 'h-14 w-full justify-between' })}>
         Change Password
         <ChevronRightIcon />
       </DialogTrigger>

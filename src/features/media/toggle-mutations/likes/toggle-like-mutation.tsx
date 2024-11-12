@@ -1,9 +1,9 @@
 'use client'
 
 import { Button } from '@/components/ui/button'
-import { Loader2Icon, StarIcon } from 'lucide-react'
+import { Loader2Icon, StarIcon, TriangleAlertIcon } from 'lucide-react'
 import { TToggleMutationProps } from '../../type'
-import { useIsLikeMutating, useLikeMutation, useLikes } from '../hooks'
+import { useIsLikeMutating, useLikeMutation, useLikes } from './hooks'
 
 export default function ToggleLikeMutationButton({ media, render, ...buttonProps }: TToggleMutationProps) {
   const { data: likes, isError, isPending: gettingLikes } = useLikes()
@@ -18,7 +18,9 @@ export default function ToggleLikeMutationButton({ media, render, ...buttonProps
     onClick: () => mutate(media),
     children: (
       <>
-        {gettingLikes || isMutating ? (
+        {isError ? (
+          <TriangleAlertIcon />
+        ) : gettingLikes || isMutating ? (
           <Loader2Icon className="animate-spin" />
         ) : (
           <StarIcon className={`${isAlreadyLiked && 'fill-yellow-500 stroke-yellow-500'}`} />
