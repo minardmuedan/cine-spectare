@@ -1,4 +1,5 @@
 import TmdbImage from '@/components/tmdb-image'
+import ErrorResult from '@/components/ui/error-result'
 import NoResult from '@/components/ui/no-results'
 import MediaImages from '@/features/media/components/images'
 import { getMovieImages } from '@/lib/tmdb/movies'
@@ -7,7 +8,13 @@ export default async function MovieImagesPage(props: { params: Promise<{ id: str
   const { id } = await props.params
   const [error, images] = await getMovieImages(id)
 
-  if (error) return <p>{error.message}</p>
+  if (error)
+    return ['Posters', 'Backdrops'].map((title, i) => (
+      <li key={i}>
+        <h4 className="mb-2 text-center text-sm md:text-start">{title}</h4>
+        <ErrorResult error={error} className="aspect-square h-auto" />
+      </li>
+    ))
 
   return (
     <>
@@ -17,7 +24,7 @@ export default async function MovieImagesPage(props: { params: Promise<{ id: str
           <MediaImages images={images.posters}>
             <ul className={`grid aspect-square w-full gap-1 ${images.posters.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
               {images.posters.slice(0, 4).map((poster, i) => (
-                <li key={i} className="relative aspect-square w-full overflow-hidden rounded-sm">
+                <li key={i} className="relative w-full overflow-hidden rounded-sm">
                   <TmdbImage src={poster.file_path} alt="movie poster" className="size-full object-cover" />
                   {i == 3 && images.posters.length - 4 > 0 && (
                     <div className="absolute inset-0 z-10 grid place-items-center bg-background/75 text-sm">{images.posters.length - 4}+</div>
@@ -35,7 +42,7 @@ export default async function MovieImagesPage(props: { params: Promise<{ id: str
         <h4 className="mb-2 text-center text-sm md:text-start">Backdrops</h4>
         {images.backdrops?.length ? (
           <MediaImages images={images.backdrops}>
-            <ul className={`grid aspect-square w-full gap-1 ${images.backdrops.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
+            <ul className={`grid aspect-square w-full gap-1 ${images.backdrops.length > 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
               {images.backdrops.slice(0, 3).map((poster, i) => (
                 <li key={i} className={`relative w-full overflow-hidden rounded-sm ${i == 0 && 'col-span-2'}`}>
                   <TmdbImage src={poster.file_path} alt="movie poster" className="size-full object-cover" />

@@ -1,12 +1,19 @@
 import NoResult from '@/components/ui/no-results'
 import { getMovieVideos } from '@/lib/tmdb/movies'
 import MediaVideos from '@/features/media/components/videos'
+import ErrorResult from '@/components/ui/error-result'
 
 export default async function MovieVideosPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params
   const [error, videos] = await getMovieVideos(id)
 
-  if (error) return <p>{error.message}</p>
+  if (error)
+    return (
+      <li>
+        <h4 className="mb-2 text-center text-sm md:text-start">Videos</h4>
+        <ErrorResult error={error} className="aspect-square h-auto" />
+      </li>
+    )
 
   return (
     <>

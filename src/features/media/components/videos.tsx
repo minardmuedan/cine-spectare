@@ -48,7 +48,16 @@ export default function MediaVideos({ videos: videosData, children }: { videos: 
           <p className="mb-1 text-sm text-muted-foreground">{activeVideo.name}</p>
 
           <div className="relative">
-            {isLoading && <Loader />}
+            {isLoading && (
+              <div
+                style={{
+                  backgroundImage: `url('https://img.youtube.com/vi/${activeVideo.key}/maxresdefault.jpg')`,
+                }}
+                className="absolute inset-0 flex items-center justify-center bg-background/75 bg-cover bg-blend-multiply"
+              >
+                <Loader2Icon className="animate-spin" />
+              </div>
+            )}
 
             <iframe
               src={`https://www.youtube.com/embed/${activeVideo.key}`}
@@ -62,9 +71,3 @@ export default function MediaVideos({ videos: videosData, children }: { videos: 
     </Dialog>
   )
 }
-
-const Loader = () => (
-  <div className="absolute inset-0 flex items-center justify-center border">
-    <Loader2Icon className="animate-spin stroke-muted-foreground" />
-  </div>
-)

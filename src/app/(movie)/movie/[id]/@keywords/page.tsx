@@ -1,5 +1,6 @@
 import { H3 } from '@/components/typography'
 import { Button } from '@/components/ui/button'
+import ErrorResult from '@/components/ui/error-result'
 import NoResult from '@/components/ui/no-results'
 import { getMovieKeywords } from '@/lib/tmdb/movies'
 
@@ -7,7 +8,13 @@ export default async function MovieKeywordsPage(props: { params: Promise<{ id: s
   const { id } = await props.params
   const [error, keywords] = await getMovieKeywords(id)
 
-  if (error) return <p>{error.message}</p>
+  if (error)
+    return (
+      <div>
+        <H3 className="mb-4">Keywords</H3>
+        <ErrorResult error={error} />
+      </div>
+    )
 
   return (
     <div>

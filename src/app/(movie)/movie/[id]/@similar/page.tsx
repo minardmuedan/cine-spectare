@@ -1,5 +1,6 @@
 import { H3 } from '@/components/typography'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import ErrorResult from '@/components/ui/error-result'
 import NoResult from '@/components/ui/no-results'
 import MediaCard from '@/features/media/components/card'
 import { getMovieSimilar } from '@/lib/tmdb/movies'
@@ -8,7 +9,14 @@ export default async function MovieSimilarPage(props: { params: Promise<{ id: st
   const { id } = await props.params
   const [error, movies] = await getMovieSimilar(id)
 
-  if (error) return <p>{error.message}</p>
+  if (error)
+    return (
+      <>
+        <H3>Similar</H3>
+        <ErrorResult error={error} className="h-72" />
+      </>
+    )
+
   if (!movies.results.length)
     return (
       <>

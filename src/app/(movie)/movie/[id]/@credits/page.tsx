@@ -1,4 +1,5 @@
 import { H3 } from '@/components/typography'
+import ErrorResult from '@/components/ui/error-result'
 import NoResult from '@/components/ui/no-results'
 import MediaCredits from '@/features/media/components/credits'
 import { getMovieCredits } from '@/lib/tmdb/movies'
@@ -7,7 +8,13 @@ export default async function MovieCreditsPage(props: { params: Promise<{ id: st
   const { id } = await props.params
   const [error, credits] = await getMovieCredits(id)
 
-  if (error) return <p>{error.message}</p>
+  if (error)
+    return (
+      <div>
+        <H3 className="mb-4">Credits</H3>
+        <ErrorResult error={error} className="h-[132px]" />
+      </div>
+    )
 
   if (!credits.cast.length)
     return (

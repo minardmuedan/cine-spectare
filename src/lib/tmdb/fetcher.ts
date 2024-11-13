@@ -1,10 +1,12 @@
+import 'server-only'
+
 import tryCatchWrapper from '../helpers/try-catch'
 
 export const TMDBFetcher = <T>(url: string) =>
   tryCatchWrapper(async () => {
     const res = await fetch(url, {
       cache: 'force-cache',
-      headers: { Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}` },
+      headers: { Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}s` },
     })
 
     if (!res.ok) {

@@ -8,7 +8,7 @@ export default function MovieReviewsLoading() {
 
       <ul className="flex flex-col gap-2">
         {[...Array(2)].map((_, i) => (
-          <li key={i} className="rounded border p-5">
+          <li key={i} className="rounded border bg-accent-muted p-5">
             <div className="mb-5 flex items-center gap-2">
               <Skeleton className="size-10 rounded-full" />
               <Skeleton className="h-4 w-36" />

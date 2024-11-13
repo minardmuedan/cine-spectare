@@ -1,3 +1,4 @@
+import ErrorResult from '@/components/ui/error-result'
 import NoResult from '@/components/ui/no-results'
 import MediaList from '@/features/media/components/list'
 import { getMovieRecommendations } from '@/lib/tmdb/movies'
@@ -6,7 +7,7 @@ export default async function MovieRecommendationsPage(props: { params: Promise<
   const { id } = await props.params
   const [error, movies] = await getMovieRecommendations(id)
 
-  if (error) return <p>{error.message}</p>
+  if (error) return <ErrorResult error={error} className="h-64" />
   if (!movies.results.length) return <NoResult className="h-64" />
 
   return (

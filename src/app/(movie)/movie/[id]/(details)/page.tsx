@@ -6,11 +6,13 @@ import ToggleLikeMutationButton from '@/features/media/toggle-mutations/likes/to
 import ToggleWatchLaterMutationButton from '@/features/media/toggle-mutations/watch-later/toggle-watch-later-mutation'
 import { getMovieDetails } from '@/lib/tmdb/movies'
 import { Building2Icon, CalendarFoldIcon, HourglassIcon } from 'lucide-react'
+import ErrorResult from '@/components/ui/error-result'
 
 export default async function MovieDetailsPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params
   const [error, movie] = await getMovieDetails(id)
-  if (error) return <p>{error.message}</p>
+
+  if (error) return <ErrorResult error={error} className="h-96" />
 
   const media = {
     id: movie.id,

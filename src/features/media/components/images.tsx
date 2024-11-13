@@ -14,9 +14,9 @@ export default function MediaImages({ images, children }: { images: Image[]; chi
       <DialogContent className="w-full lg:max-w-6xl">
         <DialogHeader title="Media Images" description="Browse Media Poster or Backdrop Images" className="hidden" />
 
-        <ul className="columns-4">
+        <ul className="columns-4 gap-4 *:mb-4">
           {images.map((image, i) => (
-            <li key={i} className="">
+            <li key={i} className="flex flex-col border">
               <TmdbImage src={image.file_path} alt="media image" width={image.width} height={image.height} />
 
               <div className="flex justify-between text-sm">
