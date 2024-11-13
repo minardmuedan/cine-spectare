@@ -1,4 +1,5 @@
 import BackgroundMediaImage from '@/components/pages/background-image'
+import ErrorResult from '@/components/ui/error-result'
 import Pagination from '@/components/ui/pagination'
 import MediaList from '@/features/media/components/list'
 import { getPopularMovies } from '@/lib/tmdb/movies'
@@ -12,7 +13,7 @@ export default async function PopularMoviesPage(props: { searchParams: SearchPar
 
   const [error, movies] = await getPopularMovies(page)
 
-  if (error) return <p>{error.message}</p>
+  if (error) return <ErrorResult error={error} className="min-h-[calc(100dvh-260px)]" />
   return (
     <Fragment key={page}>
       <BackgroundMediaImage src={movies.results[0].backdrop_path} />

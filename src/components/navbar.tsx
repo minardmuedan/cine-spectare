@@ -23,10 +23,10 @@ export default function Navbar() {
   ]
 
   const tvLinks = [
-    { title: 'Popular', href: '/tv', description: 'Discover the most-watched and trending TV shows' },
-    { title: 'Airing Today', href: '/tv/airing-today', description: 'Catch up on TV shows that are broadcasting new episodes today' },
-    { title: 'On TV', href: '/tv/on-the-air', description: "See what's currently playing across various TV networks" },
-    { title: 'Top Rated ', href: '/tv/top-rated', description: 'Explore highly acclaimed TV shows with the best reviews' },
+    { title: 'Popular', href: '/tv-shows', description: 'Discover the most-watched and trending TV shows' },
+    { title: 'Airing Today', href: '/tv-shows/airing-today', description: 'Catch up on TV shows that are broadcasting new episodes today' },
+    { title: 'On TV', href: '/tv-shows/on-the-air', description: "See what's currently playing across various TV networks" },
+    { title: 'Top Rated ', href: '/tv-shows/top-rated', description: 'Explore highly acclaimed TV shows with the best reviews' },
   ]
 
   const medias = [

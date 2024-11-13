@@ -12,7 +12,7 @@ export default async function MovieSimilarPage(props: { params: Promise<{ id: st
   if (error)
     return (
       <>
-        <H3>Similar</H3>
+        <H3>More like this</H3>
         <ErrorResult error={error} className="h-72" />
       </>
     )
@@ -20,15 +20,15 @@ export default async function MovieSimilarPage(props: { params: Promise<{ id: st
   if (!movies.results.length)
     return (
       <>
-        <H3>Similar</H3>
+        <H3>More like this</H3>
         <NoResult className="h-72" />
       </>
     )
 
   return (
     <Carousel opts={{ slidesToScroll: 'auto' }}>
-      <div className="mb-4 flex items-center justify-between gap-2">
-        <H3>Similar</H3>
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <H3>More like this</H3>
 
         <div className="flex gap-2">
           <CarouselPrevious />

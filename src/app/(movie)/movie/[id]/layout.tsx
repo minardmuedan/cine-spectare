@@ -1,5 +1,5 @@
 import Back from '@/components/back-button'
-import { MovieDetailsSectionsSideNav, MovieSection } from './_components'
+import { MovieSectionsSideNav, MovieSection } from './_components'
 import { H3 } from '@/components/typography'
 import { Suspense } from 'react'
 
@@ -12,7 +12,7 @@ export default function MovieLayout({ children, credits, reviews, keywords, imag
       <Back className="top-16 z-20 ml-2 mt-2 md:sticky" />
 
       <div className="flex gap-5 p-2 pt-[20dvh] md:px-5 md:pb-5">
-        <MovieDetailsSectionsSideNav />
+        <MovieSectionsSideNav />
 
         <div className="container flex-1 overflow-hidden">
           <Suspense>
@@ -39,7 +39,7 @@ export default function MovieLayout({ children, credits, reviews, keywords, imag
             <MovieSection section="Similar">{similar}</MovieSection>
 
             <MovieSection section="Recommendations">
-              <H3 className="mb-4">Recommendations</H3>
+              <H3 className="mb-4">Recommend for you</H3>
 
               {recommendations}
             </MovieSection>

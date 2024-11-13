@@ -6,8 +6,8 @@ import { Fragment } from 'react'
 export default function MovieSimilarLoading() {
   return (
     <>
-      <div className="mb-4 flex items-center justify-between gap-2">
-        <H3>Similar</H3>
+      <div className="mb-2 flex items-center justify-between gap-2">
+        <H3>More like this</H3>
 
         <div className="flex gap-2">
           <Skeleton className="size-10" />

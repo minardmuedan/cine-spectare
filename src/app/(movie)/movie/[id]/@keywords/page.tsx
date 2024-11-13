@@ -1,7 +1,7 @@
 import { H3 } from '@/components/typography'
-import { Button } from '@/components/ui/button'
 import ErrorResult from '@/components/ui/error-result'
 import NoResult from '@/components/ui/no-results'
+import { MediaKeywords } from '@/features/media/components/genres-keywords'
 import { getMovieKeywords } from '@/lib/tmdb/movies'
 
 export default async function MovieKeywordsPage(props: { params: Promise<{ id: string }> }) {
@@ -22,19 +22,7 @@ export default async function MovieKeywordsPage(props: { params: Promise<{ id: s
         Keywords <span className="text-sm">{keywords.keywords.length}</span>
       </H3>
 
-      {keywords.keywords.length ? (
-        <ul className="flex h-fit flex-wrap gap-1">
-          {keywords.keywords.map(keyword => (
-            <li key={keyword.id}>
-              <Button size="sm" variant="accentMuted" className="">
-                {keyword.name}
-              </Button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <NoResult />
-      )}
+      {keywords.keywords.length ? <MediaKeywords keywords={keywords.keywords} /> : <NoResult />}
     </div>
   )
 }

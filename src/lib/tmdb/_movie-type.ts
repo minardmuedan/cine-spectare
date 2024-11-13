@@ -86,7 +86,7 @@ export type TReviews = {
   total_results: number
 }
 
-export type TKeywords = {
+export type TMovieKeywords = {
   id: number
   keywords: {
     id: number
@@ -104,21 +104,21 @@ export type Image = {
 }
 
 export type TMovieImages = {
-  id: 558449
+  id: number
   backdrops: Image[]
   logos: Image[]
   posters: Image[]
 }
 
 export type TMovieVideos = {
-  id: 558449
+  id: number
   results: {
     iso_639_1: string
     iso_3166_1: string
     name: string
     key: string
     site: string
-    size: 1080
+    size: number
     type: 'Trailer' | 'Teaser' | 'Clip' | 'Behind the Scenes' | 'Bloopers' | 'Featurette'
     official: boolean
     published_at: string

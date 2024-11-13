@@ -6,7 +6,7 @@ import { TMovieVideos } from '@/lib/tmdb/_movie-type'
 import { Loader2Icon } from 'lucide-react'
 import React, { useState } from 'react'
 
-export default function MediaVideos({ videos: videosData, children }: { videos: TMovieVideos; children: React.ReactNode }) {
+export default function MediaVideosDialog({ videos: videosData }: { videos: TMovieVideos }) {
   const typeOrder: (typeof videosData.results)[0]['type'][] = ['Trailer', 'Teaser', 'Clip', 'Behind the Scenes', 'Bloopers', 'Featurette']
   const videos = videosData.results.sort((a, b) => typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type))
 
@@ -16,7 +16,16 @@ export default function MediaVideos({ videos: videosData, children }: { videos: 
   return (
     <Dialog>
       <DialogTrigger className="transition-opacity hover:opacity-75">
-        {children}
+        <ul className="grid aspect-square w-full grid-cols-2 gap-1">
+          {videosData.results.slice(0, 3).map((video, i) => (
+            <li key={i} className={`relative w-full overflow-hidden rounded-sm ${i == 0 && 'col-span-2'}`}>
+              <img src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`} alt="video thumbnail" className="size-full object-cover" />
+              {i == 2 && videosData.results.length - 3 > 0 && (
+                <div className="absolute inset-0 z-10 grid place-items-center bg-background/75 text-sm">{videosData.results.length - 3}+</div>
+              )}
+            </li>
+          ))}
+        </ul>
         <span className="sr-only">media videos</span>
       </DialogTrigger>
 
