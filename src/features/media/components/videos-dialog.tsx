@@ -7,7 +7,7 @@ import { Loader2Icon } from 'lucide-react'
 import React, { useState } from 'react'
 
 export default function MediaVideosDialog({ videos: videosData }: { videos: TMovieVideos }) {
-  const typeOrder: (typeof videosData.results)[0]['type'][] = ['Trailer', 'Teaser', 'Clip', 'Behind the Scenes', 'Bloopers', 'Featurette']
+  const typeOrder = ['Opening Credits', 'Trailer', 'Teaser', 'Clip', 'Behind the Scenes', 'Bloopers', 'Featurette']
   const videos = videosData.results.sort((a, b) => typeOrder.indexOf(a.type) - typeOrder.indexOf(b.type))
 
   const [isLoading, setIsLoading] = useState(true)

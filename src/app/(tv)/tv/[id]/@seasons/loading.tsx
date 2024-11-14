@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 export default function SeasonsLoading() {
   return (
     <>
-      <H3 className="mb-4">Seasons</H3>
+      <H3 className="mb-2">Seasons</H3>
 
       <ul className="flex flex-col gap-2">
         {[...Array(3)].map((_, i) => (
@@ -25,6 +25,10 @@ export default function SeasonsLoading() {
           </li>
         ))}
       </ul>
+
+      <div className="mt-2 flex justify-center">
+        <Skeleton className="h-4 w-32" />
+      </div>
     </>
   )
 }

@@ -1,6 +1,6 @@
 import { cache } from 'react'
 import { TCredits, TMovieImages, TMovieVideos, TReviews } from './_movie-type'
-import { TFullTv, TTvKeywords, TTvShows } from './_tv-type'
+import { TFullTv, TTvFullSeason, TTvKeywords, TTvShows } from './_tv-type'
 import { TMDBFetcher } from './fetcher'
 
 // tv shows
@@ -31,3 +31,8 @@ export const getTvVideos = async (id: string) => await TMDBFetcher<TMovieVideos>
 export const getTvSimilar = async (id: string) => await TMDBFetcher<TTvShows>(`https://api.themoviedb.org/3/tv/${id}/similar`)
 
 export const getTvRecommendations = async (id: string) => await TMDBFetcher<TTvShows>(`https://api.themoviedb.org/3/tv/${id}/recommendations`)
+
+// tv season
+
+export const getTvSeason = async (id: string, seasonNumber: string) =>
+  await TMDBFetcher<TTvFullSeason>(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}`)
