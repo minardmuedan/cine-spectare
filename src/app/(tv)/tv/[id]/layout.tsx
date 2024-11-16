@@ -1,7 +1,7 @@
 import Back from '@/components/back-button'
 import { Suspense } from 'react'
 import { TvSection, TvSectionsSideNav } from './_components'
-import { H3 } from '@/components/typography'
+import { H3, H4 } from '@/components/typography'
 
 type RRN = React.ReactNode
 type LayoutProps = {
@@ -44,7 +44,11 @@ export default function TvLayout({ children, credits, seasons, reviews, keywords
 
               <ul className="grid grid-cols-2 gap-10 *:w-full *:last:col-span-2 md:gap-4 lg:grid-cols-3 *:last:lg:col-span-1">
                 {images}
-                {videos}
+
+                <li>
+                  <H4>Videos</H4>
+                  {videos}
+                </li>
               </ul>
             </TvSection>
 

@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
 import { clientFetcher } from '@/lib/helpers/client-fetcher'
-import { TReviews } from '@/lib/tmdb/_movie-type'
+import { TReviews } from '@/lib/tmdb/_type/movie'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { ChevronRightIcon, Loader2Icon, TriangleAlertIcon } from 'lucide-react'
 import { useState } from 'react'
@@ -40,7 +40,7 @@ export default function MediaReviewsDialog({ initialReviews, type }: { initialRe
               review && (
                 <li key={review.id} className="flex gap-2">
                   <Avatar>
-                    <AvatarImage src={review.author_details.avatar_path} />
+                    {review.author_details.avatar_path && <AvatarImage src={review.author_details.avatar_path} />}
                     <AvatarFallback>{review.author_details.name?.slice(0, 2)}</AvatarFallback>
                   </Avatar>
 
@@ -81,7 +81,6 @@ export default function MediaReviewsDialog({ initialReviews, type }: { initialRe
 
 export function Comment({ text }: { text: string }) {
   const maxLength = 300
-
   const [isExpanded, setIsExpanded] = useState(false)
 
   return (

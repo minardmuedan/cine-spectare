@@ -1,43 +1,27 @@
-import { H3 } from '@/components/typography'
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
-import ErrorResult from '@/components/ui/error-result'
-import NoResult from '@/components/ui/no-results'
 import MediaCard from '@/features/media/components/card'
-import { getMovieSimilar } from '@/lib/tmdb/movies'
+import { getPersonMovieCredits } from '@/lib/tmdb/person'
 
-export default async function MovieSimilarPage(props: { params: Promise<{ id: string }> }) {
-  const { id } = await props.params
-  const [error, movies] = await getMovieSimilar(id)
+export default async function PersonMovieCreditsPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
 
-  if (error)
-    return (
-      <>
-        <H3>More like this</H3>
-        <ErrorResult error={error} className="h-72" />
-      </>
-    )
+  const [error, movieCredits] = await getPersonMovieCredits(id)
+  if (error) return <p>{error.message}</p>
 
-  if (!movies.results.length)
-    return (
-      <>
-        <H3>More like this</H3>
-        <NoResult className="h-72" />
-      </>
-    )
+  const movies = movieCredits.cast.sort((a, b) => b.vote_count - a.vote_count)
 
   return (
     <Carousel opts={{ slidesToScroll: 'auto' }}>
-      <div className="mb-2 flex items-center justify-between gap-2">
-        <H3>More like this</H3>
-
+      <header className="mb-2 flex items-center justify-between">
+        <h2 className={'text-xl font-medium text-muted-foreground'}>Known For</h2>
         <div className="flex gap-2">
           <CarouselPrevious />
           <CarouselNext />
         </div>
-      </div>
+      </header>
 
       <CarouselContent className="-ml-3">
-        {movies.results.map((movie, i) => (
+        {movies.map((movie, i) => (
           <CarouselItem key={i} className="basis-[41.5%] pl-3 sm:basis-[29%] lg:basis-[22.5%]">
             <MediaCard
               key={movie.id}

@@ -3,10 +3,12 @@ import ErrorResult from '@/components/ui/error-result'
 import { getTvDetails } from '@/lib/tmdb/tv-shows'
 import React, { Suspense } from 'react'
 import TvSeasonsSideNav from './_season-sidenav'
+import { H3, H4 } from '@/components/typography'
 
-type Props = { params: Promise<{ id: string; seasonNumber: string }>; children: React.ReactNode; credits: React.ReactNode }
+type RRN = React.ReactNode
+type Props = { params: Promise<{ id: string; seasonNumber: string }>; children: RRN; images: RRN; videos: RRN }
 
-export default async function TvSeasonLayout({ params, children, credits }: Props) {
+export default async function TvSeasonLayout({ params, children, images, videos }: Props) {
   const { id, seasonNumber } = await params
   const [error, tv] = await getTvDetails(id)
 
@@ -26,10 +28,25 @@ export default async function TvSeasonLayout({ params, children, credits }: Prop
         </aside>
       </div>
 
-      <div className="mx-auto max-w-[1160px] md:flex-1">
+      <div className="mx-auto w-full max-w-[1160px] md:flex-1">
         <Suspense>
           {children}
-          {credits}
+
+          <section className="pt-20">
+            <H3 className="mb-4">Media</H3>
+
+            <ul className="grid grid-cols-1 gap-10 *:w-full lg:grid-cols-2 lg:gap-5">
+              {[
+                { title: 'Posters', ui: images },
+                { title: 'Videos', ui: videos },
+              ].map(({ title, ui }, i) => (
+                <li key={i}>
+                  <H4>{title}</H4>
+                  {ui}
+                </li>
+              ))}
+            </ul>
+          </section>
         </Suspense>
       </div>
     </div>

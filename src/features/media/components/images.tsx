@@ -1,11 +1,11 @@
 import TmdbImage from '@/components/tmdb-image'
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
-import { Image } from '@/lib/tmdb/_movie-type'
+import { Image } from '@/lib/tmdb/_type/movie'
 import React from 'react'
 
 export function MediaPosters({ posters }: { posters: Image[] }) {
   return (
-    <MediaImages images={posters}>
+    <MediaImagesDialog images={posters}>
       <ul className={`grid aspect-square w-full gap-1 ${posters.length > 1 ? 'grid-cols-2' : 'grid-cols-1'}`}>
         {posters.slice(0, 4).map((poster, i) => (
           <li key={i} className="relative w-full overflow-hidden rounded-sm">
@@ -16,13 +16,13 @@ export function MediaPosters({ posters }: { posters: Image[] }) {
           </li>
         ))}
       </ul>
-    </MediaImages>
+    </MediaImagesDialog>
   )
 }
 
 export function MediaBackdrops({ backdrops }: { backdrops: Image[] }) {
   return (
-    <MediaImages images={backdrops}>
+    <MediaImagesDialog images={backdrops}>
       <ul className={`grid aspect-square w-full gap-1 ${backdrops.length > 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
         {backdrops.slice(0, 3).map((poster, i) => (
           <li key={i} className={`relative w-full overflow-hidden rounded-sm ${i == 0 && 'col-span-2'}`}>
@@ -33,19 +33,19 @@ export function MediaBackdrops({ backdrops }: { backdrops: Image[] }) {
           </li>
         ))}
       </ul>
-    </MediaImages>
+    </MediaImagesDialog>
   )
 }
 
-function MediaImages({ images, children }: { images: Image[]; children: React.ReactNode }) {
+function MediaImagesDialog({ images, children }: { images: Image[]; children: React.ReactNode }) {
   return (
     <Dialog>
-      <DialogTrigger className="transition-opacity hover:opacity-75">
+      <DialogTrigger className="w-full transition-opacity hover:opacity-75">
         {children}
         <span className="sr-only">media images</span>
       </DialogTrigger>
 
-      <DialogContent className="w-full lg:max-w-6xl">
+      <DialogContent className="lg:max-w-6xl">
         <DialogHeader title="Media Images" description="Browse Media Poster or Backdrop Images" className="hidden" />
 
         <ul className="columns-4 gap-4 *:mb-4">

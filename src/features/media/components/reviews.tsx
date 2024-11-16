@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { H3 } from '@/components/typography'
-import { TReviews } from '@/lib/tmdb/_movie-type'
+import { TReviews } from '@/lib/tmdb/_type/movie'
 import MediaReviewsDialog from './reviews-dialog'
 import { timeAgo } from '@/lib/helpers/format-date'
 

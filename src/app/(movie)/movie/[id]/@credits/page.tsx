@@ -7,8 +7,6 @@ import { getMovieCredits } from '@/lib/tmdb/movies'
 import Link from 'next/link'
 
 export default async function MovieCreditsPage(props: { params: Promise<{ id: string }> }) {
-  await new Promise(res => setTimeout(res, 10000))
-
   const { id } = await props.params
   const [error, credits] = await getMovieCredits(id)
 
@@ -32,7 +30,7 @@ export default async function MovieCreditsPage(props: { params: Promise<{ id: st
 
   return (
     <Carousel opts={{ slidesToScroll: 'auto' }}>
-      <div className="mb-4 flex items-center justify-between gap-2">
+      <header className="mb-4 flex items-center justify-between gap-2">
         <H3>
           Credits <span className="text-sm">{credits.cast.length}</span>
         </H3>
@@ -41,7 +39,7 @@ export default async function MovieCreditsPage(props: { params: Promise<{ id: st
           <CarouselPrevious />
           <CarouselNext />
         </div>
-      </div>
+      </header>
 
       <CarouselContent>
         {credits.cast.map((cast, i) => (

@@ -2,7 +2,7 @@
 
 import TmdbImage from '@/components/tmdb-image'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { TTvSeason } from '@/lib/tmdb/_tv-type'
+import { TTvSeason } from '@/lib/tmdb/_type/tv'
 import { StarIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'

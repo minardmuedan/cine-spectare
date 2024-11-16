@@ -1,6 +1,6 @@
 import sanitizeHtml from 'sanitize-html'
 import { TMDBFetcher } from './fetcher'
-import { TMovieCredits, TFullMovie, TMovieKeywords, TMovieImages, TMovies, TMovieVideos, TReviews } from './_movie-type'
+import { TMovieCredits, TFullMovie, TMovieKeywords, TMovieImages, TMovies, TMovieVideos, TReviews } from './_type/movie'
 
 // movies
 

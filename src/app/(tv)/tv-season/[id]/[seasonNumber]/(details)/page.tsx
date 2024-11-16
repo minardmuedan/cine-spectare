@@ -1,5 +1,6 @@
 import TmdbImage from '@/components/tmdb-image'
 import { H3 } from '@/components/typography'
+import TvEpisodes from '@/features/media/components/tv-episodes'
 import { getTvSeason } from '@/lib/tmdb/tv-shows'
 
 export default async function TvSeasonDetailsPage(props: { params: Promise<{ id: string; seasonNumber: string }> }) {
@@ -26,19 +27,7 @@ export default async function TvSeasonDetailsPage(props: { params: Promise<{ id:
         <H3 className="mb-4">
           Episodes <span className="text-xs">{season.episodes.length}</span>
         </H3>
-        <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-4">
-          {season.episodes.toReversed().map((episode, i) => (
-            <li key={i} className="group relative aspect-square overflow-hidden rounded-md bg-accent">
-              <TmdbImage src={episode.still_path} alt={`${episode.name} poster`} className="size-full object-cover" />
-              <div className="absolute inset-0 grid place-items-center bg-background/50 text-center">
-                <p className="scale-100 text-sm transition-transform group-hover:scale-0">{episode.episode_number}</p>
-                <div className="absolute scale-0 p-2 transition-transform group-hover:scale-100">
-                  <p className="text-sm">{episode.name}</p>
-                </div>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <TvEpisodes episodes={season.episodes.toReversed()} />
       </section>
     </>
   )

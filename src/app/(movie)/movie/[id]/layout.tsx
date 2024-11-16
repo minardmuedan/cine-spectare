@@ -1,6 +1,6 @@
 import Back from '@/components/back-button'
 import { MovieSectionsSideNav, MovieSection } from './_components'
-import { H3 } from '@/components/typography'
+import { H3, H4 } from '@/components/typography'
 import { Suspense } from 'react'
 
 type RRN = React.ReactNode
@@ -32,7 +32,10 @@ export default function MovieLayout({ children, credits, reviews, keywords, imag
 
               <ul className="grid grid-cols-2 gap-10 *:w-full *:last:col-span-2 md:gap-4 lg:grid-cols-3 *:last:lg:col-span-1">
                 {images}
-                {videos}
+                <li>
+                  <H4>Videos</H4>
+                  {videos}
+                </li>
               </ul>
             </MovieSection>
 

@@ -2,7 +2,7 @@
 
 import { Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
-import { TMovieVideos } from '@/lib/tmdb/_movie-type'
+import { TMovieVideos } from '@/lib/tmdb/_type/movie'
 import { Loader2Icon } from 'lucide-react'
 import React, { useState } from 'react'
 
@@ -15,10 +15,10 @@ export default function MediaVideosDialog({ videos: videosData }: { videos: TMov
 
   return (
     <Dialog>
-      <DialogTrigger className="transition-opacity hover:opacity-75">
-        <ul className="grid aspect-square w-full grid-cols-2 gap-1">
+      <DialogTrigger className="w-full transition-opacity hover:opacity-75">
+        <ul className={`grid aspect-square gap-1 ${videos.length > 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
           {videosData.results.slice(0, 3).map((video, i) => (
-            <li key={i} className={`relative w-full overflow-hidden rounded-sm ${i == 0 && 'col-span-2'}`}>
+            <li key={i} className={`relative overflow-hidden rounded-sm ${videos.length > 2 && i == 0 && 'col-span-2'}`}>
               <img src={`https://img.youtube.com/vi/${video.key}/maxresdefault.jpg`} alt="video thumbnail" className="size-full object-cover" />
               {i == 2 && videosData.results.length - 3 > 0 && (
                 <div className="absolute inset-0 z-10 grid place-items-center bg-background/75 text-sm">{videosData.results.length - 3}+</div>
