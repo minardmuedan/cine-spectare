@@ -58,7 +58,7 @@ export type TCast = {
   order: number
 }
 
-export type TCredits = {
+export type TMovieCredits = {
   id: number
   cast: TCast[]
 }

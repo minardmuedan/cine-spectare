@@ -60,9 +60,7 @@ export default async function MovieDetailsPage(props: { params: Promise<{ id: st
             <li>
               <Building2Icon size={16} />
 
-              <p className="flex-1">
-                {movie.production_companies.map(({ name }, i) => `${name}${i != movie.production_companies.length - 1 && ', '}`)}
-              </p>
+              <p className="flex-1">{movie.production_companies.map(company => company.name).join(', ')}</p>
             </li>
           )}
         </ul>

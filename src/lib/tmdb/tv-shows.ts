@@ -1,6 +1,6 @@
 import { cache } from 'react'
-import { TCredits, TMovieImages, TMovieVideos, TReviews } from './_movie-type'
-import { TFullTv, TTvFullSeason, TTvKeywords, TTvShows } from './_tv-type'
+import { TMovieImages, TMovieVideos, TReviews } from './_movie-type'
+import { TFullTv, TTvAggregatedCredits, TTvFullSeason, TTvKeywords, TTvShows } from './_tv-type'
 import { TMDBFetcher } from './fetcher'
 
 // tv shows
@@ -17,7 +17,8 @@ export const getTopRatedTvShows = async (page: number) => await TMDBFetcher<TTvS
 
 export const getTvDetails = cache(async (id: string) => await TMDBFetcher<TFullTv>(`https://api.themoviedb.org/3/tv/${id}`))
 
-export const getTvCredits = async (id: string) => await TMDBFetcher<TCredits>(`https://api.themoviedb.org/3/tv/${id}/credits`)
+export const getTvAggregatedCredits = async (id: string) =>
+  await TMDBFetcher<TTvAggregatedCredits>(`https://api.themoviedb.org/3/tv/${id}/aggregate_credits`)
 
 export const getTvReviews = async (id: string, page = '1') =>
   await TMDBFetcher<TReviews>(`https://api.themoviedb.org/3/tv/${id}/reviews?page=${page}`)

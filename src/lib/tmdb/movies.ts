@@ -1,6 +1,6 @@
 import sanitizeHtml from 'sanitize-html'
 import { TMDBFetcher } from './fetcher'
-import { TCredits, TFullMovie, TMovieKeywords, TMovieImages, TMovies, TMovieVideos, TReviews } from './_movie-type'
+import { TMovieCredits, TFullMovie, TMovieKeywords, TMovieImages, TMovies, TMovieVideos, TReviews } from './_movie-type'
 
 // movies
 
@@ -16,7 +16,7 @@ export const getUpcomingMovies = async (page: number) => await TMDBFetcher<TMovi
 
 export const getMovieDetails = async (id: string) => await TMDBFetcher<TFullMovie>(`https://api.themoviedb.org/3/movie/${id}`)
 
-export const getMovieCredits = async (id: string) => await TMDBFetcher<TCredits>(`https://api.themoviedb.org/3/movie/${id}/credits`)
+export const getMovieCredits = async (id: string) => await TMDBFetcher<TMovieCredits>(`https://api.themoviedb.org/3/movie/${id}/credits`)
 
 export const getMovieReviews = async (id: string, page = '1') => {
   const [error, reviews] = await TMDBFetcher<TReviews>(`https://api.themoviedb.org/3/movie/${id}/reviews?page=${page}`)

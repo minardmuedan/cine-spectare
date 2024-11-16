@@ -1,6 +1,5 @@
 import { H3 } from '@/components/typography'
 import { Skeleton } from '@/components/ui/skeleton'
-import { MediaCreditsLoadingFallback } from '@/features/media/components/credits'
 
 export default function MovieCreditsLoading() {
   return (
@@ -14,7 +13,15 @@ export default function MovieCreditsLoading() {
         </div>
       </div>
 
-      <MediaCreditsLoadingFallback />
+      <ul className="flex gap-4">
+        {[...Array(10)].map((_, i) => (
+          <li key={i} className="flex flex-col items-center">
+            <Skeleton className="size-24 rounded-full" />
+            <Skeleton className="my-1 h-5 w-full" />
+            <Skeleton className="h-4 w-3/4" />
+          </li>
+        ))}
+      </ul>
     </>
   )
 }

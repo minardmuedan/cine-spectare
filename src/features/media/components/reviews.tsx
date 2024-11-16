@@ -2,6 +2,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { H3 } from '@/components/typography'
 import { TReviews } from '@/lib/tmdb/_movie-type'
 import MediaReviewsDialog from './reviews-dialog'
+import { timeAgo } from '@/lib/helpers/format-date'
 
 export default function MediaReviews({ initialReviews, type }: { initialReviews: TReviews; type: 'movie' | 'tv' }) {
   return (
@@ -19,7 +20,7 @@ export default function MediaReviews({ initialReviews, type }: { initialReviews:
                 <AvatarFallback>{review.author_details.name?.slice(0, 2)}</AvatarFallback>
               </Avatar>
               <p className="text-sm">{review.author_details.name}</p>
-              <p className="text-xs text-muted-foreground">{new Date(review.updated_at).toLocaleString()}</p>
+              <p className="text-xs text-muted-foreground">{timeAgo(new Date(review.updated_at))}</p>
             </div>
 
             <p className="line-clamp-4 text-sm" dangerouslySetInnerHTML={{ __html: review.content }} />
