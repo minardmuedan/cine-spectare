@@ -102,20 +102,35 @@ export type TFullTv = SharedType & {
   type: string
 }
 
+type TvCredit = {
+  adult: boolean
+  gender: number
+  id: number
+  known_for_department: string
+  name: string
+  original_name: string
+  popularity: number
+  profile_path: string
+  total_episode_count: number
+}
+
 export type TTvAggregatedCredits = {
-  cast: {
-    adult: boolean
-    gender: number
-    id: number
-    known_for_department: string
-    name: string
-    original_name: string
-    popularity: number
-    profile_path?: string
-    roles: { credit_id: string; character: string; episode_count: number }[]
-    total_episode_count: number
+  cast: (TvCredit & {
+    roles: {
+      credit_id: string
+      character: string
+      episode_count: number
+    }[]
     order: number
-  }[]
+  })[]
+  crew: (TvCredit & {
+    jobs: {
+      credit_id: string
+      job: string
+      episode_count: number
+    }[]
+    department: string
+  })[]
 }
 
 export type TTvKeywords = {

@@ -1,14 +1,20 @@
 import TmdbImage from '@/components/tmdb-image'
 import ViewMoreContent from '@/components/view-more'
-import { getPerson } from '@/lib/tmdb/person'
+import { TPersonSocialMedia } from '@/lib/tmdb/_type/person'
+import { getPerson, getPersonSocialMedia } from '@/lib/tmdb/person'
+import Image from 'next/image'
+import Link from 'next/link'
 
-export default async function PersonPage({ params }: { params: Promise<{ id: string }> }) {
+export default async function PersonDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const [error, person] = await getPerson(id)
+  const [details, social] = await Promise.all([getPerson(id), getPersonSocialMedia(id)])
 
-  if (error) return <p>{error.message}</p>
+  const [detailsError, person] = details
+  const [socialMediaError, socialMedia] = social
+
+  if (detailsError) return <p>{detailsError.message}</p>
   return (
-    <section className="mx-auto flex w-fit flex-col gap-10 md:flex-row md:gap-5">
+    <>
       <TmdbImage src={person.profile_path} alt={`${person.name} profile`} className="mx-auto h-fit w-full max-w-72 rounded-md md:mx-0" />
 
       <div className="max-w-[700px] flex-1 space-y-5">
@@ -21,6 +27,7 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
           <span className="text-muted-foreground">Known For: </span>
           {person.known_for_department}
         </p>
+
         <p className="text-sm">
           <span className="text-muted-foreground">Birthday: </span> {new Date(person.birthday).toDateString()}{' '}
           <span className="text-sm text-muted-foreground">
@@ -28,11 +35,50 @@ export default async function PersonPage({ params }: { params: Promise<{ id: str
           </span>
         </p>
 
+        {person.deathday && (
+          <p className="text-sm">
+            <span className="text-muted-foreground">Deathday: </span>
+            {new Date(person.deathday).toDateString()}
+          </p>
+        )}
+
         <p className="text-sm">
           <span className="text-muted-foreground">Place of Birth: </span>
           {person.place_of_birth}
         </p>
+
+        <p className="text-sm">
+          <span className="text-muted-foreground">Also known as: </span>
+          {person.also_known_as.join(', ')}
+        </p>
+
+        {!socialMediaError && <PersonSocialMedia socialMedia={socialMedia} />}
       </div>
-    </section>
+    </>
+  )
+}
+
+function PersonSocialMedia({ socialMedia }: { socialMedia: TPersonSocialMedia }) {
+  const socialMediaIcons = [
+    { key: 'facebook_id', src: 'https:www.facebook.com/', icon: '/facebook.svg' },
+    { key: 'instagram_id', src: 'https://instagram.com/', icon: '/instagram.svg' },
+    { key: 'tiktok_id', src: 'https://tiktok.com/@', icon: '/tiktok.svg' },
+    { key: 'twitter_id', src: 'https://twitter.com/', icon: '/twitter.svg' },
+    { key: 'youtube_id', src: 'https://www.youtube.com/', icon: '/youtube.svg' },
+  ] as const
+
+  return (
+    <ul className="flex items-center justify-evenly gap-5 pt-10 md:justify-start md:pt-0">
+      {socialMediaIcons
+        .filter(({ key }) => socialMedia[key])
+        .map(({ icon, key, src }, i) => (
+          <li key={i}>
+            <Link href={`${src}${socialMedia[key]}/`}>
+              <Image src={icon} alt={`${key} icon`} height={24} width={24} />
+              <span className="sr-only">{key}</span>
+            </Link>
+          </li>
+        ))}
+    </ul>
   )
 }

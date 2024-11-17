@@ -43,11 +43,11 @@ export type TMovies = {
   total_results: number
 }
 
-export type TCast = {
+type MovieCredit = {
   adult: boolean
   gender: number
   id: number
-  known_for_department: string // change this
+  known_for_department: string
   name: string
   original_name: string
   popularity: number
@@ -55,12 +55,12 @@ export type TCast = {
   cast_id: number
   character: string
   credit_id: string
-  order: number
 }
 
 export type TMovieCredits = {
   id: number
-  cast: TCast[]
+  cast: (MovieCredit & { order: number })[]
+  crew: (MovieCredit & { department: string; job: string })[]
 }
 
 export type TReview = {

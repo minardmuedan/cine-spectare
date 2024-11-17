@@ -15,7 +15,16 @@ export type TPerson = {
   profile_path: string
 }
 
-type PersonCredit = {
+export type TPersonSocialMedia = {
+  id: number
+  facebook_id?: string
+  instagram_id?: string
+  tiktok_id?: string
+  twitter_id?: string
+  youtube_id?: string
+}
+
+export type TPersonCombinedCredit = {
   adult: boolean
   backdrop_path: string
   genre_ids: number[]
@@ -27,16 +36,25 @@ type PersonCredit = {
   poster_path: string
   release_date: string
   title: string
-  video: number
+  video: false
   vote_average: number
   vote_count: number
-  character: string
   credit_id: string
+  media_type: 'movie' | 'tv'
+}
+
+export type TPersonCombinedCreditsCast = TPersonCombinedCredit & {
+  character: string
   order: number
 }
 
-export type TPersonMovieCredits = {
-  cast: PersonCredit[]
-  crew: (PersonCredit & { department: string; job: string })[]
-  id: 16828
+export type TPersonCombinedCreditsCrew = TPersonCombinedCredit & {
+  department: string
+  job: string
+}
+
+export type TPersonCombinedCredits = {
+  id: number
+  cast: TPersonCombinedCreditsCast[]
+  crew: TPersonCombinedCreditsCrew[]
 }

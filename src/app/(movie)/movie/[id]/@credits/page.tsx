@@ -1,10 +1,10 @@
 import { H3 } from '@/components/typography'
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
+import { buttonVariants } from '@/components/ui/button'
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
 import ErrorResult from '@/components/ui/error-result'
 import NoResult from '@/components/ui/no-results'
-import { CreditAvatar, CreditCharacter, CreditName } from '@/features/media/components/credit'
+import MediaCredits, { MediaCreditsList } from '@/features/media/components/credits'
 import { getMovieCredits } from '@/lib/tmdb/movies'
-import Link from 'next/link'
 
 export default async function MovieCreditsPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params
@@ -28,33 +28,30 @@ export default async function MovieCreditsPage(props: { params: Promise<{ id: st
       </>
     )
 
+  const casts = credits.cast.map(cast => ({ ...cast, role: cast.character }))
+  const crews = credits.crew.map(crew => ({ ...crew, role: crew.job }))
+
   return (
-    <Carousel opts={{ slidesToScroll: 'auto' }}>
-      <header className="mb-4 flex items-center justify-between gap-2">
-        <H3>
-          Credits <span className="text-sm">{credits.cast.length}</span>
-        </H3>
+    <MediaCredits credits={{ casts, crews }}>
+      <Dialog>
+        <DialogTrigger className={buttonVariants({ variant: 'link' })}>View All</DialogTrigger>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader title="Full Movie Credits" description="Discover the faces behind the characters" />
+          <div>
+            <div className="sticky -top-6 z-10 bg-background py-2">
+              <p className="font-medium text-muted-foreground">Cast</p>
+            </div>
+            <MediaCreditsList credits={credits.cast.map(cast => ({ ...cast, roles: [cast.character] }))} />
+          </div>
 
-        <div className="flex gap-2">
-          <CarouselPrevious />
-          <CarouselNext />
-        </div>
-      </header>
-
-      <CarouselContent>
-        {credits.cast.map((cast, i) => (
-          <CarouselItem key={i} className="basis-28">
-            <Link href={`/person/${cast.id}`}>
-              <CreditAvatar {...cast} />
-
-              <div className="w-full overflow-hidden text-center *:overflow-hidden *:text-ellipsis *:whitespace-nowrap">
-                <CreditName name={cast.name} />
-                <CreditCharacter character={cast.character} />
-              </div>
-            </Link>
-          </CarouselItem>
-        ))}
-      </CarouselContent>
-    </Carousel>
+          <div>
+            <div className="sticky -top-6 z-10 bg-background py-2">
+              <p className="font-medium text-muted-foreground">Crew</p>
+            </div>
+            <MediaCreditsList credits={credits.crew.map(crew => ({ ...crew, roles: [crew.job] }))} />
+          </div>
+        </DialogContent>
+      </Dialog>
+    </MediaCredits>
   )
 }

@@ -1,13 +1,10 @@
 import { H3 } from '@/components/typography'
 import { buttonVariants } from '@/components/ui/button'
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel'
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
 import ErrorResult from '@/components/ui/error-result'
 import NoResult from '@/components/ui/no-results'
-import { CreditAvatar, CreditCharacter, CreditName } from '@/features/media/components/credit'
-import { TTvAggregatedCredits } from '@/lib/tmdb/_type/tv'
+import MediaCredits, { MediaCreditsList } from '@/features/media/components/credits'
 import { getTvAggregatedCredits } from '@/lib/tmdb/tv-shows'
-import Link from 'next/link'
 
 export default async function TvCreditsLoadingPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params
@@ -31,70 +28,40 @@ export default async function TvCreditsLoadingPage(props: { params: Promise<{ id
       </>
     )
 
+  const casts = credits.cast.map(cast => ({ ...cast, role: cast.roles.map(({ character }) => character).join(', ') }))
+  const crews = credits.crew.map(crew => ({ ...crew, role: crew.jobs.map(({ job }) => job).join(', ') }))
+
   return (
-    <Carousel opts={{ slidesToScroll: 'auto' }}>
-      <header className="mb-4 flex items-center justify-between gap-2">
-        <H3>
-          Credits <span className="text-sm">{credits.cast.length}</span>
-        </H3>
+    <MediaCredits credits={{ casts, crews }}>
+      <Dialog>
+        <DialogTrigger className={buttonVariants({ variant: 'link' })}>View All</DialogTrigger>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader title="Full Tv Credits" description="Discover the faces behind the characters" />
+          <div>
+            <div className="sticky -top-6 z-10 bg-background py-2">
+              <p className="font-medium text-muted-foreground">Cast</p>
+            </div>
+            <MediaCreditsList
+              credits={credits.cast.map(cast => ({
+                ...cast,
+                roles: cast.roles.map(({ character, episode_count }) => `${character} - ${episode_count} episode/s`),
+              }))}
+            />
+          </div>
 
-        <div className="flex gap-2">
-          <FullCredits credits={credits} />
-          <CarouselPrevious />
-          <CarouselNext />
-        </div>
-      </header>
-
-      <CarouselContent>
-        {credits.cast.map((cast, i) => {
-          const characters = cast.roles.map(role => role.character).join(', ')
-
-          return (
-            <CarouselItem key={i} className="basis-28">
-              <Link href={`/person/${cast.id}`}>
-                <CreditAvatar {...cast} />
-
-                <div className="w-full overflow-hidden text-center *:overflow-hidden *:text-ellipsis *:whitespace-nowrap">
-                  <CreditName name={cast.name} />
-                  <CreditCharacter character={characters} />
-                </div>
-              </Link>
-            </CarouselItem>
-          )
-        })}
-      </CarouselContent>
-    </Carousel>
+          <div>
+            <div className="sticky -top-6 z-10 bg-background py-2">
+              <p className="font-medium text-muted-foreground">Crew</p>
+            </div>
+            <MediaCreditsList
+              credits={credits.crew.map(crew => ({
+                ...crew,
+                roles: crew.jobs.map(({ job, episode_count }) => `${job} - ${episode_count} episode/s`),
+              }))}
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
+    </MediaCredits>
   )
 }
-
-const FullCredits = ({ credits }: { credits: TTvAggregatedCredits }) => (
-  <Dialog>
-    <DialogTrigger className={buttonVariants({ variant: 'link' })}>View All</DialogTrigger>
-    <DialogContent className="max-w-2xl">
-      <DialogHeader title="Full Tv Credits" description="Discover the faces behind the characters" />
-
-      <ul className="flex flex-col gap-2">
-        {credits.cast.map(cast => (
-          <li key={cast.id}>
-            <Link href={`/person/${cast.id}`} className="group">
-              <div className="flex gap-4 rounded-lg border bg-accent-muted p-2 transition-colors group-hover:bg-accent">
-                <CreditAvatar {...cast} className="h-20 w-20" />
-                <div className="flex-1">
-                  <p>{cast.name}</p>
-
-                  <ul className="text-sm text-muted-foreground">
-                    {cast.roles.map((role, i) => (
-                      <li key={i} className="flex gap-1">
-                        {role.character || 'unknown'} - {role.episode_count} episode/s
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </DialogContent>
-  </Dialog>
-)
