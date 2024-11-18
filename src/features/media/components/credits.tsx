@@ -1,29 +1,31 @@
 import TmdbImage from '@/components/tmdb-image'
 import { H3 } from '@/components/typography'
 import { Avatar, AvatarFallback } from '@/components/ui/avatar'
+import { buttonVariants } from '@/components/ui/button'
 import { Carousel, CarouselPrevious, CarouselNext, CarouselContent, CarouselItem } from '@/components/ui/carousel'
+import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 
-type Credit = { id: number; name: string; profile_path?: string; role: string }
+type Credit = { id: number; name: string; profile_path?: string; roles: string[] }
 
-export default function MediaCredits({ credits, children }: { credits: { casts: Credit[]; crews: Credit[] }; children: React.ReactNode }) {
+export default function MediaCredits({ credits }: { credits: { casts: Credit[]; crews: Credit[] } }) {
   return (
     <Carousel opts={{ slidesToScroll: 'auto' }}>
       <header className="mb-4 flex items-center justify-between gap-2">
         <H3>
-          Credits <span className="text-sm">{credits.casts.length + credits.crews.length}</span>
+          Cast <span className="text-sm">{credits.casts.length}</span>
         </H3>
 
         <div className="flex items-center gap-2">
-          {children}
+          <MediaCreditsDialog credits={credits} />
           <CarouselPrevious />
           <CarouselNext />
         </div>
       </header>
 
       <CarouselContent>
-        {credits.casts.slice(0, 15).map(({ id, name, role, profile_path }, i) => (
+        {credits.casts.slice(0, 15).map(({ id, name, roles, profile_path }, i) => (
           <CarouselItem key={i} className="basis-28">
             <Link href={`/person/${id}`}>
               <CreditAvatar {...{ name, profile_path }} />
@@ -32,8 +34,8 @@ export default function MediaCredits({ credits, children }: { credits: { casts: 
                 <p title={name} className="text-sm">
                   {name}
                 </p>
-                <p title={role} className="text-xs text-muted-foreground">
-                  {role}
+                <p title={roles.join(', ')} className="text-xs text-muted-foreground">
+                  {roles.join(', ')}
                 </p>
               </div>
             </Link>
@@ -44,7 +46,33 @@ export default function MediaCredits({ credits, children }: { credits: { casts: 
   )
 }
 
-export function MediaCreditsList({ credits }: { credits: (Omit<Credit, 'role'> & { roles: string[] })[] }) {
+export function MediaCreditsDialog({ credits }: { credits: { casts: Credit[]; crews: Credit[] } }) {
+  const mediaCredits = [
+    { title: 'Casts', credits: credits.casts },
+    { title: 'Crews', credits: credits.crews },
+  ]
+
+  return (
+    <Dialog>
+      <DialogTrigger className={buttonVariants({ variant: 'link' })}>View All Casts & Credits</DialogTrigger>
+      <DialogContent className="max-w-2xl">
+        <DialogHeader title="Full Media Credits" description="Discover the faces behind the characters" />
+
+        {mediaCredits.map((mediaCredit, i) => (
+          <div key={i}>
+            <div className="sticky -top-6 z-10 bg-background py-2">
+              <p className="font-medium text-muted-foreground">{mediaCredit.title}</p>
+            </div>
+
+            <MediaCreditsList credits={mediaCredit.credits} />
+          </div>
+        ))}
+      </DialogContent>
+    </Dialog>
+  )
+}
+
+export function MediaCreditsList({ credits }: { credits: Credit[] }) {
   return (
     <ul className="flex flex-col gap-2">
       {credits.map(({ id, name, profile_path, roles }, i) => (
