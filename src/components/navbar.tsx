@@ -13,6 +13,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
+import SearchBar from './search-bar'
 
 export default function Navbar() {
   const movieLinks = [
@@ -38,7 +39,6 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 h-14 w-full border-b bg-background/60 px-20 backdrop-blur-sm">
       <div className="flex h-full items-center justify-between">
         <Link href="/">Home</Link>
-
         <NavigationMenu className="hidden sm:flex">
           <NavigationMenuList className="gap-5">
             <NavigationMenuItem>
@@ -70,6 +70,8 @@ export default function Navbar() {
             ))}
           </NavigationMenuList>
         </NavigationMenu>
+
+        <SearchBar />
 
         <div className="flex items-center gap-10">
           <UserSideNav />

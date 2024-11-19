@@ -9,7 +9,7 @@ import { cn } from '@/lib/utils'
 
 export default function MediaCard({ media }: { media: TMedia }) {
   return (
-    <div className="rounded border bg-accent-muted transition-colors hover:bg-accent">
+    <div className="rounded border bg-accent-muted transition-colors ease-in hover:bg-accent">
       <ViewHistoryWrapper media={media}>
         <Link href={`/${media.type}/${media.id}`}>
           <div className="p-2">

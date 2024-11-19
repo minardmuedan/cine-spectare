@@ -1,4 +1,5 @@
 import TmdbImage from '@/components/tmdb-image'
+import ErrorResult from '@/components/ui/error-result'
 import ViewMoreContent from '@/components/view-more'
 import { TPersonSocialMedia } from '@/lib/tmdb/_type/person'
 import { getPerson, getPersonSocialMedia } from '@/lib/tmdb/person'
@@ -12,7 +13,7 @@ export default async function PersonDetailsPage({ params }: { params: Promise<{ 
   const [detailsError, person] = details
   const [socialMediaError, socialMedia] = social
 
-  if (detailsError) return <p>{detailsError.message}</p>
+  if (detailsError) return <ErrorResult error={detailsError} className="h-96" />
   return (
     <>
       <TmdbImage src={person.profile_path} alt={`${person.name} profile`} className="mx-auto h-fit w-full max-w-72 rounded-md md:mx-0" />

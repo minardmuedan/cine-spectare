@@ -28,7 +28,7 @@ export default function MediaCredits({ credits }: { credits: { casts: Credit[]; 
         {credits.casts.slice(0, 15).map(({ id, name, roles, profile_path }, i) => (
           <CarouselItem key={i} className="basis-28">
             <Link href={`/person/${id}`}>
-              <CreditAvatar {...{ name, profile_path }} />
+              <PersonAvatar {...{ name, profile_path }} />
 
               <div className="w-full overflow-hidden text-center *:overflow-hidden *:text-ellipsis *:whitespace-nowrap">
                 <p title={name} className="text-sm">
@@ -79,7 +79,7 @@ export function MediaCreditsList({ credits }: { credits: Credit[] }) {
         <li key={i}>
           <Link href={`/person/${id}`} className="group">
             <div className="flex gap-4 rounded-lg border bg-accent-muted p-2 transition-colors group-hover:bg-accent">
-              <CreditAvatar {...{ name, profile_path }} className="h-20 w-20" />
+              <PersonAvatar {...{ name, profile_path }} className="h-20 w-20" />
               <div className="flex-1">
                 <p>{name}</p>
 
@@ -99,7 +99,7 @@ export function MediaCreditsList({ credits }: { credits: Credit[] }) {
   )
 }
 
-export function CreditAvatar({ name, profile_path, className }: { name: string; profile_path?: string; className?: string }) {
+export function PersonAvatar({ name, profile_path, className }: { name: string; profile_path?: string; className?: string }) {
   if (!profile_path)
     return (
       <Avatar className={cn('aspect-square h-auto w-full', className)}>

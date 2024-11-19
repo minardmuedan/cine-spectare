@@ -4,7 +4,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 export default function PersonCreditsLoading() {
   return (
     <>
-      <aside className="sticky top-16 h-fit w-60">
+      <aside className="sticky top-16 hidden h-fit w-52 md:block">
         <H2 className="mb-2">Department</H2>
         <nav>
           <ul className="flex flex-col gap-1">
@@ -18,7 +18,7 @@ export default function PersonCreditsLoading() {
       </aside>
 
       <div className="flex-1">
-        <H2 className="mb-2">Credits</H2>
+        <H2 className="mb-2">All Credits</H2>
 
         <ul className="flex flex-col gap-2">
           {[...Array(3)].map((_, i) => (
