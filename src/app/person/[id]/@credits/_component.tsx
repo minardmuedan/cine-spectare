@@ -4,8 +4,9 @@ import TmdbImage from '@/components/tmdb-image'
 import { H2 } from '@/components/typography'
 import { Button, buttonVariants } from '@/components/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import VoteAverage from '@/features/media/components/vote-average'
 import { TPersonCombinedCredit } from '@/lib/tmdb/_type/person'
-import { ChevronDown, StarIcon } from 'lucide-react'
+import { ChevronDown } from 'lucide-react'
 import Link from 'next/link'
 import { Dispatch, SetStateAction, useState } from 'react'
 
@@ -63,10 +64,7 @@ export default function PersonCredits({ credits }: Credits) {
                   </div>
 
                   <div className="flex flex-col items-end gap-2 text-xs">
-                    <div className="flex gap-2 text-yellow-500">
-                      <StarIcon size={16} />
-                      <p>{media.vote_average}</p>
-                    </div>
+                    <VoteAverage voteAverage={media.vote_average} />
 
                     <p className="text-muted-foreground">{media.media_type}</p>
                     {media.release_date && <p>{new Date(media.release_date).getFullYear()}</p>}

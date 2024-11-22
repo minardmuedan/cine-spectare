@@ -9,6 +9,7 @@ const config: Config = {
       screens: { '2xl': '1536px' },
     },
     extend: {
+      fontFamily: { bolota: 'var(--font-bolota)' },
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',

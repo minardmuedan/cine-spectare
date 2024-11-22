@@ -4,9 +4,10 @@ import { buttonVariants } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogHeader, DialogTrigger } from '@/components/ui/dialog'
 import ErrorResult from '@/components/ui/error-result'
 import NoResult from '@/components/ui/no-results'
+import VoteAverage from '@/features/media/components/vote-average'
 import { TTvSeason } from '@/lib/tmdb/_type/tv'
 import { getTvDetails } from '@/lib/tmdb/tv-shows'
-import { ArrowRightIcon, StarIcon } from 'lucide-react'
+import { ArrowRightIcon } from 'lucide-react'
 import Link from 'next/link'
 
 export default async function TvSeasonsPage(props: { params: Promise<{ id: string }> }) {
@@ -90,11 +91,7 @@ const Season = ({ season, tvId }: { season: TTvSeason; tvId: string }) => {
         </div>
 
         <div className="flex flex-col items-end justify-between gap-1 text-xs text-muted-foreground">
-          <div className="flex gap-2 text-yellow-500">
-            <StarIcon size={16} />
-            <p>{season.vote_average?.toFixed(1)}</p>
-          </div>
-
+          <VoteAverage voteAverage={season.vote_average} />
           <p>{season.air_date}</p>
           <p>{season.episode_count} episode/s</p>
         </div>

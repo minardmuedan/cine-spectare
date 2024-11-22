@@ -5,7 +5,12 @@ import { cn } from '@/lib/utils'
 
 export default function UnauthorizedUi({ className }: { className?: string }) {
   return (
-    <section className={cn('flex min-h-[calc(100dvh-3.5rem)] w-full flex-1 flex-col items-center justify-center px-3 py-10 text-center', className)}>
+    <section
+      className={cn(
+        'flex min-h-[calc(100dvh-3.5rem)] w-full flex-1 flex-col items-center justify-center rounded-xl border border-destructive px-3 py-10 text-center',
+        className,
+      )}
+    >
       <ShieldAlertIcon className="mb-3 size-20 stroke-primary" />
 
       <h1 className="text-3xl font-semibold text-primary">Unauthorized Access!</h1>

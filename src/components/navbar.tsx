@@ -1,8 +1,10 @@
 'use client'
 
 import Link from 'next/link'
-import Devtools from './__devtiools'
+import SearchBar from './search-bar'
 import UserSideNav from './user/side-navigation'
+
+import { AlignJustifyIcon, ChevronRight } from 'lucide-react'
 
 import {
   NavigationMenu,
@@ -13,7 +15,8 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
-import SearchBar from './search-bar'
+import { Sheet, SheetClose, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { buttonVariants } from './ui/button'
 
 export default function Navbar() {
   const movieLinks = [
@@ -36,14 +39,46 @@ export default function Navbar() {
   ]
 
   return (
-    <header className="sticky top-0 z-50 h-14 w-full border-b bg-background/60 px-20 backdrop-blur-sm">
-      <div className="flex h-full items-center justify-between">
-        <Link href="/">Home</Link>
-        <NavigationMenu className="hidden sm:flex">
-          <NavigationMenuList className="gap-5">
-            <NavigationMenuItem>
+    <header className="sticky top-0 z-50 h-14 w-full border-b bg-background/60 px-4 backdrop-blur-sm sm:px-5 lg:px-10">
+      <div className="flex h-full items-center justify-between gap-5">
+        <Sheet>
+          <SheetTrigger className="md:hidden">
+            <AlignJustifyIcon /> <span className="sr-only">open navbar</span>
+          </SheetTrigger>
+          <SheetContent side="left">
+            <SheetHeader className="hidden">
+              <SheetTitle>Navbar</SheetTitle>
+              <SheetDescription>A links where movies and tv shows will get you</SheetDescription>
+            </SheetHeader>
+
+            <nav className="space-y-8">
+              {medias.map((media, i) => (
+                <div key={i}>
+                  <p className="mb-2 font-medium text-muted-foreground">{media.title}</p>
+                  <ul className="*:j flex flex-col gap-2">
+                    {media.links.map((media, i2) => (
+                      <SheetClose key={i2} className={buttonVariants({ variant: 'outline', className: 'justify-between' })} asChild>
+                        <Link href={media.href}>
+                          {media.title} <ChevronRight size={14} className="text-muted-foreground" />
+                        </Link>
+                      </SheetClose>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </nav>
+          </SheetContent>
+        </Sheet>
+
+        <Link href="/" className="text-sm font-medium">
+          Minard
+        </Link>
+
+        <NavigationMenu className="hidden md:flex">
+          <NavigationMenuList className="gap-3">
+            <NavigationMenuItem asChild>
               <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle({ className: 'bg-black/0' })}>Home</NavigationMenuLink>
+                <NavigationMenuLink className={navigationMenuTriggerStyle({ className: 'bg-black/0 md:hidden lg:block' })}>Home</NavigationMenuLink>
               </Link>
             </NavigationMenuItem>
 
@@ -73,11 +108,7 @@ export default function Navbar() {
 
         <SearchBar />
 
-        <div className="flex items-center gap-10">
-          <UserSideNav />
-
-          <Devtools />
-        </div>
+        <UserSideNav />
       </div>
     </header>
   )

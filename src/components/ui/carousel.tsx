@@ -175,4 +175,11 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
 )
 CarouselNext.displayName = 'CarouselNext'
 
-export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext }
+const CarouselPreviousAndNext = ({ className }: { className?: string }) => (
+  <div className={cn('flex gap-2', className)}>
+    <CarouselPrevious />
+    <CarouselNext />
+  </div>
+)
+
+export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, CarouselPreviousAndNext }

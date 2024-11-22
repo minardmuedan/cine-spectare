@@ -36,26 +36,26 @@ const PaginationMore = ({ className }: { className: string }) => {
   )
 }
 
-// this pagination is responsive, ssr and does not require client's window width
-export default function Pagination({ currentPage, maxPage }: { currentPage: number; maxPage: number }) {
+export default function Pagination({ currentPage, maxPage, url }: { currentPage: number; maxPage: number; url?: string }) {
   let page = currentPage > 1 ? currentPage - 1 : currentPage
+  const symbol = url ? `${url}&` : '?'
 
   return (
     <ul className="my-10 flex items-center justify-center gap-1">
       {currentPage > 1 ? (
-        <PaginationPrevious href={`?page=${currentPage - 1}`} />
-      ) : (
+        <PaginationPrevious href={`${symbol}page=${currentPage - 1}`} />
+      ) : page < maxPage ? (
         [...Array(2)].map(() => (
-          <PaginationLink key={page} href={`?page=${page}`} isActive={page === currentPage}>
+          <PaginationLink key={page} href={`${symbol}page=${page}`} isActive={page === currentPage}>
             {page++}
           </PaginationLink>
         ))
-      )}
+      ) : null}
 
       {[...Array(4)].map(
         () =>
           page <= maxPage && (
-            <PaginationLink key={page} href={`?page=${page}`} isActive={page === currentPage}>
+            <PaginationLink key={page} href={`${symbol}page=${page}`} isActive={page === currentPage}>
               {page++}
             </PaginationLink>
           ),
@@ -65,7 +65,7 @@ export default function Pagination({ currentPage, maxPage }: { currentPage: numb
       {[...Array(2)].map(() => (
         <PaginationLink
           key={page}
-          href={`?page=${page}`}
+          href={`${symbol}page=${page}`}
           isActive={page === currentPage}
           className={` ${page > maxPage ? 'hidden' : 'hidden md:block'}`}
         >
@@ -76,7 +76,7 @@ export default function Pagination({ currentPage, maxPage }: { currentPage: numb
       {page <= maxPage && <PaginationMore className="hidden md:grid" />}
       {page - 2 <= maxPage && <PaginationMore className="md:hidden" />}
 
-      {currentPage < maxPage && <PaginationNext href={`?page=${currentPage + 1}`} />}
+      {currentPage < maxPage && <PaginationNext href={`${symbol}page=${currentPage + 1}`} />}
     </ul>
   )
 }

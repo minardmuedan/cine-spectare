@@ -1,30 +1,35 @@
 import BackgroundMediaImage from '@/components/pages/background-image'
-import PageHeader from '@/components/pages/header'
-import Section from '@/components/pages/section'
 import UnauthorizedUi from '@/components/pages/unauthorized'
+import ErrorResult from '@/components/ui/error-result'
+import NoResult from '@/components/ui/no-results'
 import { getUserLikesDb } from '@/db/utils/media/likes'
-import MediaCard from '@/features/media/components/card'
+import MediaList from '@/features/media/components/list'
 import tryCatchWrapper from '@/lib/helpers/try-catch'
 import { validateSession } from '@/lib/session/validate'
 
 export default async function LikesMediaPage() {
   const { session } = await validateSession()
-  if (!session) return <UnauthorizedUi />
+  if (!session) return <UnauthorizedUi className="min-h-[calc(100dvh-15rem)]" />
 
   const [error, likes] = await tryCatchWrapper(async () => await getUserLikesDb(session.userId))
+  if (error) return <ErrorResult error={error} className="min-h-[calc(100dvh-15rem)]" />
+  if (!likes.length) return <NoResult className="min-h-[calc(100dvh-15rem)]" />
 
-  if (error) return <p>{error.message}</p>
-  if (!likes.length) return <p>no likes</p>
   return (
-    <Section>
-      <BackgroundMediaImage src={`https://image.tmdb.org/t/p/w500${likes[likes.length - 1].media.backdropPath}`} />
-      <PageHeader title="Your Likes" description="Movies and shows you've liked. Revisit your favorites anytime" />
+    <>
+      <BackgroundMediaImage src={likes[likes.length - 1].media.backdropPath} />
 
-      <ul className="grid grid-cols-5 gap-3">
-        {likes.toReversed().map(({ media }) => (
-          <MediaCard key={media.id} media={media} />
-        ))}
-      </ul>
-    </Section>
+      <MediaList
+        medias={likes.map(({ media }) => ({
+          id: media.id,
+          title: media.title,
+          posterPath: media.posterPath,
+          backdropPath: media.backdropPath,
+          voteAverage: media.voteAverage,
+          releaseDate: media.releaseDate,
+          type: media.type,
+        }))}
+      />
+    </>
   )
 }

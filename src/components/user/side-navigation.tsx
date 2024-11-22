@@ -35,7 +35,7 @@ export default function UserSideNav() {
       </SheetTrigger>
 
       <SheetContent>
-        <SheetHeader className="mb-3 flex-row items-center gap-3 border-b pb-3">
+        <SheetHeader className="mb-3 flex-row items-center gap-3 border-b pb-3 text-start">
           <SheetTitle className="hidden">User Account</SheetTitle>
           <SheetDescription className="hidden">Browse menu for user account navigation</SheetDescription>
           <UserAvatar {...userSession} />

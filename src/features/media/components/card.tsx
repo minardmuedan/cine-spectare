@@ -1,11 +1,11 @@
-import ViewHistoryWrapper from '@/features/view-history/wrapper'
-import { TMedia } from '@/lib/schema'
-import { StarIcon } from 'lucide-react'
-import MediaMutationsDropdown from './dropdown'
-import Link from 'next/link'
 import TmdbImage from '@/components/tmdb-image'
 import { Skeleton } from '@/components/ui/skeleton'
+import ViewHistoryWrapper from '@/features/view-history/wrapper'
+import { TMedia } from '@/lib/schema'
 import { cn } from '@/lib/utils'
+import Link from 'next/link'
+import MediaMutationsDropdown from './dropdown'
+import VoteAverage from './vote-average'
 
 export default function MediaCard({ media }: { media: TMedia }) {
   return (
@@ -26,10 +26,7 @@ export default function MediaCard({ media }: { media: TMedia }) {
 
       <div className="flex items-center justify-between gap-2 p-2 pt-0">
         <p className="flex-1 text-xs text-muted-foreground">{media.releaseDate?.split('-')[0]}</p>
-        <div title={`${media.voteAverage}`} className="flex items-center gap-1 text-xs text-yellow-500">
-          <StarIcon size={14} />
-          <p>{media.voteAverage.toFixed(1)}</p>
-        </div>
+        <VoteAverage voteAverage={media.voteAverage} />
 
         <MediaMutationsDropdown media={media} />
       </div>

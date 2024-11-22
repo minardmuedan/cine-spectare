@@ -2,8 +2,8 @@
 
 import TmdbImage from '@/components/tmdb-image'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import VoteAverage from '@/features/media/components/vote-average'
 import { TTvSeason } from '@/lib/tmdb/_type/tv'
-import { StarIcon } from 'lucide-react'
 import Link from 'next/link'
 import { useEffect, useRef } from 'react'
 
@@ -35,11 +35,7 @@ export default function TvSeasonsSideNav({ id, seasonNumber, seasons }: { id: st
                   </div>
 
                   <div className="flex flex-col items-end justify-between self-stretch">
-                    <div className="flex items-center gap-1 text-yellow-500">
-                      <StarIcon size={14} />
-                      <p className="text-xs">{season.vote_average}</p>
-                    </div>
-
+                    <VoteAverage voteAverage={season.vote_average} />
                     <p className="text-xs text-muted-foreground">{season.episode_count}</p>
                   </div>
                 </div>
