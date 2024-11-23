@@ -3,6 +3,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import ErrorResult from '@/components/ui/error-result'
 import NoResult from '@/components/ui/no-results'
 import MediaCard from '@/features/media/components/card'
+import { serializeMedia } from '@/features/media/helpers/transform'
 import { getTvSimilar } from '@/lib/tmdb/tv-shows'
 
 export default async function TvSimilarPage(props: { params: Promise<{ id: string }> }) {
@@ -39,18 +40,7 @@ export default async function TvSimilarPage(props: { params: Promise<{ id: strin
       <CarouselContent>
         {tvShows.results.map((tv, i) => (
           <CarouselItem key={i} className="basis-[41.5%] pl-3 sm:basis-[29%] lg:basis-[22.5%]">
-            <MediaCard
-              key={tv.id}
-              media={{
-                id: tv.id,
-                title: tv.name,
-                posterPath: tv.poster_path,
-                backdropPath: tv.backdrop_path,
-                voteAverage: tv.vote_average,
-                releaseDate: tv.first_air_date,
-                type: 'tv',
-              }}
-            />
+            <MediaCard key={tv.id} media={serializeMedia({ ...tv, type: 'tv' })} />
           </CarouselItem>
         ))}
       </CarouselContent>

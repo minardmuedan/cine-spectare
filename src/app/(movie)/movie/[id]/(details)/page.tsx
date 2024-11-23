@@ -7,65 +7,57 @@ import ToggleWatchLaterMutationButton from '@/features/media/toggle-mutations/wa
 import { getMovieDetails } from '@/lib/tmdb/movies'
 import { Building2Icon, CalendarFoldIcon, HourglassIcon } from 'lucide-react'
 import ErrorResult from '@/components/ui/error-result'
+import { serializeMedia } from '@/features/media/helpers/transform'
 
 export default async function MovieDetailsPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params
-  const [error, movie] = await getMovieDetails(id)
+  const [error, rawMovie] = await getMovieDetails(id)
 
   if (error) return <ErrorResult error={error} className="h-96" />
-
-  const media = {
-    id: movie.id,
-    title: movie.title,
-    posterPath: movie.poster_path,
-    backdropPath: movie.backdrop_path,
-    releaseDate: movie.release_date,
-    voteAverage: movie.vote_average,
-    type: 'movie' as const,
-  }
+  const movie = serializeMedia({ ...rawMovie, type: 'movie' })
 
   return (
     <>
-      <BackgroundMediaImage src={movie.backdrop_path} />
+      <BackgroundMediaImage src={movie.backdropPath} />
 
       <div className="mx-auto aspect-[1/1.5] w-full max-w-72 overflow-hidden rounded md:mx-0">
-        <TmdbImage src={movie.poster_path} alt={`${movie.title} poster`} className="object-cover" />
+        <TmdbImage src={movie.posterPath} alt={`${movie.title} poster`} className="object-cover" />
       </div>
 
       <div className="flex-1">
-        {movie.tagline && <p className="text-xs text-muted-foreground">{movie.tagline}</p>}
+        {rawMovie.tagline && <p className="text-xs text-muted-foreground">{rawMovie.tagline}</p>}
         <h1 className="mb-2 max-w-[700px] text-2xl font-medium">{movie.title}</h1>
-        <p className="max-w-[700px] text-sm text-muted-foreground">{movie.overview}</p>
+        <p className="max-w-[700px] text-sm text-muted-foreground">{rawMovie.overview}</p>
 
         <div className="mt-10 flex flex-wrap gap-2 *:w-full md:*:w-fit">
-          <ToggleLikeMutationButton media={media} />
-          <ToggleWatchLaterMutationButton media={media} />
-          <ToggleAlreadyWatchedMutationButton media={media} />
+          <ToggleLikeMutationButton media={movie} />
+          <ToggleWatchLaterMutationButton media={movie} />
+          <ToggleAlreadyWatchedMutationButton media={movie} />
         </div>
 
         <ul className="my-10 flex max-w-[700px] flex-col gap-4 text-sm *:flex *:gap-3">
-          {movie.release_date && (
+          {movie.releaseDate && (
             <li>
               <CalendarFoldIcon size={16} />
-              <p className="flex-1">{movie.release_date}</p>
+              <p className="flex-1">{movie.releaseDate}</p>
             </li>
           )}
-          {movie.runtime && (
+          {rawMovie.runtime && (
             <li>
               <HourglassIcon size={16} />
-              <p className="flex-1">{movie.runtime} minutes</p>
+              <p className="flex-1">{rawMovie.runtime} minutes</p>
             </li>
           )}
-          {movie.production_companies?.length && (
+          {rawMovie.production_companies?.length && (
             <li>
               <Building2Icon size={16} />
 
-              <p className="flex-1">{movie.production_companies.map(company => company.name).join(', ')}</p>
+              <p className="flex-1">{rawMovie.production_companies.map(company => company.name).join(', ')}</p>
             </li>
           )}
         </ul>
 
-        <MediaGenres genres={movie.genres} />
+        <MediaGenres genres={rawMovie.genres} />
       </div>
     </>
   )

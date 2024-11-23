@@ -17,11 +17,9 @@ export default function MovieSimilarLoading() {
 
       <ul className="flex w-full gap-3">
         {[...Array(5)].map((_, i) => (
-          <Fragment key={i}>
-            <li className={`${i == 4 ? 'w-1/2' : 'w-full'} ${i == 0 ? 'hidden lg:block' : i <= 1 && 'hidden sm:block'}`}>
-              <MediaCardLoadingFallback className={`${i === 4 && 'rounded-r-none pr-0'}`} />
-            </li>
-          </Fragment>
+          <li key={i} className={`${i == 4 ? 'w-1/2' : 'w-full'} ${i == 0 ? 'hidden lg:block' : i <= 1 && 'hidden sm:block'}`}>
+            <MediaCardLoadingFallback className={`${i === 4 && 'rounded-r-none pr-0'}`} />
+          </li>
         ))}
       </ul>
     </>

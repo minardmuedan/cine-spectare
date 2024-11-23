@@ -18,18 +18,7 @@ export default async function WatchedHistoryPage() {
   return (
     <>
       <BackgroundMediaImage src={alreadyWatchedMedia[alreadyWatchedMedia.length - 1].media.backdropPath} />
-
-      <MediaList
-        medias={alreadyWatchedMedia.map(({ media }) => ({
-          id: media.id,
-          title: media.title,
-          posterPath: media.posterPath,
-          backdropPath: media.backdropPath,
-          voteAverage: media.voteAverage,
-          releaseDate: media.releaseDate,
-          type: media.type,
-        }))}
-      />
+      <MediaList medias={alreadyWatchedMedia.map(({ media }) => media)} />
     </>
   )
 }

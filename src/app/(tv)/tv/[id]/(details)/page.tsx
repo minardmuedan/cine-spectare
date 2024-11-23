@@ -2,6 +2,7 @@ import BackgroundMediaImage from '@/components/pages/background-image'
 import TmdbImage from '@/components/tmdb-image'
 import ErrorResult from '@/components/ui/error-result'
 import { MediaGenres } from '@/features/media/components/genres-keywords'
+import { serializeMedia } from '@/features/media/helpers/transform'
 import ToggleAlreadyWatchedMutationButton from '@/features/media/toggle-mutations/already-watched/toggle-already-watched-mutation'
 import ToggleLikeMutationButton from '@/features/media/toggle-mutations/likes/toggle-like-mutation'
 import ToggleWatchLaterMutationButton from '@/features/media/toggle-mutations/watch-later/toggle-watch-later-mutation'
@@ -10,62 +11,53 @@ import { Building2Icon, CalendarFoldIcon, HourglassIcon } from 'lucide-react'
 
 export default async function TvDetailsPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params
+  const [error, rawTv] = await getTvDetails(id)
 
-  const [error, tv] = await getTvDetails(id)
   if (error) return <ErrorResult error={error} className="h-96" />
-
-  const media = {
-    id: tv.id,
-    title: tv.name,
-    posterPath: tv.poster_path,
-    backdropPath: tv.backdrop_path,
-    releaseDate: tv.first_air_date,
-    voteAverage: tv.vote_average,
-    type: 'tv' as const,
-  }
+  const tv = serializeMedia({ ...rawTv, type: 'tv' })
 
   return (
     <>
-      <BackgroundMediaImage src={tv.backdrop_path} />
+      <BackgroundMediaImage src={tv.backdropPath} />
 
       <div className="mx-auto aspect-[1/1.5] w-full max-w-72 overflow-hidden rounded md:mx-0">
-        <TmdbImage src={tv.poster_path} alt={`${tv.name} poster`} className="object-cover" />
+        <TmdbImage src={tv.posterPath} alt={`${tv.title} poster`} className="object-cover" />
       </div>
 
       <div className="flex-1">
-        {tv.tagline && <p className="text-xs text-muted-foreground">{tv.tagline}</p>}
-        <h1 className="mb-2 max-w-[700px] text-2xl font-medium">{tv.name}</h1>
-        <p className="max-w-[700px] text-sm text-muted-foreground">{tv.overview}</p>
+        {rawTv.tagline && <p className="text-xs text-muted-foreground">{rawTv.tagline}</p>}
+        <h1 className="mb-2 max-w-[700px] text-2xl font-medium">{tv.title}</h1>
+        <p className="max-w-[700px] text-sm text-muted-foreground">{rawTv.overview}</p>
 
         <div className="mt-10 flex flex-wrap gap-2 *:w-full md:*:w-fit">
-          <ToggleLikeMutationButton media={media} />
-          <ToggleWatchLaterMutationButton media={media} />
-          <ToggleAlreadyWatchedMutationButton media={media} />
+          <ToggleLikeMutationButton media={tv} />
+          <ToggleWatchLaterMutationButton media={tv} />
+          <ToggleAlreadyWatchedMutationButton media={tv} />
         </div>
 
         <ul className="my-10 flex max-w-[700px] flex-col gap-4 text-sm *:flex *:gap-3">
-          {tv.first_air_date && (
+          {tv.releaseDate && (
             <li>
               <CalendarFoldIcon size={16} />
-              <p className="flex-1">{tv.first_air_date}</p>
+              <p className="flex-1">{tv.releaseDate}</p>
             </li>
           )}
-          {tv.episode_run_time && (
+          {rawTv.episode_run_time && (
             <li>
               <HourglassIcon size={16} />
-              <p className="flex-1">{tv.episode_run_time} minutes</p>
+              <p className="flex-1">{rawTv.episode_run_time} minutes</p>
             </li>
           )}
-          {tv.production_companies?.length && (
+          {rawTv.production_companies?.length && (
             <li>
               <Building2Icon size={16} />
 
-              <p className="flex-1">{tv.production_companies.map(company => company.name).join(', ')}</p>
+              <p className="flex-1">{rawTv.production_companies.map(company => company.name).join(', ')}</p>
             </li>
           )}
         </ul>
 
-        <MediaGenres genres={tv.genres} />
+        <MediaGenres genres={rawTv.genres} />
       </div>
     </>
   )

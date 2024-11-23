@@ -2,6 +2,7 @@ import BackgroundMediaImage from '@/components/pages/background-image'
 import ErrorResult from '@/components/ui/error-result'
 import Pagination from '@/components/ui/pagination'
 import MediaList from '@/features/media/components/list'
+import { serializeMedia } from '@/features/media/helpers/transform'
 import { getPopularMovies } from '@/lib/tmdb/movies'
 import { Fragment } from 'react'
 
@@ -17,17 +18,7 @@ export default async function PopularMoviesPage(props: { searchParams: SearchPar
   return (
     <Fragment key={page}>
       <BackgroundMediaImage src={movies.results[0].backdrop_path} />
-      <MediaList
-        medias={movies.results.map(movie => ({
-          id: movie.id,
-          title: movie.title,
-          posterPath: movie.poster_path,
-          backdropPath: movie.backdrop_path,
-          voteAverage: movie.vote_average,
-          releaseDate: movie.release_date,
-          type: 'movie',
-        }))}
-      />
+      <MediaList medias={movies.results.map(movie => serializeMedia({ ...movie, type: 'movie' }))} />
       <Pagination currentPage={page} maxPage={movies.total_pages} />
     </Fragment>
   )

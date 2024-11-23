@@ -18,18 +18,7 @@ export default async function LikesMediaPage() {
   return (
     <>
       <BackgroundMediaImage src={likes[likes.length - 1].media.backdropPath} />
-
-      <MediaList
-        medias={likes.map(({ media }) => ({
-          id: media.id,
-          title: media.title,
-          posterPath: media.posterPath,
-          backdropPath: media.backdropPath,
-          voteAverage: media.voteAverage,
-          releaseDate: media.releaseDate,
-          type: media.type,
-        }))}
-      />
+      <MediaList medias={likes.map(({ media }) => media)} />
     </>
   )
 }

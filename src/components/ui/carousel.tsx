@@ -1,11 +1,11 @@
 'use client'
 
-import * as React from 'react'
 import useEmblaCarousel, { type UseEmblaCarouselType } from 'embla-carousel-react'
-import { ArrowLeft, ArrowRight } from 'lucide-react'
+import { ArrowLeft, ArrowRightIcon } from 'lucide-react'
+import * as React from 'react'
 
-import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -167,7 +167,7 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
 
     return (
       <Button ref={ref} variant={variant} size={size} className={className} disabled={!canScrollNext} onClick={scrollNext} {...props}>
-        <ArrowRight className="h-4 w-4" />
+        <ArrowRightIcon className="h-4 w-4" />
         <span className="sr-only">Next slide</span>
       </Button>
     )
@@ -176,10 +176,10 @@ const CarouselNext = React.forwardRef<HTMLButtonElement, React.ComponentProps<ty
 CarouselNext.displayName = 'CarouselNext'
 
 const CarouselPreviousAndNext = ({ className }: { className?: string }) => (
-  <div className={cn('flex gap-2', className)}>
+  <div className={cn('flex items-center gap-2', className)}>
     <CarouselPrevious />
     <CarouselNext />
   </div>
 )
 
-export { type CarouselApi, Carousel, CarouselContent, CarouselItem, CarouselPrevious, CarouselNext, CarouselPreviousAndNext }
+export { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselPreviousAndNext, type CarouselApi }

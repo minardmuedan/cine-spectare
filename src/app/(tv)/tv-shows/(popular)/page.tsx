@@ -2,6 +2,7 @@ import BackgroundMediaImage from '@/components/pages/background-image'
 import ErrorResult from '@/components/ui/error-result'
 import Pagination from '@/components/ui/pagination'
 import MediaList from '@/features/media/components/list'
+import { serializeMedia } from '@/features/media/helpers/transform'
 import { getPopularTvShows } from '@/lib/tmdb/tv-shows'
 import { Fragment } from 'react'
 
@@ -17,17 +18,7 @@ export default async function PopularTvShowsPage(props: { searchParams: SearchPa
   return (
     <Fragment key={page}>
       <BackgroundMediaImage src={tvShows.results[0].backdrop_path} />
-      <MediaList
-        medias={tvShows.results.map(tv => ({
-          id: tv.id,
-          title: tv.name,
-          posterPath: tv.poster_path,
-          backdropPath: tv.backdrop_path,
-          voteAverage: tv.vote_average,
-          releaseDate: tv.first_air_date,
-          type: 'tv',
-        }))}
-      />
+      <MediaList medias={tvShows.results.map(tv => serializeMedia({ ...tv, type: 'tv' }))} />
       <Pagination currentPage={page} maxPage={tvShows.total_pages} />
     </Fragment>
   )

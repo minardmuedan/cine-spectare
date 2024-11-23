@@ -3,6 +3,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import ErrorResult from '@/components/ui/error-result'
 import NoResult from '@/components/ui/no-results'
 import MediaCard from '@/features/media/components/card'
+import { serializeMedia } from '@/features/media/helpers/transform'
 import { getMovieSimilar } from '@/lib/tmdb/movies'
 
 export default async function MovieSimilarPage(props: { params: Promise<{ id: string }> }) {
@@ -39,18 +40,7 @@ export default async function MovieSimilarPage(props: { params: Promise<{ id: st
       <CarouselContent className="-ml-3">
         {movies.results.map((movie, i) => (
           <CarouselItem key={i} className="basis-[41.5%] pl-3 sm:basis-[29%] lg:basis-[22.5%]">
-            <MediaCard
-              key={movie.id}
-              media={{
-                id: movie.id,
-                title: movie.title,
-                posterPath: movie.poster_path,
-                backdropPath: movie.backdrop_path,
-                voteAverage: movie.vote_average,
-                releaseDate: movie.release_date,
-                type: 'movie',
-              }}
-            />
+            <MediaCard media={serializeMedia({ ...movie, type: 'movie' })} />
           </CarouselItem>
         ))}
       </CarouselContent>

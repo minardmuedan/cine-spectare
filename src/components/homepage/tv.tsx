@@ -1,27 +1,26 @@
-import { getNowPlayingMovies, getPopularMovies, getTopRatedMovies, getUpcomingMovies } from '@/lib/tmdb/movies'
-import ErrorResult from '../ui/error-result'
-import { HomepageMediaCarouselContent, HomepageMediaHeader, HomepageMediaTitle } from './components'
-import { Carousel, CarouselPreviousAndNext } from '../ui/carousel'
-import { HomepageMediaLoadingFallback } from './components'
+import { getAiringTodayTvShows, getOnTheAirTvShows, getPopularTvShows, getTopRatedTvShows } from '@/lib/tmdb/tv-shows'
+import { ArrowRightIcon } from 'lucide-react'
 import Link from 'next/link'
 import { buttonVariants } from '../ui/button'
-import { ArrowRightIcon } from 'lucide-react'
+import { Carousel, CarouselPreviousAndNext } from '../ui/carousel'
+import ErrorResult from '../ui/error-result'
+import { HomepageMediaCarouselContent, HomepageMediaHeader, HomepageMediaTitle } from './components'
+import { HomepageMediaLoadingFallback } from './components'
 import { serializeMedia } from '@/features/media/helpers/transform'
 
-const movieTitles = ['Now Playing Movies', 'Popular Movies', 'Upcoming Movies', 'Top Rated Movies']
+const tvShowTitles = ['Airing Today Tv Shows', 'Popular Tv Shows', 'On the Air Tv Shows', 'Top Rated Tv Shows']
 
-export default async function HomepageMovies() {
-  const homepageMovies = await Promise.all([getNowPlayingMovies(1), getPopularMovies(1), getUpcomingMovies(1), getTopRatedMovies(1)])
-
-  const movieLinks = ['/movies/now-playing', '/movies', 'movies/upcoming', '/movies/top-rated']
+export default async function HomepageTvShows() {
+  const homepageTvShows = await Promise.all([getAiringTodayTvShows(1), getPopularTvShows(1), getOnTheAirTvShows(1), getTopRatedTvShows(1)])
+  const movieLinks = ['/tv-shows/airing-today', '/tv-shows', 'tv-shows/on-the-air', '/tv-shows/top-rated']
 
   return (
     <>
-      {homepageMovies.map(([error, movies], i) => (
+      {homepageTvShows.map(([error, tvShows], i) => (
         <section key={i}>
           <Carousel opts={{ slidesToScroll: 'auto', dragFree: true }}>
             <HomepageMediaHeader>
-              <HomepageMediaTitle title={movieTitles[i]} />
+              <HomepageMediaTitle title={tvShowTitles[i]} />
 
               <div className="flex justify-end md:flex-1">
                 <Link href={movieLinks[i]} className={buttonVariants({ variant: 'link', className: 'group' })}>
@@ -32,7 +31,7 @@ export default async function HomepageMovies() {
               <CarouselPreviousAndNext className="hidden md:flex" />
             </HomepageMediaHeader>
             {!error ? (
-              <HomepageMediaCarouselContent medias={movies.results.map(movie => serializeMedia({ ...movie, type: 'movie' }))} />
+              <HomepageMediaCarouselContent medias={tvShows.results.map(tv => serializeMedia({ ...tv, type: 'tv' }))} />
             ) : (
               <ErrorResult error={error} />
             )}
@@ -43,9 +42,9 @@ export default async function HomepageMovies() {
   )
 }
 
-export const HomepageMoviesLoadingFallback = () => (
+export const HomepageTvShowsLoadingFallback = () => (
   <>
-    {movieTitles.map((title, i) => (
+    {tvShowTitles.map((title, i) => (
       <section key={i} className="space-y-2">
         <HomepageMediaTitle title={title} />
         <HomepageMediaLoadingFallback />
