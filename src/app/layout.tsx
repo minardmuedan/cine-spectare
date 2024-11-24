@@ -5,6 +5,7 @@ import './globals.css'
 import { Toaster } from '@/components/ui/sonner'
 import ReactQueryProvider from '@/components/providers/react-query'
 import Navbar from '@/components/navbar'
+import Footer from '@/components/footer'
 
 const bolota = localFont({ src: './Bolota.ttf', variable: '--font-bolota' })
 const poppins = Poppins({ subsets: ['latin'], weight: ['400', '500', '600', '700'] })
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: Props) {
           <Toaster richColors position="top-right" closeButton />
           <Navbar />
           <main>{children}</main>
+          <Footer />
         </ReactQueryProvider>
       </body>
     </html>

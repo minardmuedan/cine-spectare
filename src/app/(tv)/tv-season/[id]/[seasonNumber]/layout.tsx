@@ -13,7 +13,7 @@ export default async function TvSeasonLayout({ params, children, images, videos 
   const [error, tv] = await getTvDetails(id)
 
   return (
-    <div className="flex flex-col gap-3 p-2 md:flex-row md:px-5">
+    <div className="flex flex-col gap-3 p-2 pb-10 md:flex-row md:px-5">
       <div className="top-16 h-fit border-r md:sticky">
         <Back />
         <aside className="hidden h-[calc(100dvh-7rem)] w-80 flex-col items-start md:flex">

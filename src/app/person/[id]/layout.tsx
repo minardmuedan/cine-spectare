@@ -4,7 +4,7 @@ type Props = { children: React.ReactNode; credits: React.ReactNode; images: Reac
 
 export default function PersonLayout({ children, credits, images }: Props) {
   return (
-    <div className="container relative p-2 md:px-5 lg:px-10">
+    <div className="container relative p-2 pb-10 md:px-5 lg:px-10">
       <Back className="mb-10" />
       <section className="flex flex-col gap-10 md:flex-row md:gap-5">{children}</section>
 
