@@ -20,8 +20,8 @@ export default async function TvDetailsPage(props: { params: Promise<{ id: strin
     <>
       <BackgroundMediaImage src={tv.backdropPath} />
 
-      <div className="mx-auto aspect-[1/1.5] w-full max-w-72 overflow-hidden rounded md:mx-0">
-        <TmdbImage src={tv.posterPath} alt={`${tv.title} poster`} className="object-cover" />
+      <div className="relative mx-auto aspect-[1/1.5] w-full max-w-72 overflow-hidden rounded md:mx-0">
+        <TmdbImage src={tv.posterPath} alt={`${tv.title} poster`} fill sizes="284px" className="object-cover" />
       </div>
 
       <div className="flex-1">

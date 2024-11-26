@@ -71,7 +71,7 @@ export default function Navbar() {
         </Sheet>
 
         <Link href="/" className="text-sm font-medium">
-          Minard
+          CineSpectare
         </Link>
 
         <NavigationMenu className="hidden md:flex">
@@ -92,7 +92,7 @@ export default function Navbar() {
                         <NavigationMenuLink asChild>
                           <Link href={link.href}>
                             <div className="h-full p-4 transition-colors hover:bg-accent">
-                              <p className="mb-1 text-primary">{link.title}</p>
+                              <p className="mb-1 font-medium text-primary">{link.title}</p>
                               <p className="text-sm text-muted-foreground">{link.description}</p>
                             </div>
                           </Link>

@@ -40,7 +40,10 @@ export default async function TvSimilarPage(props: { params: Promise<{ id: strin
       <CarouselContent>
         {tvShows.results.map((tv, i) => (
           <CarouselItem key={i} className="basis-[41.5%] pl-3 sm:basis-[29%] lg:basis-[22.5%]">
-            <MediaCard key={tv.id} media={serializeMedia({ ...tv, type: 'tv' })} />
+            <MediaCard
+              media={serializeMedia({ ...tv, type: 'tv' })}
+              sizes="(min-width: 1860px) 318px, (min-width: 1040px) calc(20.5vw - 59px), (min-width: 780px) calc(29.17vw - 97px), (min-width: 640px) calc(29.17vw - 33px), calc(41.56vw - 32px)"
+            />
           </CarouselItem>
         ))}
       </CarouselContent>

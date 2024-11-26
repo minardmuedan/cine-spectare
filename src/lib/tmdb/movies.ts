@@ -4,34 +4,37 @@ import { TMovieCredits, TFullMovie, TMovieKeywords, TMovieImages, TMovies, TMovi
 
 // movies
 
-export const getPopularMovies = async (page: number) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/popular?page=${page}`)
+export const getPopularMovies = async (page: number) => await TMDBFetcher<TMovies>(`/movie/popular?page=${page}`)
 
-export const getNowPlayingMovies = async (page: number) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/now_playing?page=${page}`)
+export const getNowPlayingMovies = async (page: number) => await TMDBFetcher<TMovies>(`/movie/now_playing?page=${page}`)
 
-export const getTopRatedMovies = async (page: number) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/top_rated?page=${page}`)
+export const getTopRatedMovies = async (page: number) => await TMDBFetcher<TMovies>(`/movie/top_rated?page=${page}`)
 
-export const getUpcomingMovies = async (page: number) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/upcoming?page=${page}`)
+export const getUpcomingMovies = async (page: number) => await TMDBFetcher<TMovies>(`/movie/upcoming?page=${page}`)
+
+export const getGenreMovies = async (genreId: string, page: number) =>
+  await TMDBFetcher<TMovies>(`/discover/movie?with_genres=${genreId}&page=${page}&sort_by=popularity.desc`)
 
 // movie
 
-export const getMovieDetails = async (id: string) => await TMDBFetcher<TFullMovie>(`https://api.themoviedb.org/3/movie/${id}`)
+export const getMovieDetails = async (id: string) => await TMDBFetcher<TFullMovie>(`/movie/${id}`)
 
-export const getMovieCredits = async (id: string) => await TMDBFetcher<TMovieCredits>(`https://api.themoviedb.org/3/movie/${id}/credits`)
+export const getMovieCredits = async (id: string) => await TMDBFetcher<TMovieCredits>(`/movie/${id}/credits`)
 
 export const getMovieReviews = async (id: string, page = '1') => {
-  const [error, reviews] = await TMDBFetcher<TReviews>(`https://api.themoviedb.org/3/movie/${id}/reviews?page=${page}`)
+  const [error, reviews] = await TMDBFetcher<TReviews>(`/movie/${id}/reviews?page=${page}`)
   if (error) return [error] as [Error]
 
   const sanitizedReviews = { ...reviews, results: reviews.results.map(review => ({ ...review, content: sanitizeHtml(review.content) })) }
   return [undefined, sanitizedReviews] as [undefined, TReviews]
 }
 
-export const getMovieKeywords = async (id: string) => await TMDBFetcher<TMovieKeywords>(`https://api.themoviedb.org/3/movie/${id}/keywords`)
+export const getMovieKeywords = async (id: string) => await TMDBFetcher<TMovieKeywords>(`/movie/${id}/keywords`)
 
-export const getMovieImages = async (id: string) => await TMDBFetcher<TMovieImages>(`https://api.themoviedb.org/3/movie/${id}/images`)
+export const getMovieImages = async (id: string) => await TMDBFetcher<TMovieImages>(`/movie/${id}/images`)
 
-export const getMovieVideos = async (id: string) => await TMDBFetcher<TMovieVideos>(`https://api.themoviedb.org/3/movie/${id}/videos`)
+export const getMovieVideos = async (id: string) => await TMDBFetcher<TMovieVideos>(`/movie/${id}/videos`)
 
-export const getMovieSimilar = async (id: string) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/${id}/similar`)
+export const getMovieSimilar = async (id: string) => await TMDBFetcher<TMovies>(`/movie/${id}/similar`)
 
-export const getMovieRecommendations = async (id: string) => await TMDBFetcher<TMovies>(`https://api.themoviedb.org/3/movie/${id}/recommendations`)
+export const getMovieRecommendations = async (id: string) => await TMDBFetcher<TMovies>(`/movie/${id}/recommendations`)

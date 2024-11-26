@@ -16,7 +16,9 @@ export default async function PersonDetailsPage({ params }: { params: Promise<{ 
   if (detailsError) return <ErrorResult error={detailsError} className="h-96" />
   return (
     <>
-      <TmdbImage src={person.profile_path} alt={`${person.name} profile`} className="mx-auto h-fit w-full max-w-72 rounded-md md:mx-0" />
+      <div className="relative mx-auto aspect-[1/1.5] w-full max-w-72 overflow-hidden rounded-md md:mx-0">
+        <TmdbImage src={person.profile_path} alt={`${person.name} profile`} fill sizes="284px" className="object-cover" />
+      </div>
 
       <div className="max-w-[700px] flex-1 space-y-5">
         <div>

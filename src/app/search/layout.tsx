@@ -5,7 +5,7 @@ import { Suspense } from 'react'
 
 export default async function SearchQueryLayout({ children }: { children: React.ReactNode }) {
   return (
-    <Section>
+    <Section className="mb-10">
       <Back />
       <Suspense>
         <SearchQueryWrapper>

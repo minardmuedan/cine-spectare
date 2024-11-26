@@ -53,8 +53,8 @@ export default function PersonCredits({ credits }: Credits) {
             <li key={i}>
               <Link href={`/${media.media_type}/${media.id}`}>
                 <div className="flex h-[130px] gap-3 rounded-md border bg-accent-muted px-3 py-2 transition-colors hover:bg-accent">
-                  <div className="aspect-[1/1.5] h-full overflow-hidden rounded-sm">
-                    <TmdbImage src={media.poster_path} alt={`${media.title} poster`} className="size-full object-cover" />
+                  <div className="relative aspect-[1/1.5] h-full overflow-hidden rounded-sm">
+                    <TmdbImage src={media.poster_path} alt={`${media.title} poster`} fill sizes="75px" className="object-cover" />
                   </div>
 
                   <div className="flex-1 *:max-w-[700px]">

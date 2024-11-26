@@ -18,7 +18,7 @@ type LayoutProps = {
 
 export default function TvLayout({ children, credits, seasons, reviews, keywords, images, videos, similar, recommendations }: LayoutProps) {
   return (
-    <div className="relative">
+    <div className="relative pb-10">
       <Back className="top-16 z-20 ml-2 mt-2 md:sticky" />
 
       <div className="flex gap-5 p-2 pt-[20dvh] md:px-5 md:pb-5">

@@ -16,18 +16,20 @@ export default async function PesonCombinedCreditsPage({ params }: { params: Pro
       </div>
     )
 
-  const departments = credits.crew.reduce<Record<string, (TPersonCombinedCredit & { role: string })[]>>((acc, { department, job, ...media }) => {
-    if (!acc[department]) acc[department] = [{ ...media, role: job }]
-    else {
-      const existingIndex = acc[department].findIndex(accMedia => accMedia.id === media.id)
+  const departments = credits.crew
+    .slice(0, 4)
+    .reduce<Record<string, (TPersonCombinedCredit & { role: string })[]>>((acc, { department, job, ...media }) => {
+      if (!acc[department]) acc[department] = [{ ...media, role: job }]
+      else {
+        const existingIndex = acc[department].findIndex(accMedia => accMedia.id === media.id)
 
-      if (existingIndex !== -1) acc[department][existingIndex].role = `${acc[department][existingIndex].role}, ${job}`
-      else acc[department].push({ ...media, role: job })
-    }
-    return acc
-  }, {})
+        if (existingIndex !== -1) acc[department][existingIndex].role = `${acc[department][existingIndex].role}, ${job}`
+        else acc[department].push({ ...media, role: job })
+      }
+      return acc
+    }, {})
 
-  const actingMedia = credits.cast.map(({ character, ...media }) => ({ role: character, ...media }))
+  const actingMedia = credits.cast.slice(0, 4).map(({ character, ...media }) => ({ role: character, ...media }))
 
   const personCredits = [
     { department: 'Acting', media: actingMedia },

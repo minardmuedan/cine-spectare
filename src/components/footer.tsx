@@ -41,7 +41,7 @@ export default function Footer() {
 
         <ul className="mb-7 flex flex-col justify-between gap-10 border-b pb-7 md:flex-row">
           <li>
-            <p className="mb-2 text-xl font-medium">Minard</p>
+            <p className="mb-2 text-xl font-medium text-primary">CineSpectare</p>
             <p className="max-w-[700px] text-sm text-muted-foreground">
               Discover endless entertainment with our curated collection of movies and TV shows. Explore a world of captivating stories and
               unforgettable moments. Your next favorite film or series awaits!

@@ -13,7 +13,7 @@ export default function Home({ searchParams }: { searchParams: Promise<{ view?: 
     <>
       <section className="relative flex min-h-[75dvh] flex-col items-center justify-center gap-2 px-2 py-20 text-center">
         <div className="absolute -top-14 left-0 -z-10 h-dvh w-full opacity-20 after:absolute after:inset-0 after:bg-gradient-to-t after:from-background after:to-background/0">
-          <Image src="/hero-bg.png" alt="hero bg" fill priority className="object-cover" />
+          <Image src="/hero-bg.png" alt="hero background" fill priority className="object-cover" />
         </div>
 
         <p className="text-xs text-muted-foreground md:text-sm">finding something to watch? this might be -</p>

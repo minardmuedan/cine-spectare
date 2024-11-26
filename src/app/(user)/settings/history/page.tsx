@@ -23,8 +23,11 @@ export default async function UserHistoryPage() {
           </div>
           <ul className="flex flex-col gap-2">
             {viewHistory.toReversed().map(({ id, media }) => (
-              <li key={id} className="flex h-20 items-center gap-2 rounded border bg-accent-muted p-1">
-                <TmdbImage src={media.posterPath} alt={`${media.title} poster`} className="aspect-square h-full rounded object-cover" />
+              <li key={id} className="flex h-20 items-center gap-3 rounded border bg-accent-muted p-1">
+                <div className="relative aspect-[1/1.5] h-full overflow-hidden rounded">
+                  <TmdbImage src={media.posterPath} alt={`${media.title} poster`} fill sizes="47px" className="object-cover" />
+                </div>
+
                 <p className="flex-1">{media.title}</p>
 
                 <DeleteViewHistoryButton viewHistoryId={id} />

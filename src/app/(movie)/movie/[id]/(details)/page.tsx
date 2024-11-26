@@ -20,10 +20,9 @@ export default async function MovieDetailsPage(props: { params: Promise<{ id: st
     <>
       <BackgroundMediaImage src={movie.backdropPath} />
 
-      <div className="mx-auto aspect-[1/1.5] w-full max-w-72 overflow-hidden rounded md:mx-0">
-        <TmdbImage src={movie.posterPath} alt={`${movie.title} poster`} className="object-cover" />
+      <div className="relative mx-auto aspect-[1/1.5] w-full max-w-72 overflow-hidden rounded md:mx-0">
+        {<TmdbImage src={movie.posterPath} alt={`${movie.title} poster`} fill sizes="284px" className="object-cover" />}
       </div>
-
       <div className="flex-1">
         {rawMovie.tagline && <p className="text-xs text-muted-foreground">{rawMovie.tagline}</p>}
         <h1 className="mb-2 max-w-[700px] text-2xl font-medium">{movie.title}</h1>

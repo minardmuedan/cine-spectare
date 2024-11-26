@@ -1,45 +1,52 @@
 import { cache } from 'react'
+import sanitizeHtml from 'sanitize-html'
 import { TMovieImages, TMovieVideos, TReviews } from './_type/movie'
 import { TFullTv, TTvAggregatedCredits, TTvFullSeason, TTvKeywords, TTvShows } from './_type/tv'
 import { TMDBFetcher } from './fetcher'
 
 // tv shows
 
-export const getPopularTvShows = async (page: number) => await TMDBFetcher<TTvShows>(`https://api.themoviedb.org/3/tv/popular?page=${page}`)
+export const getPopularTvShows = async (page: number) => await TMDBFetcher<TTvShows>(`/tv/popular?page=${page}`)
 
-export const getAiringTodayTvShows = async (page: number) => await TMDBFetcher<TTvShows>(`https://api.themoviedb.org/3/tv/airing_today?page=${page}`)
+export const getAiringTodayTvShows = async (page: number) => await TMDBFetcher<TTvShows>(`/tv/airing_today?page=${page}`)
 
-export const getOnTheAirTvShows = async (page: number) => await TMDBFetcher<TTvShows>(`https://api.themoviedb.org/3/tv/on_the_air?page=${page}`)
+export const getOnTheAirTvShows = async (page: number) => await TMDBFetcher<TTvShows>(`/tv/on_the_air?page=${page}`)
 
-export const getTopRatedTvShows = async (page: number) => await TMDBFetcher<TTvShows>(`https://api.themoviedb.org/3/tv/top_rated?page=${page}`)
+export const getTopRatedTvShows = async (page: number) => await TMDBFetcher<TTvShows>(`/tv/top_rated?page=${page}`)
+
+export const getGenreTvShows = async (genreId: string, page: number) =>
+  await TMDBFetcher<TTvShows>(`/discover/tv?with_genres=${genreId}&page=${page}&sort_by=popularity.desc`)
 
 // tv
 
-export const getTvDetails = cache(async (id: string) => await TMDBFetcher<TFullTv>(`https://api.themoviedb.org/3/tv/${id}`))
+export const getTvDetails = cache(async (id: string) => await TMDBFetcher<TFullTv>(`/tv/${id}`))
 
-export const getTvAggregatedCredits = async (id: string) =>
-  await TMDBFetcher<TTvAggregatedCredits>(`https://api.themoviedb.org/3/tv/${id}/aggregate_credits`)
+export const getTvAggregatedCredits = async (id: string) => await TMDBFetcher<TTvAggregatedCredits>(`/tv/${id}/aggregate_credits`)
 
-export const getTvReviews = async (id: string, page = '1') =>
-  await TMDBFetcher<TReviews>(`https://api.themoviedb.org/3/tv/${id}/reviews?page=${page}`)
+export const getTvReviews = async (id: string, page = '1') => {
+  const [error, reviews] = await TMDBFetcher<TReviews>(`/tv/${id}/reviews?page=${page}`)
+  if (error) return [error] as [Error]
 
-export const getTvKeywords = async (id: string) => await TMDBFetcher<TTvKeywords>(`https://api.themoviedb.org/3/tv/${id}/keywords`)
+  const sanitizedReviews = { ...reviews, results: reviews.results.map(review => ({ ...review, content: sanitizeHtml(review.content) })) }
+  return [undefined, sanitizedReviews] as [undefined, TReviews]
+}
 
-export const getTvImages = async (id: string) => await TMDBFetcher<TMovieImages>(`https://api.themoviedb.org/3/tv/${id}/images`)
+export const getTvKeywords = async (id: string) => await TMDBFetcher<TTvKeywords>(`/tv/${id}/keywords`)
 
-export const getTvVideos = async (id: string) => await TMDBFetcher<TMovieVideos>(`https://api.themoviedb.org/3/tv/${id}/videos`)
+export const getTvImages = async (id: string) => await TMDBFetcher<TMovieImages>(`/tv/${id}/images`)
 
-export const getTvSimilar = async (id: string) => await TMDBFetcher<TTvShows>(`https://api.themoviedb.org/3/tv/${id}/similar`)
+export const getTvVideos = async (id: string) => await TMDBFetcher<TMovieVideos>(`/tv/${id}/videos`)
 
-export const getTvRecommendations = async (id: string) => await TMDBFetcher<TTvShows>(`https://api.themoviedb.org/3/tv/${id}/recommendations`)
+export const getTvSimilar = async (id: string) => await TMDBFetcher<TTvShows>(`/tv/${id}/similar`)
+
+export const getTvRecommendations = async (id: string) => await TMDBFetcher<TTvShows>(`/tv/${id}/recommendations`)
 
 // tv season
 
-export const getTvSeason = async (id: string, seasonNumber: string) =>
-  await TMDBFetcher<TTvFullSeason>(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}`)
+export const getTvSeason = async (id: string, seasonNumber: string) => await TMDBFetcher<TTvFullSeason>(`/tv/${id}/season/${seasonNumber}`)
 
 export const getTvSeasonPosters = async (id: string, seasonNumber: string) =>
-  await TMDBFetcher<Omit<TMovieImages, 'backdrops'>>(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}/images`)
+  await TMDBFetcher<Omit<TMovieImages, 'backdrops'>>(`/tv/${id}/season/${seasonNumber}/images`)
 
 export const getTvSeasonVideos = async (id: string, seasonNumber: string) =>
-  await TMDBFetcher<TMovieVideos>(`https://api.themoviedb.org/3/tv/${id}/season/${seasonNumber}/videos`)
+  await TMDBFetcher<TMovieVideos>(`/tv/${id}/season/${seasonNumber}/videos`)

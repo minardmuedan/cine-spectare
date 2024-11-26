@@ -11,5 +11,10 @@ export default async function TvRecommendationsPage(props: { params: Promise<{ i
   if (error) return <ErrorResult error={error} className="h-64" />
   if (!tvShows.results.length) return <NoResult className="h-64" />
 
-  return <MediaList medias={tvShows.results.map(tv => serializeMedia({ ...tv, type: 'tv' }))} />
+  return (
+    <MediaList
+      medias={tvShows.results.map(tv => serializeMedia({ ...tv, type: 'tv' }))}
+      sizes="(min-width: 1860px) 280px, (min-width: 1040px) calc(18.38vw - 58px), (min-width: 780px) calc(25vw - 86px), (min-width: 640px) calc(33.33vw - 31px), calc(50vw - 32px)"
+    />
+  )
 }

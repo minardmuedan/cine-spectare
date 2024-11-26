@@ -40,7 +40,10 @@ export default async function MovieSimilarPage(props: { params: Promise<{ id: st
       <CarouselContent className="-ml-3">
         {movies.results.map((movie, i) => (
           <CarouselItem key={i} className="basis-[41.5%] pl-3 sm:basis-[29%] lg:basis-[22.5%]">
-            <MediaCard media={serializeMedia({ ...movie, type: 'movie' })} />
+            <MediaCard
+              media={serializeMedia({ ...movie, type: 'movie' })}
+              sizes="(min-width: 1860px) 318px, (min-width: 1040px) calc(20.5vw - 59px), (min-width: 780px) calc(29.17vw - 97px), (min-width: 640px) calc(29.17vw - 33px), calc(41.56vw - 32px)"
+            />
           </CarouselItem>
         ))}
       </CarouselContent>

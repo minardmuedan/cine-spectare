@@ -7,14 +7,14 @@ import Link from 'next/link'
 import MediaMutationsDropdown from './dropdown'
 import VoteAverage from './vote-average'
 
-export default function MediaCard({ media }: { media: TMedia }) {
+export default function MediaCard({ media, sizes }: { media: TMedia; sizes: string }) {
   return (
     <div className="rounded border bg-accent-muted transition-colors ease-in hover:bg-accent">
       <ViewHistoryWrapper media={media}>
         <Link href={`/${media.type}/${media.id}`}>
           <div className="p-2">
             <div className="relative aspect-[1/1.5] overflow-hidden rounded bg-accent">
-              <TmdbImage src={media.posterPath} alt={`${media.title} poster`} className="object-cover" />
+              <TmdbImage src={media.posterPath} alt={`${media.title} poster`} sizes={sizes} fill className="object-cover" />
             </div>
 
             <p title={media.title} className="mt-1 flex-1 overflow-hidden text-ellipsis whitespace-nowrap text-sm">

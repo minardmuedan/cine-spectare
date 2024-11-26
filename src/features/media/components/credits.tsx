@@ -11,7 +11,7 @@ type Credit = { id: number; name: string; profile_path?: string; roles: string[]
 
 export default function MediaCredits({ credits }: { credits: { casts: Credit[]; crews: Credit[] } }) {
   return (
-    <Carousel opts={{ slidesToScroll: 'auto' }}>
+    <Carousel opts={{ slidesToScroll: 'auto', dragFree: true }}>
       <header className="mb-4 flex items-center justify-between gap-2">
         <H3>
           Cast <span className="text-sm">{credits.casts.length}</span>
@@ -28,7 +28,7 @@ export default function MediaCredits({ credits }: { credits: { casts: Credit[]; 
         {credits.casts.slice(0, 15).map(({ id, name, roles, profile_path }, i) => (
           <CarouselItem key={i} className="basis-28">
             <Link href={`/person/${id}`}>
-              <PersonAvatar {...{ name, profile_path }} />
+              <PersonAvatar {...{ name, profile_path }} sizes="96px" />
 
               <div className="w-full overflow-hidden text-center *:overflow-hidden *:text-ellipsis *:whitespace-nowrap">
                 <p title={name} className="text-sm">
@@ -54,7 +54,7 @@ export function MediaCreditsDialog({ credits }: { credits: { casts: Credit[]; cr
 
   return (
     <Dialog>
-      <DialogTrigger className={buttonVariants({ variant: 'link' })}>View All Casts & Credits</DialogTrigger>
+      <DialogTrigger className={buttonVariants({ variant: 'link' })}>View More</DialogTrigger>
       <DialogContent className="max-w-2xl">
         <DialogHeader title="Full Media Credits" description="Discover the faces behind the characters" />
 
@@ -79,7 +79,7 @@ export function MediaCreditsList({ credits }: { credits: Credit[] }) {
         <li key={i}>
           <Link href={`/person/${id}`} className="group">
             <div className="flex gap-4 rounded-lg border bg-accent-muted p-2 transition-colors group-hover:bg-accent">
-              <PersonAvatar {...{ name, profile_path }} className="h-20 w-20" />
+              <PersonAvatar {...{ name, profile_path }} sizes="96px" className="h-20 w-20" />
               <div className="flex-1">
                 <p>{name}</p>
 
@@ -99,7 +99,7 @@ export function MediaCreditsList({ credits }: { credits: Credit[] }) {
   )
 }
 
-export function PersonAvatar({ name, profile_path, className }: { name: string; profile_path?: string; className?: string }) {
+export function PersonAvatar({ name, profile_path, className, sizes }: { name: string; profile_path?: string; className?: string; sizes: string }) {
   if (!profile_path)
     return (
       <Avatar className={cn('aspect-square h-auto w-full', className)}>
@@ -107,8 +107,8 @@ export function PersonAvatar({ name, profile_path, className }: { name: string; 
       </Avatar>
     )
   return (
-    <div className={cn('aspect-square w-full overflow-hidden rounded-full object-cover', className)}>
-      <TmdbImage title={name} src={profile_path!} alt={`${name} profile`} className="size-full object-cover" />
+    <div className={cn('relative aspect-square w-full overflow-hidden rounded-full', className)}>
+      <TmdbImage title={name} src={profile_path!} alt={`${name} profile`} fill sizes={sizes} className="object-cover" />
     </div>
   )
 }

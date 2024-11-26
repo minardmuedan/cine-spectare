@@ -25,8 +25,8 @@ export default function TvSeasonsSideNav({ id, seasonNumber, seasons }: { id: st
                 <div
                   className={`flex items-start gap-2 rounded-md border p-2 transition-colors ${activeSeasonNumber === season.season_number ? 'bg-primary/25 outline outline-2 outline-primary' : 'bg-accent-muted hover:bg-accent'}`}
                 >
-                  <div className="aspect-[1/1.5] h-16">
-                    <TmdbImage src={season.poster_path} alt={`${season.name} poster`} className="size-full object-cover" />
+                  <div className="relative aspect-[1/1.5] h-16">
+                    <TmdbImage src={season.poster_path} alt={`${season.name} poster`} fill sizes="43px" className="size-full object-cover" />
                   </div>
 
                   <div className="flex-1">

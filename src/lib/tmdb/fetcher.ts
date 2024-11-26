@@ -4,7 +4,9 @@ import tryCatchWrapper from '../helpers/try-catch'
 
 export const TMDBFetcher = <T>(url: string) =>
   tryCatchWrapper(async () => {
-    const res = await fetch(url, {
+    await new Promise(res => setTimeout(res, 5000))
+
+    const res = await fetch(`https://api.themoviedb.org/3${url}`, {
       cache: 'force-cache',
       headers: { Authorization: `Bearer ${process.env.TMDB_ACCESS_TOKEN}` },
     })

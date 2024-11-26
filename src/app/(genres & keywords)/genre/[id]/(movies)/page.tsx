@@ -3,20 +3,21 @@ import ErrorResult from '@/components/ui/error-result'
 import Pagination from '@/components/ui/pagination'
 import MediaList from '@/features/media/components/list'
 import { serializeMedia } from '@/features/media/helpers/transform'
-import { getPopularMovies } from '@/lib/tmdb/movies'
+import { getGenreMovies } from '@/lib/tmdb/movies'
 
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+export default async function GenreMoviesPage(props: { params: Promise<{ id: string }>; searchParams: Promise<{ page?: string }> }) {
+  const { id } = await props.params
+  const currentPage = (await props.searchParams).page
 
-export default async function PopularMoviesPage(props: { searchParams: SearchParams }) {
-  const searchParams = await props.searchParams
-  const page = Number(searchParams.page || 1)
+  const page = Number(currentPage || 1)
 
-  const [error, movies] = await getPopularMovies(page)
-
+  const [error, movies] = await getGenreMovies(id, page)
   if (error) return <ErrorResult error={error} className="min-h-[calc(100dvh-260px)]" />
+
   return (
     <>
-      <BackgroundMediaImage src={movies.results[0].backdrop_path} />
+      <BackgroundMediaImage src={movies.results[0]?.backdrop_path} />
+
       <MediaList medias={movies.results.map(movie => serializeMedia({ ...movie, type: 'movie' }))} />
       <Pagination currentPage={page} maxPage={movies.total_pages} />
     </>

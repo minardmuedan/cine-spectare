@@ -20,7 +20,7 @@ export default async function SearchPeoplePage({ searchParams }: { searchParams:
           <li key={i}>
             <Link href={`/person/${person.id}`}>
               <div className="group flex gap-3 rounded-md border bg-accent-muted p-3 transition-colors ease-in hover:bg-accent">
-                <PersonAvatar {...person} className="size-20 border-2 transition-colors group-hover:border-background" />
+                <PersonAvatar {...person} sizes="76px" className="size-20 border-2 transition-colors group-hover:border-background" />
 
                 <div className="flex-1">
                   <p>{person.name}</p>

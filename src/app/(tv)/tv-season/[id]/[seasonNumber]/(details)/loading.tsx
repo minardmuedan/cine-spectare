@@ -19,10 +19,10 @@ export default function TvSeasonDetailsLoading() {
 
       <section className="pt-20">
         <H3 className="mb-4">Episodes</H3>
-        <ul className="grid grid-cols-3 gap-3 sm:grid-cols-4 md:grid-cols-3 lg:grid-cols-4">
+        <ul className="grid grid-cols-2 gap-3 lg:grid-cols-3">
           {[...Array(12)].map((_, i) => (
             <li key={i}>
-              <Skeleton className="aspect-square w-full" />
+              <Skeleton className="aspect-video w-full" />
             </li>
           ))}
         </ul>
