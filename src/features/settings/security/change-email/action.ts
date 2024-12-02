@@ -7,6 +7,7 @@ import { authedProcedure } from '@/lib/helpers/authed-procedure'
 import { generate6DigitCode, generateId } from '@/lib/helpers/generate'
 import { verifyAndGetToken } from '@/lib/helpers/verify-get-token'
 import { rateLimiter } from '@/lib/rate-limiter'
+import { sendEmail } from '@/lib/resend'
 import { codeSchema, tokenIdSchema } from '@/lib/schema'
 import { Argon2id } from 'oslo/password'
 
@@ -30,8 +31,8 @@ export const createChangeEmailTokenAction = authedProcedure.input(loginSchema).h
 
   await createTokenDb({ id, code, emailPayload: newEmail, purpose: 'change-email-verification' })
 
-  // TODO: send to email
-  console.log(newEmail, code)
+  await sendEmail(newEmail, code)
+
   return { id } as { isExceed: undefined; id: string }
 })
 

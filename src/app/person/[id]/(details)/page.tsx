@@ -6,6 +6,13 @@ import { getPerson, getPersonSocialMedia } from '@/lib/tmdb/person'
 import Image from 'next/image'
 import Link from 'next/link'
 
+export async function generateMetadata({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
+  const [error, person] = await getPerson(id)
+
+  return { title: error ? 'Person details' : `${person.name}  `, description: 'Filmography and Biography' }
+}
+
 export default async function PersonDetailsPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
   const [details, social] = await Promise.all([getPerson(id), getPersonSocialMedia(id)])
@@ -76,7 +83,7 @@ function PersonSocialMedia({ socialMedia }: { socialMedia: TPersonSocialMedia })
         .filter(({ key }) => socialMedia[key])
         .map(({ icon, key, src }, i) => (
           <li key={i}>
-            <Link href={`${src}${socialMedia[key]}/`}>
+            <Link prefetch={false} href={`${src}${socialMedia[key]}/`}>
               <Image src={icon} alt={`${key} icon`} height={24} width={24} />
               <span className="sr-only">{key}</span>
             </Link>

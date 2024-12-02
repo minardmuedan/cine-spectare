@@ -21,7 +21,7 @@ export default function TvSeasonsSideNav({ id, seasonNumber, seasons }: { id: st
         <ul className="flex flex-col gap-2">
           {seasons.toReversed().map((season, i) => (
             <li key={i} ref={season.season_number === activeSeasonNumber ? activeSeasonsRef : undefined}>
-              <Link href={`/tv-season/${id}/${season.season_number}`}>
+              <Link prefetch={false} href={`/tv-season/${id}/${season.season_number}`}>
                 <div
                   className={`flex items-start gap-2 rounded-md border p-2 transition-colors ${activeSeasonNumber === season.season_number ? 'bg-primary/25 outline outline-2 outline-primary' : 'bg-accent-muted hover:bg-accent'}`}
                 >

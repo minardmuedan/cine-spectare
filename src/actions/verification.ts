@@ -6,6 +6,7 @@ import { rateLimiter } from '@/lib/rate-limiter'
 import { generate6DigitCode } from '@/lib/helpers/generate'
 import { createServerAction } from 'zsa'
 import { verifyAndGetToken } from '@/lib/helpers/verify-get-token'
+import { sendEmail } from '@/lib/resend'
 
 export const verifyTokenAction = createServerAction()
   .input(tokenIdSchema.and(codeSchema))
@@ -31,13 +32,9 @@ export const resendVerificationTokenAction = createServerAction()
     if (hasPassed1Minute) {
       const newCode = generate6DigitCode()
       await renewTokenDb(token.id, newCode)
-
-      // TODO: send to email
-      console.log(token.emailPayload, newCode)
+      await sendEmail(token.emailPayload, newCode)
     } else {
       await renewTokenDb(token.id, token.code)
-
-      // TODO: send to email
-      console.log(token.emailPayload, token.code)
+      await sendEmail(token.emailPayload, token.code)
     }
   })

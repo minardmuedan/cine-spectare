@@ -22,7 +22,7 @@ export default async function TvKeywordsPage(props: { params: Promise<{ id: stri
         Keywords <span className="text-sm">{keywords.results.length}</span>
       </H3>
 
-      {keywords.results.length ? <MediaKeywords keywords={keywords.results} /> : <NoResult />}
+      {keywords.results.length ? <MediaKeywords keywords={keywords.results} type="tv" /> : <NoResult />}
     </div>
   )
 }

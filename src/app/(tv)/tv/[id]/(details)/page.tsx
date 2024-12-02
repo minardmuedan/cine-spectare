@@ -9,6 +9,13 @@ import ToggleWatchLaterMutationButton from '@/features/media/toggle-mutations/wa
 import { getTvDetails } from '@/lib/tmdb/tv-shows'
 import { Building2Icon, CalendarFoldIcon, HourglassIcon } from 'lucide-react'
 
+export async function generateMetadata(props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params
+  const [error, rawTv] = await getTvDetails(id)
+
+  return { title: error ? 'Tv details' : rawTv.name, description: 'Tv Details' }
+}
+
 export default async function TvDetailsPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params
   const [error, rawTv] = await getTvDetails(id)
@@ -57,7 +64,7 @@ export default async function TvDetailsPage(props: { params: Promise<{ id: strin
           )}
         </ul>
 
-        <MediaGenres genres={rawTv.genres} />
+        <MediaGenres genres={rawTv.genres} type="tv" />
       </div>
     </>
   )

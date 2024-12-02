@@ -3,6 +3,8 @@ import Section from '@/components/pages/section'
 import PaginatedSuspenseWrapper from '@/components/pages/suspense'
 import { MediaListLoadingFallback } from '@/features/media/components/list'
 
+export const metadata = { title: 'On the Air', description: 'On the Air - Current TV Shows' }
+
 export default function OnTheAirTvShowsLayout({ children }: { children: React.ReactNode }) {
   return (
     <Section>

@@ -4,6 +4,13 @@ import ErrorResult from '@/components/ui/error-result'
 import TvEpisodes from '@/features/media/components/tv-episodes'
 import { getTvSeason } from '@/lib/tmdb/tv-shows'
 
+export async function generateMetadata(props: { params: Promise<{ id: string; seasonNumber: string }> }) {
+  const { id, seasonNumber } = await props.params
+  const [error, season] = await getTvSeason(id, seasonNumber)
+
+  return { title: error ? 'Tv Season' : `${season.name} -  ${seasonNumber}`, description: `${season?.overview}` }
+}
+
 export default async function TvSeasonDetailsPage(props: { params: Promise<{ id: string; seasonNumber: string }> }) {
   const { id, seasonNumber } = await props.params
   const [error, season] = await getTvSeason(id, seasonNumber)

@@ -13,10 +13,6 @@
     "db:studio": "drizzle-kit studio"
   },
   "packageManager": "npm@10.8.1",
-  "overrides": {
-    "react": "$react",
-    "react-dom": "$react-dom"
-  },
   "dependencies": {
     "@radix-ui/react-avatar": "^1.1.1",
     "@radix-ui/react-dialog": "^1.1.2",
@@ -45,6 +41,7 @@
     "react": "19.0.0-rc-69d4b800-20241021",
     "react-dom": "19.0.0-rc-69d4b800-20241021",
     "react-intersection-observer": "^9.13.1",
+    "resend": "^4.0.1",
     "sanitize-html": "^2.13.1",
     "server-only": "^0.0.1",
     "sharp": "^0.33.5",

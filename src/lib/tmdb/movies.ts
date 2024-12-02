@@ -12,9 +12,6 @@ export const getTopRatedMovies = async (page: number) => await TMDBFetcher<TMovi
 
 export const getUpcomingMovies = async (page: number) => await TMDBFetcher<TMovies>(`/movie/upcoming?page=${page}`)
 
-export const getGenreMovies = async (genreId: string, page: number) =>
-  await TMDBFetcher<TMovies>(`/discover/movie?with_genres=${genreId}&page=${page}&sort_by=popularity.desc`)
-
 // movie
 
 export const getMovieDetails = async (id: string) => await TMDBFetcher<TFullMovie>(`/movie/${id}`)

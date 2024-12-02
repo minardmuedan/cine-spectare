@@ -12,6 +12,7 @@ import { redirect } from 'next/navigation'
 import { Argon2id } from 'oslo/password'
 import { createServerAction, ZSAError } from 'zsa'
 import { emailSchema, passwordSchema } from '../schema'
+import { sendEmail } from '@/lib/resend'
 
 export const signUpAction = createServerAction()
   .input(emailSchema)
@@ -27,8 +28,7 @@ export const signUpAction = createServerAction()
     await deleteTokenByPayloadDb(email).catch(() => {})
     await createTokenDb({ id, code, emailPayload: email, purpose: 'email-verification' })
 
-    // TODO: send to email
-    console.log(email, code)
+    await sendEmail(email, code)
     return { id } as { isExceed: undefined; id: string }
   })
 

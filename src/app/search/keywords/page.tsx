@@ -14,7 +14,7 @@ export default async function SearchKeywordsPage({ searchParams }: { searchParam
   if (!keywords.results?.length) return <NoResult />
   return (
     <>
-      <MediaKeywords keywords={keywords.results} />
+      <MediaKeywords keywords={keywords.results} type="movies" />
       <Pagination currentPage={page} maxPage={keywords.total_pages} url={`?query=${query}`} />
     </>
   )

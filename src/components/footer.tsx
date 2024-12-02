@@ -69,7 +69,7 @@ export default function Footer() {
 
           <div className="flex flex-col items-center gap-5">
             <p className="text-center text-xs text-muted-foreground">the provider of movies and tv shows</p>
-            <Link href="https://www.themoviedb.org/">
+            <Link prefetch={false} href="https://www.themoviedb.org/">
               <Image src="/tmdb-logo.svg" alt="tmdb logo" width={80} height={80} /> <span className="sr-only">go to tmdb website</span>
             </Link>
           </div>

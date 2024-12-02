@@ -9,6 +9,13 @@ import { Building2Icon, CalendarFoldIcon, HourglassIcon } from 'lucide-react'
 import ErrorResult from '@/components/ui/error-result'
 import { serializeMedia } from '@/features/media/helpers/transform'
 
+export async function generateMetadata(props: { params: Promise<{ id: string }> }) {
+  const { id } = await props.params
+  const [error, rawMovie] = await getMovieDetails(id)
+
+  return { title: error ? 'Movie details' : rawMovie.title, description: 'Movie Details' }
+}
+
 export default async function MovieDetailsPage(props: { params: Promise<{ id: string }> }) {
   const { id } = await props.params
   const [error, rawMovie] = await getMovieDetails(id)
@@ -56,7 +63,7 @@ export default async function MovieDetailsPage(props: { params: Promise<{ id: st
           )}
         </ul>
 
-        <MediaGenres genres={rawMovie.genres} />
+        <MediaGenres genres={rawMovie.genres} type="movies" />
       </div>
     </>
   )

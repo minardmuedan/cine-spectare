@@ -33,7 +33,7 @@ export function ForgotPasswordDialogContent({ closeModal }: { closeModal: () => 
   }
 
   return (
-    <DialogContent>
+    <DialogContent className="max-w-lg">
       <DialogHeader {...header} className="justify-center *:text-center" />
       <Content />
     </DialogContent>

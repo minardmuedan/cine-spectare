@@ -22,7 +22,7 @@ export default async function MovieKeywordsPage(props: { params: Promise<{ id: s
         Keywords <span className="text-sm">{keywords.keywords.length}</span>
       </H3>
 
-      {keywords.keywords.length ? <MediaKeywords keywords={keywords.keywords} /> : <NoResult />}
+      {keywords.keywords.length ? <MediaKeywords keywords={keywords.keywords} type="movies" /> : <NoResult />}
     </div>
   )
 }

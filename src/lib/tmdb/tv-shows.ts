@@ -14,9 +14,6 @@ export const getOnTheAirTvShows = async (page: number) => await TMDBFetcher<TTvS
 
 export const getTopRatedTvShows = async (page: number) => await TMDBFetcher<TTvShows>(`/tv/top_rated?page=${page}`)
 
-export const getGenreTvShows = async (genreId: string, page: number) =>
-  await TMDBFetcher<TTvShows>(`/discover/tv?with_genres=${genreId}&page=${page}&sort_by=popularity.desc`)
-
 // tv
 
 export const getTvDetails = cache(async (id: string) => await TMDBFetcher<TFullTv>(`/tv/${id}`))

@@ -6,25 +6,25 @@ import Link from 'next/link'
 type Genre = { id: number; name: string }
 type Keyword = { id: number; name: string }
 
-export function MediaGenres({ genres }: { genres: Genre[] }) {
+export function MediaGenres({ genres, type }: { genres: Genre[]; type: 'movies' | 'tv' }) {
   if (!genres.length) return null
 
   return (
     <Wrapper>
       {genres.map(({ id, name }, i) => (
-        <Individual key={i} href={`/genre/${id}`} name={name} />
+        <Individual key={i} href={`/genre/${type}?g=${id}`} name={name} />
       ))}
     </Wrapper>
   )
 }
 
-export function MediaKeywords({ keywords }: { keywords: Keyword[] }) {
+export function MediaKeywords({ keywords, type }: { keywords: Keyword[]; type: 'movies' | 'tv' }) {
   if (!keywords.length) return null
 
   return (
     <Wrapper>
       {keywords.map(({ id, name }, i) => (
-        <Individual key={i} href={`/keyword/${id}`} name={name} />
+        <Individual key={i} href={`/keyword/${type}?k=${id}`} name={name} />
       ))}
     </Wrapper>
   )
@@ -33,7 +33,7 @@ export function MediaKeywords({ keywords }: { keywords: Keyword[] }) {
 const Wrapper = ({ children }: { children: React.ReactNode }) => <ul className={cn('flex w-full flex-wrap gap-1')}>{children}</ul>
 const Individual = ({ href, name }: { href: string; name: string }) => (
   <li>
-    <Link href={href} className={buttonVariants({ size: 'sm', variant: 'accentMuted' })}>
+    <Link prefetch={false} href={href} className={buttonVariants({ size: 'sm', variant: 'accentMuted' })}>
       {name}
     </Link>
   </li>

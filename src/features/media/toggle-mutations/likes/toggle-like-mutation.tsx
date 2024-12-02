@@ -4,8 +4,11 @@ import { Button } from '@/components/ui/button'
 import { Loader2Icon, StarIcon, TriangleAlertIcon } from 'lucide-react'
 import { TToggleMutationProps } from '../../type'
 import { useIsLikeMutating, useLikeMutation, useLikes } from './hooks'
+import { useSession } from '@/hooks/session'
 
 export default function ToggleLikeMutationButton({ media, render, ...buttonProps }: TToggleMutationProps) {
+  const { data: session } = useSession()
+
   const { data: likes, isError, isPending: gettingLikes } = useLikes()
   const { mutate } = useLikeMutation()
 
@@ -30,6 +33,8 @@ export default function ToggleLikeMutationButton({ media, render, ...buttonProps
       </>
     ),
   }
+
+  if (!session) return null
 
   if (render) return render(props)
   return <Button {...props} variant="outline" />

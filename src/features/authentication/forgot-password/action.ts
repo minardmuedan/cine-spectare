@@ -10,6 +10,7 @@ import { tokenIdSchema } from '@/lib/schema'
 import { Argon2id } from 'oslo/password'
 import { createServerAction, ZSAError } from 'zsa'
 import { emailSchema, passwordSchema } from '../schema'
+import { sendEmail } from '@/lib/resend'
 
 export const forgotPasswordAction = createServerAction()
   .input(emailSchema)
@@ -26,8 +27,7 @@ export const forgotPasswordAction = createServerAction()
     await deleteTokenByPayloadDb(email).catch(() => {})
     await createTokenDb({ id, emailPayload: email, code, purpose: 'change-password-verification' })
 
-    // TODO: send to email
-    console.log(email, code)
+    await sendEmail(email, code)
 
     return { id } as { isExceed: undefined; id: string }
   })

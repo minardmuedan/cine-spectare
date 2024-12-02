@@ -3,6 +3,8 @@ import Section from '@/components/pages/section'
 import PaginatedSuspenseWrapper from '@/components/pages/suspense'
 import { MediaListLoadingFallback } from '@/features/media/components/list'
 
+export const metadata = { title: 'Top-Rated', description: ' Top-Rated Movies - Best in Cinema' }
+
 export default function TopRatedMoviesLayout({ children }: { children: React.ReactNode }) {
   return (
     <Section>

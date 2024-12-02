@@ -4,8 +4,10 @@ import { Button } from '@/components/ui/button'
 import { useIsAlreadyWatchedMutating, useAlreadyWatched, useAlreadyWatchedMutation } from './hooks'
 import { CheckCheckIcon, Loader2Icon, TriangleAlertIcon } from 'lucide-react'
 import { TToggleMutationProps } from '../../type'
+import { useSession } from '@/hooks/session'
 
 export default function ToggleAlreadyWatchedMutationButton({ media, render, ...buttonProps }: TToggleMutationProps) {
+  const { data: session } = useSession()
   const { data: alreadyWatchedMedias, isError, isPending: gettingAlreadyWatched } = useAlreadyWatched()
   const { mutate } = useAlreadyWatchedMutation()
 
@@ -30,6 +32,8 @@ export default function ToggleAlreadyWatchedMutationButton({ media, render, ...b
       </>
     ),
   }
+
+  if (!session) return null
 
   if (render) return render(props)
   return <Button {...props} variant="outline" />

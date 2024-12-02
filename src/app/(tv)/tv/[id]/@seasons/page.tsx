@@ -77,7 +77,7 @@ export default async function TvSeasonsPage(props: { params: Promise<{ id: strin
 
 const Season = ({ season, tvId }: { season: TTvSeason; tvId: string }) => {
   return (
-    <Link href={`/tv-season/${tvId}/${season.season_number}`}>
+    <Link prefetch={false} href={`/tv-season/${tvId}/${season.season_number}`}>
       <div className="flex gap-3 rounded-md border bg-accent-muted p-3 transition-colors hover:bg-accent">
         <div className="relative aspect-[1/1.5] w-16">
           <TmdbImage src={season.poster_path} alt={`${season.name} poster`} fill sizes="64px" className="object-cover" />

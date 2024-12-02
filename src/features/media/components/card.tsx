@@ -11,7 +11,7 @@ export default function MediaCard({ media, sizes }: { media: TMedia; sizes: stri
   return (
     <div className="rounded border bg-accent-muted transition-colors ease-in hover:bg-accent">
       <ViewHistoryWrapper media={media}>
-        <Link href={`/${media.type}/${media.id}`}>
+        <Link prefetch={false} href={`/${media.type}/${media.id}`}>
           <div className="p-2">
             <div className="relative aspect-[1/1.5] overflow-hidden rounded bg-accent">
               <TmdbImage src={media.posterPath} alt={`${media.title} poster`} sizes={sizes} fill className="object-cover" />
