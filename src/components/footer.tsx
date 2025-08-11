@@ -25,6 +25,24 @@ export default function Footer() {
     },
   ]
 
+  const socialLinks = [
+    {
+      title: 'github',
+      logoSrc: '/github.svg',
+      href: 'https://github.com/minardmuedan',
+    },
+    {
+      title: 'instagram',
+      logoSrc: '/instagram.svg',
+      href: 'https://www.instagram.com/parilla_minard/',
+    },
+    {
+      title: 'facebook',
+      logoSrc: '/facebook.svg',
+      href: 'https://www.facebook.com/minard.parilla',
+    },
+  ]
+
   return (
     <footer>
       <div className="mx-auto mb-7 w-10/12 max-w-sm border-t">
@@ -79,13 +97,20 @@ export default function Footer() {
           <p className="text-xs text-muted-foreground">© 2024 · Minard Parilla | All rights reserved</p>
 
           <ul className="flex items-center gap-5">
-            {['/github.svg', '/instagram.svg', '/facebook.svg'].map((src, i) => (
+            {socialLinks.map(({ title, href, logoSrc }, i) => (
               <li key={i}>
-                <Image src={src} alt="socmed logo" width={16} height={16} className={`${i == 0 && 'invert'}`} />
+                <Link prefetch={false} href={href} target="_blank">
+                  <>
+                    <Image src={logoSrc} alt={`${title} logo`} width={16} height={16} className={`${i == 0 && 'invert'}`} />
+                    <span className="sr-only">{title}</span>
+                  </>
+                </Link>
               </li>
             ))}
             <li>
-              <Button variant="outline">{'minard’s portfolio'}</Button>
+              <Button variant="outline" asChild>
+                <a href="https://minardparilla.vercel.app">{'minard’s portfolio'}</a>
+              </Button>
             </li>
           </ul>
         </div>
