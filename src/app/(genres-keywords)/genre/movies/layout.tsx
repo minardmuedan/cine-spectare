@@ -3,7 +3,7 @@ import { MediaListLoadingFallback } from '@/features/media/components/list'
 import { GenreHeader, GenresKeywordsNavbar } from '../../_components'
 import { Suspense } from 'react'
 
-export default function GenreMoviesLayout(props: { params: Promise<{ id: string }>; children: React.ReactNode }) {
+export default function GenreMoviesLayout(props: { children: React.ReactNode }) {
   return (
     <Suspense>
       <GenreHeader type="Movies" />

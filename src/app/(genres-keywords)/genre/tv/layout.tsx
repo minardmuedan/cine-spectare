@@ -3,7 +3,7 @@ import { MediaListLoadingFallback } from '@/features/media/components/list'
 import { Suspense } from 'react'
 import { GenreHeader, GenresKeywordsNavbar } from '../../_components'
 
-export default function GenreTvLayout(props: { params: Promise<{ id: string }>; children: React.ReactNode }) {
+export default function GenreTvLayout(props: { children: React.ReactNode }) {
   return (
     <Suspense>
       <GenreHeader type="Tv Shows" />
