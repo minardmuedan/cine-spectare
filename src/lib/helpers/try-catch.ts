@@ -11,6 +11,7 @@ export default async function tryCatchWrapper<T>(fn: () => Promise<T>, options?:
   } catch (err) {
     const error = err instanceof Error ? err : new Error(String(err))
     if (options?.throwOnError) throw error
+
     return [error]
   }
 }

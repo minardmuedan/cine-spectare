@@ -6,7 +6,7 @@ import { rateLimiter } from '@/lib/rate-limiter'
 import { generate6DigitCode } from '@/lib/helpers/generate'
 import { createServerAction } from 'zsa'
 import { verifyAndGetToken } from '@/lib/helpers/verify-get-token'
-import { sendEmail } from '@/lib/resend'
+import { sendEmail } from '@/lib/send-email'
 
 export const verifyTokenAction = createServerAction()
   .input(tokenIdSchema.and(codeSchema))

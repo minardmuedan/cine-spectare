@@ -7,7 +7,7 @@ import { authedProcedure } from '@/lib/helpers/authed-procedure'
 import { generate6DigitCode, generateId } from '@/lib/helpers/generate'
 import { verifyAndGetToken } from '@/lib/helpers/verify-get-token'
 import { rateLimiter } from '@/lib/rate-limiter'
-import { sendEmail } from '@/lib/resend'
+import { sendEmail } from '@/lib/send-email'
 import { codeSchema, tokenIdSchema } from '@/lib/schema'
 import { Argon2id } from 'oslo/password'
 

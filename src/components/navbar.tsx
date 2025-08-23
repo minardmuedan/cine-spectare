@@ -77,9 +77,9 @@ export default function Navbar() {
         <NavigationMenu className="hidden md:flex">
           <NavigationMenuList className="gap-3">
             <NavigationMenuItem asChild>
-              <Link href="/" legacyBehavior passHref>
-                <NavigationMenuLink className={navigationMenuTriggerStyle({ className: 'bg-black/0 md:hidden lg:block' })}>Home</NavigationMenuLink>
-              </Link>
+              <NavigationMenuLink className={navigationMenuTriggerStyle({ className: 'bg-black/0 md:hidden lg:block' })} asChild>
+                <Link href="/">Home</Link>
+              </NavigationMenuLink>
             </NavigationMenuItem>
 
             {medias.map((media, i) => (

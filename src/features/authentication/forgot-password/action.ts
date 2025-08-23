@@ -10,7 +10,7 @@ import { tokenIdSchema } from '@/lib/schema'
 import { Argon2id } from 'oslo/password'
 import { createServerAction, ZSAError } from 'zsa'
 import { emailSchema, passwordSchema } from '../schema'
-import { sendEmail } from '@/lib/resend'
+import { sendEmail } from '@/lib/send-email'
 
 export const forgotPasswordAction = createServerAction()
   .input(emailSchema)
