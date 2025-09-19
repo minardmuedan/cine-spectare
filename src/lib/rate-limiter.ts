@@ -1,5 +1,4 @@
 import 'server-only'
-import { schedule } from 'node-cron'
 
 const trackers: Record<string, { count: number; expiryDate: number }> = {}
 type TLimiter = { isExceed: false; count: number } | { isExceed: true; remainingSeconds: number }
@@ -27,8 +26,11 @@ export function rateLimiter(identifier: string, attempt: number, expiredInSecond
   return { isExceed: false, count: existingTracker.count - 1 }
 }
 
-schedule('0 */12 * * *', () => {
-  console.log('CRON JOB!', { trackers })
-  const expiredTrackersIdentifer = Object.keys(trackers).filter((key) => trackers[key].expiryDate - Date.now() < 1)
-  if (expiredTrackersIdentifer.length > 0) expiredTrackersIdentifer.map((expiredTrackerIdentifier) => delete trackers[expiredTrackerIdentifier])
-})
+setInterval(
+  () => {
+    console.log('TRACKERS: ', { trackers })
+    const expiredTrackersIdentifer = Object.keys(trackers).filter(key => trackers[key].expiryDate - Date.now() < 1)
+    if (expiredTrackersIdentifer.length > 0) expiredTrackersIdentifer.map(expiredTrackerIdentifier => delete trackers[expiredTrackerIdentifier])
+  },
+  60_000 * 60 * 6, // 6 hours
+).unref()
