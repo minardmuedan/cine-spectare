@@ -1,9 +1,10 @@
 'use server'
 
-import fs from 'fs/promises'
-import { profileSchema } from './schema'
-import { authedProcedure } from '@/lib/helpers/authed-procedure'
 import { updateUserProfileDb } from '@/db/utils/users'
+import { authedProcedure } from '@/lib/helpers/authed-procedure'
+import fs from 'fs/promises'
+import path from 'path'
+import { profileSchema } from './schema'
 
 export const updateUserProfileAction = authedProcedure.input(profileSchema).handler(async ({ input: { username, avatar }, ctx: { userId } }) => {
   let avatarPath: string | undefined = undefined
@@ -14,10 +15,15 @@ export const updateUserProfileAction = authedProcedure.input(profileSchema).hand
 
     const extension = avatar.name.split('.').pop()
     const baseName = avatar.name.substring(0, avatar.name.lastIndexOf('.'))
-    avatarPath = `/avatar/${userId}_${baseName}_${Date.now()}.${extension}`
 
+    avatarPath = `/avatar/${userId}_${baseName}_${Date.now()}.${extension}`
     const fileData = Buffer.from(await avatar.arrayBuffer())
-    await fs.writeFile(`public/${avatarPath}`, fileData)
+
+    const fullDir = path.join(process.cwd(), 'public', 'avatar')
+    await fs.mkdir(fullDir, { recursive: true })
+
+    const fullPath = path.join(process.cwd(), 'public', avatarPath)
+    await fs.writeFile(fullPath, fileData)
   }
 
   await updateUserProfileDb({ userId, avatarUrl: avatarPath, name: username })
