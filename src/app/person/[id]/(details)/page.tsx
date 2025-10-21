@@ -83,7 +83,7 @@ function PersonSocialMedia({ socialMedia }: { socialMedia: TPersonSocialMedia })
         .filter(({ key }) => socialMedia[key])
         .map(({ icon, key, src }, i) => (
           <li key={i}>
-            <Link prefetch={false} href={`${src}${socialMedia[key]}/`}>
+            <Link href={`${src}${socialMedia[key]}/`}>
               <Image src={icon} alt={`${key} icon`} height={24} width={24} />
               <span className="sr-only">{key}</span>
             </Link>

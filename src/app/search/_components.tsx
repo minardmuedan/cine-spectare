@@ -32,7 +32,6 @@ export function SearchQueryNavbar() {
         {navlinks.map(({ title, path }, i) => (
           <li key={i}>
             <Link
-              prefetch={false}
               href={`${path}?query=${query}`}
               className={cn(buttonVariants({ variant: path === pathName ? 'secondary' : 'ghost' }), 'w-full justify-start')}
             >

@@ -27,7 +27,7 @@ export default function MediaCredits({ credits }: { credits: { casts: Credit[]; 
       <CarouselContent>
         {credits.casts.slice(0, 15).map(({ id, name, roles, profile_path }, i) => (
           <CarouselItem key={i} className="basis-28">
-            <Link prefetch={false} href={`/person/${id}`}>
+            <Link href={`/person/${id}`}>
               <PersonAvatar {...{ name, profile_path }} sizes="96px" />
 
               <div className="w-full overflow-hidden text-center *:overflow-hidden *:text-ellipsis *:whitespace-nowrap">
@@ -77,7 +77,7 @@ export function MediaCreditsList({ credits }: { credits: Credit[] }) {
     <ul className="flex flex-col gap-2">
       {credits.map(({ id, name, profile_path, roles }, i) => (
         <li key={i}>
-          <Link prefetch={false} href={`/person/${id}`} className="group">
+          <Link href={`/person/${id}`} className="group">
             <div className="flex gap-4 rounded-lg border bg-accent-muted p-2 transition-colors group-hover:bg-accent">
               <PersonAvatar {...{ name, profile_path }} sizes="96px" className="h-20 w-20" />
               <div className="flex-1">

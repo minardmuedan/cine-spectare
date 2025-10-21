@@ -42,7 +42,6 @@ export function GenresKeywordsNavbar({ active, type }: { active: 'movie' | 'tv';
         {navlinks.map(({ title, href, isActive }, i) => (
           <li key={i} className="flex-1">
             <Link
-              prefetch={false}
               href={href}
               className={cn(
                 buttonVariants({ variant: isActive ? 'link' : 'ghost' }),

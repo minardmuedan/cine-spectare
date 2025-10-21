@@ -33,7 +33,7 @@ export function MediaKeywords({ keywords, type }: { keywords: Keyword[]; type: '
 const Wrapper = ({ children }: { children: React.ReactNode }) => <ul className={cn('flex w-full flex-wrap gap-1')}>{children}</ul>
 const Individual = ({ href, name }: { href: string; name: string }) => (
   <li>
-    <Link prefetch={false} href={href} className={buttonVariants({ size: 'sm', variant: 'accentMuted' })}>
+    <Link href={href} className={buttonVariants({ size: 'sm', variant: 'accentMuted' })}>
       {name}
     </Link>
   </li>

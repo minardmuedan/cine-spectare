@@ -87,7 +87,7 @@ export default function Footer() {
 
           <div className="flex flex-col items-center gap-5">
             <p className="text-center text-xs text-muted-foreground">the provider of movies and tv shows</p>
-            <Link prefetch={false} href="https://www.themoviedb.org/">
+            <Link href="https://www.themoviedb.org/">
               <Image src="/tmdb-logo.svg" alt="tmdb logo" width={80} height={80} /> <span className="sr-only">go to tmdb website</span>
             </Link>
           </div>
@@ -99,7 +99,7 @@ export default function Footer() {
           <ul className="flex items-center gap-5">
             {socialLinks.map(({ title, href, logoSrc }, i) => (
               <li key={i}>
-                <Link prefetch={false} href={href} target="_blank">
+                <Link href={href} target="_blank">
                   <>
                     <Image src={logoSrc} alt={`${title} logo`} width={16} height={16} className={`${i == 0 && 'invert'}`} />
                     <span className="sr-only">{title}</span>

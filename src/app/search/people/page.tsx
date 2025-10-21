@@ -18,7 +18,7 @@ export default async function SearchPeoplePage({ searchParams }: { searchParams:
       <ul className="flex flex-col gap-2">
         {people.results.map((person, i) => (
           <li key={i}>
-            <Link prefetch={false} href={`/person/${person.id}`}>
+            <Link href={`/person/${person.id}`}>
               <div className="group flex gap-3 rounded-md border bg-accent-muted p-3 transition-colors ease-in hover:bg-accent">
                 <PersonAvatar {...person} sizes="76px" className="size-20 border-2 transition-colors group-hover:border-background" />
 

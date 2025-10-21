@@ -8,11 +8,7 @@ type Href = string
 const PaginationLink = (props: ButtonProps & { href: Href; isActive?: boolean }) => {
   return (
     <li className={props.className}>
-      <Link
-        prefetch={false}
-        href={props.href}
-        className={buttonVariants({ variant: props.isActive ? 'default' : 'ghost', size: props.size || 'icon' })}
-      >
+      <Link href={props.href} className={buttonVariants({ variant: props.isActive ? 'default' : 'ghost', size: props.size || 'icon' })}>
         {props.children}
       </Link>
     </li>
